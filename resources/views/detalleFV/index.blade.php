@@ -93,22 +93,20 @@
                                         <th scope="col">N°</th>
                                         <th scope="col">Flete</th>
                                         <th scope="col">Viatico</th>
-                                        <th scope="col">Empleado</th>
+                                        <th scope="col">Trabajador</th>
                                         <th scope="col">Fecha</th>
                                         <th scope="col">Descripcion</th>
                                         <th scope="col">Importe</th>
-                                        <th scope="col">Estado</th>
                                         <th scope="col">Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @if (count($detalleGastos) <= 0)
                                         <tr>
-                                            <td colspan="9"><i>:: NO HAY REGISTROS ::</i></td>
+                                            <td colspan="8"><i>:: NO HAY REGISTROS ::</i></td>
                                         </tr>
                                     @else
                                         @php
-                                            $totalGasto = 0.0;
                                             $contadorg = 1;
                                         @endphp
                                         @foreach ($detalleGastos as $itemGasto)
@@ -120,13 +118,6 @@
                                                 <td>{{ $itemGasto->fecha }}</td>
                                                 <td>{{ $itemGasto->descripcion }}</td>
                                                 <td>{{ $itemGasto->importe }}</td>
-                                                <td>
-                                                    @if ($itemGasto->estado == 1)
-                                                        <span class="badges bg-lightgreen">Activo</span>
-                                                    @else
-                                                        <span class="badges bg-lightred">Inactivo</span>
-                                                    @endif
-                                                </td>
                                                 <td>
                                                     <a class="me-3" href="#">
                                                         <img src="/assets/img/icons/edit.svg" alt="img">
@@ -141,17 +132,16 @@
                                                     </a>
                                                 </td>
                                             </tr>
-                                            @php
-                                                $totalGasto += $itemGasto->importe;
-                                            @endphp
                                         @endforeach
                                         <tr>
-                                            <td colspan="9"> Gasto total: {{ $totalGasto }}</td>
+                                            <td colspan="8"> Gasto total: {{ $totalGasto }}</td>
                                         </tr>
                                     @endif
                                 </tbody>
 
                             </table>
+                            <!-- Paginación de Gastos -->
+                            {{ $detalleGastos->appends(request()->except('gastos_page'))->links() }}
                             <br>
                         </div>
                     </div>
@@ -167,18 +157,16 @@
                                         <th scope="col">Fecha</th>
                                         <th scope="col">Descripcion</th>
                                         <th scope="col">Importe</th>
-                                        <th scope="col">Estado</th>
                                         <th scope="col">Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @if (count($detalleIngresos) <= 0)
                                         <tr>
-                                            <td colspan="6"><i>:: NO HAY REGISTROS ::</i></td>
+                                            <td colspan="5"><i>:: NO HAY REGISTROS ::</i></td>
                                         </tr>
                                     @else
                                         @php
-                                            $totalingreso = 0.0;
                                             $contadori = 1;
                                         @endphp
                                         @foreach ($detalleIngresos as $itemIngreso)
@@ -187,13 +175,6 @@
                                                 <td>{{ $itemIngreso->fecha }}</td>
                                                 <td>{{ $itemIngreso->descripcion }}</td>
                                                 <td>{{ $itemIngreso->importe }}</td>
-                                                <td>
-                                                    @if ($itemIngreso->estado == 1)
-                                                        <span class="badges bg-lightgreen">Activo</span>
-                                                    @else
-                                                        <span class="badges bg-lightred">Inactivo</span>
-                                                    @endif
-                                                </td>
                                                 <td>
                                                     <a class="me-3" href="#">
                                                         <img src="/assets/img/icons/edit.svg" alt="img">
@@ -208,33 +189,36 @@
                                                     </a>
                                                 </td>
                                             </tr>
-                                            @php
-                                                $totalingreso += $itemIngreso->importe;
-                                            @endphp
                                         @endforeach
                                         <tr>
-                                            <td colspan="6">Ingreso total: {{ $totalingreso }}</td>
+                                            <td colspan="5"> Ingreso total: {{ $totalIngreso }}</td>
                                         </tr>
                                     @endif
                                 </tbody>
                             </table>
-                            <br>
+                     <!-- Paginación de Ingresos -->
+                    {{ $detalleIngresos->appends(request()->except('ingresos_page'))->links() }}
+                    <br>
                         </div>
                     </div>
                 </div>
-                <!--
-                        <label>
-                            Devolver:
-                            <p style="font-weight: bold; color:  ($totalingreso - $totalGasto) > 0.00 ? 'red' : 'black' }};">
-                                  $totalGasto-$totalingreso }}
-                            </p>
-                        </label>
-                        -->
+
             </div>
         </div>
+        @if($fechaInicio!=null && $idflete!=null  && $fechaFin!=null){
+        <div class="row">
+            <div class="col-12" style="display: flex; justify-content: center; align-items: center;">
+                <span style="margin-right: 10px; font-weight: bold;">
+                    {{ ($totalGasto > $totalIngreso) ? 'Rendición en contra' : 'Rendición a favor' }}
+                </span>
+                <button style="background-color: {{ ($totalGasto > $totalIngreso) ? 'red' : 'blue' }}; color: white; border: none; padding: 10px 20px; font-weight: bold;">
+                    {{ $totalIngreso - $totalGasto }}
+                </button>
+            </div>
+        </div>
+    }@endif
     </div>
 
-    <!-- Modal Guardar -->
     <div class="modal fade" id="nuevoDetalleModal" tabindex="-1" aria-labelledby="nuevoDetalleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -246,10 +230,9 @@
                 <div class="modal-body">
                     <form id="nuevoDetalleForm" method="POST" action="{{ route('detalleFV.store') }}">
                         @csrf
-                        <!-- Primera fila: Trabajador -->
                         <div class="mb-3">
-                            <label for="empleado_id" class="form-label">Trabajador</label>
-                            <select class="form-select" id="empleado_id" name="empleado_id" required>
+                            <label for="idempleado" class="form-label">Trabajador</label>
+                            <select class="form-select" id="idempleado" name="idempleado" required>
                                 <option value="">Seleccione un Trabajador</option>
                                 @foreach ($empleados as $empleado)
                                     <option value="{{ $empleado->idempleado }}">{{ $empleado->nombres }}</option>
@@ -257,48 +240,44 @@
                             </select>
                         </div>
 
-                        <!-- Segunda fila: Flete -->
                         <div class="mb-3">
-                            <label for="flete_id" class="form-label">Flete</label>
-                            <select class="form-select" id="flete_id" name="flete_id" required>
+                            <label for="idflete" class="form-label">Flete</label>
+                            <select class="form-select" id="idflete" name="idflete" required>
                                 <option value="">Seleccione un flete</option>
                                 @foreach ($fletes as $flete)
-                                    <option value="{{ $flete->id }}">{{ $flete->nombre_flete }}</option>
+                                    <option value="{{ $flete->idflete }}">{{ $flete->nombre_flete }}</option>
                                 @endforeach
                             </select>
                         </div>
 
-                        <!-- Tercera fila: Viático -->
                         <div class="mb-3">
-                            <label for="viatico_id" class="form-label">Viático</label>
-                            <select class="form-select" id="viatico_id" name="viatico_id" required>
+                            <label for="idviatico" class="form-label">Viático</label>
+                            <select class="form-select" id="idviatico" name="idviatico" required>
                                 <option value="">Seleccione un viático</option>
                                 @foreach ($viaticos as $viatico)
-                                    <option value="{{ $viatico->id }}">{{ $viatico->nombre_viatico }}</option>
+                                    <option value="{{ $viatico->idviatico }}">{{ $viatico->nombre_viatico }}</option>
                                 @endforeach
                             </select>
                         </div>
 
-                        <!-- Cuarta fila: Fecha y Tipo al lado -->
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="fecha" class="form-label">Fecha</label>
                                 <input type="date" class="form-control" id="fecha" name="fecha" required>
                             </div>
                             <div class="col-md-6">
-                                <label for="tipo" class="form-label">Tipo (G/I)</label>
-                                <select class="form-select" id="tipo" name="tipo" required>
+                                <label for="tipoIG" class="form-label">Tipo (G/I)</label>
+                                <select class="form-select" id="tipoIG" name="tipoIG" required>
                                     <option value="1">Gasto</option>
                                     <option value="2">Ingreso</option>
                                 </select>
                             </div>
                         </div>
 
-                        <!-- Quinta fila: Importe y Descripción al lado -->
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="importe" class="form-label">Importe</label>
-                                <input type="number" class="form-control" id="importe" name="importe" required>
+                                <input type="number" class="form-control" id="importe" name="importe" step="0.01" required>
                             </div>
                             <div class="col-md-6">
                                 <label for="descripcion" class="form-label">Descripción</label>
@@ -316,8 +295,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Modal Eliminar -->
 
     <!-- Modal Eliminar -->
     <div class="modal fade" id="eliminarDetalleModal" tabindex="-1" aria-labelledby="eliminarDetalleModalLabel"

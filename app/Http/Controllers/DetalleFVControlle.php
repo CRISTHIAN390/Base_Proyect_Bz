@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class DetalleFVControlle extends Controller
 {
-    const PAGINATION = 3;
+    const PAGINATION = 5;
 
     public function index(Request $request)
     {
@@ -45,17 +45,29 @@ class DetalleFVControlle extends Controller
         if ($idviatico) {
             $query->where('idviatico', $idviatico);
         }
+        // consulta para el gasto total
+        $totalGasto = (clone $query)
+        ->where('tipoIG', '=', 1)
+        ->where('estado', '=', 1)
+        ->sum('importe');
+
+        // consulta para el ingreso total
+        $totalIngreso = (clone $query)
+        ->where('tipoIG', '=', 2)
+        ->where('estado', '=', 1)
+        ->sum('importe');
+
         // Filtrar por tipo de gasto
         $detalleGastos = (clone $query)
             ->where('tipoIG', '=', 1)->where('estado', '=', 1)
-            ->paginate(self::PAGINATION);
+            ->paginate(self::PAGINATION, ['*'], 'gastos_page');
 
         // Filtrar por tipo de ingreso
         $detalleIngresos = (clone $query)
             ->where('tipoIG', '=', 2)->where('estado', '=', 1)
-            ->paginate(self::PAGINATION);
+            ->paginate(self::PAGINATION, ['*'], 'ingresos_page');
 
-        return view('detalleFV.index', compact('detalleGastos', 'detalleIngresos', 'fechaInicio', 'fechaFin', 'idflete', 'idviatico', 'fletes', 'viaticos', 'empleados'));
+        return view('detalleFV.index', compact('detalleGastos', 'detalleIngresos', 'fechaInicio', 'fechaFin', 'idflete', 'idviatico', 'fletes', 'viaticos', 'empleados','totalGasto', 'totalIngreso'));
     }
 
     public function store(Request $request)
@@ -66,7 +78,7 @@ class DetalleFVControlle extends Controller
             'idviatico' => 'required',
             'fecha' => 'required',
             'descripcion' => 'required|max:200',
-            'importe' => 'required|numeric',
+            'importe' => 'required',
             'tipoIG' => 'required',
         ], [
             'idempleado.required' => 'Seleccione el empleado',
@@ -86,7 +98,7 @@ class DetalleFVControlle extends Controller
         $detalle->importe = $request->importe;
         $detalle->tipoIG = $request->tipoIG;
         $detalle->descripcion = $request->descripcion;
-        $detalle->estado = '1';
+        $detalle->estado = 1;
         $detalle->save();
         return redirect()->route('detalleFV.index')->with('datos', 'Su nuevo registro ha sido guardado!');
     }
