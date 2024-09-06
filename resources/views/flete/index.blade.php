@@ -149,31 +149,31 @@
         </div>
     </div>
 
- <!-- Modal Eliminar -->
-<div class="modal fade" id="eliminarFleteModal" tabindex="-1" aria-labelledby="eliminarFleteModalLabel"
-aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="eliminarFleteModalLabel">Eliminar Flete</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <p>¿Está seguro de que desea eliminar el flete: <span id="eliminarNombre_flete"></span>?</p>
-            <form id="eliminarFleteForm" method="POST" action="">
-                @method('DELETE')
-                @csrf
-                <input type="hidden" id="eliminarFleteId" name="id">
-
-                <div class="d-flex justify-content-between">
-                    <button type="submit" class="btn btn-danger" id="eliminarFleteBtn">Eliminar</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+    <!-- Modal Eliminar -->
+    <div class="modal fade" id="eliminarFleteModal" tabindex="-1" aria-labelledby="eliminarFleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eliminarFleteModalLabel">Eliminar Flete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-            </form>
+                <div class="modal-body">
+                    <p>¿Está seguro de que desea eliminar el flete: <span id="eliminarNombre_flete"></span>?</p>
+                    <form id="eliminarFleteForm" method="POST" action="">
+                        @method('DELETE')
+                        @csrf
+                        <input type="hidden" id="eliminarFleteId" name="id">
+
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-danger" id="eliminarFleteBtn">Eliminar</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-</div>
     <script>
         document.getElementById('buscarpor').addEventListener('keyup', function() {
             let query = this.value;

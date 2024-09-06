@@ -47,19 +47,76 @@ class DetalleFVControlle extends Controller
         }
         // Filtrar por tipo de gasto
         $detalleGastos = (clone $query)
-            ->where('tipoIG', '=', 1)
+            ->where('tipoIG', '=', 1)->where('estado', '=', 1)
             ->paginate(self::PAGINATION);
 
         // Filtrar por tipo de ingreso
         $detalleIngresos = (clone $query)
-            ->where('tipoIG', '=', 2)
+            ->where('tipoIG', '=', 2)->where('estado', '=', 1)
             ->paginate(self::PAGINATION);
 
-        return view('detalleFV.index', compact('detalleGastos', 'detalleIngresos', 'fechaInicio', 'fechaFin', 'idflete', 'idviatico', 'fletes', 'viaticos','empleados'));
+        return view('detalleFV.index', compact('detalleGastos', 'detalleIngresos', 'fechaInicio', 'fechaFin', 'idflete', 'idviatico', 'fletes', 'viaticos', 'empleados'));
     }
 
-    public function create()
+    public function store(Request $request)
     {
-        return view('detalleFV.create');
+        $data = $request->validate([
+            'idempleado' => 'required',
+            'idflete' => 'required',
+            'idviatico' => 'required',
+            'fecha' => 'required',
+            'descripcion' => 'required|max:200',
+            'importe' => 'required|numeric',
+            'tipoIG' => 'required',
+        ], [
+            'idempleado.required' => 'Seleccione el empleado',
+            'idflete.required' => 'Seleccione el flete',
+            'idviatico.required' => 'Seleccione el viático',
+            'fecha.required' => 'Ingrese la fecha',
+            'descripcion.required' => 'Ingrese la descripción',
+            'descripcion.max' => 'Máximo 200 caracteres',
+            'importe.required' => 'Ingrese el importe',
+            'tipoIG.required' => 'Seleccione el tipo de gasto/ingreso',
+        ]);
+        $detalle = new DetalleFV();
+        $detalle->idempleado = $request->idempleado;
+        $detalle->idflete = $request->idflete;
+        $detalle->idviatico = $request->idviatico;
+        $detalle->fecha = $request->fecha;
+        $detalle->importe = $request->importe;
+        $detalle->tipoIG = $request->tipoIG;
+        $detalle->descripcion = $request->descripcion;
+        $detalle->estado = '1';
+        $detalle->save();
+        return redirect()->route('detalleFV.index')->with('datos', 'Su nuevo registro ha sido guardado!');
+    }
+    public function update(Request $request, $id)
+    {
+        $data = $request->validate([
+            'idempleado' => 'required',
+            'idflete' => 'required',
+            'idviatico' => 'required',
+            'fecha' => 'required',
+            'descripcion' => 'required|max:200',
+            'importe' => 'required|numeric',
+        ], [
+            'idempleado.required' => 'Seleccione el empleado',
+            'idflete.required' => 'Seleccione el flete',
+            'idviatico.required' => 'Seleccione el viático',
+            'fecha.required' => 'Ingrese la fecha',
+            'descripcion.required' => 'Ingrese la descripción',
+            'descripcion.max' => 'Máximo 200 caracteres',
+            'importe.required' => 'Ingrese el importe',
+        ]);
+        $detalle = new DetalleFV();
+        return redirect()->route('detalleFV.index')->with('datos', 'Su nuevo registro ha sido guardado!');
+    }
+
+    public function destroy($id)
+    {
+        $detalle = DetalleFV::findOrFail($id);
+        $detalle->estado = '0';
+        $detalle->save();
+        return redirect()->route('detalleFV.index')->with('datos', '¡Su registro ha sido eliminado!');
     }
 }

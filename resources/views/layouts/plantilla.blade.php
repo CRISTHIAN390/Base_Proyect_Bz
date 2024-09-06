@@ -88,19 +88,19 @@
                                 </div>
                             </div>
                             <hr class="m-0">
-                            <a class="dropdown-item" href="profile.html"> <i class="me-2" data-feather="user"></i>
+                            <a class="dropdown-item" href="#"> <i class="me-2" data-feather="user"></i>
                                 My Profile</a>
+
                             <a class="dropdown-item" href="generalsettings.html"><i class="me-2"
                                     data-feather="settings"></i>Settings</a>
                             <hr class="m-0">
-                            <a class="dropdown-item logout pb-0"><img
-                                    src="/assets/img/icons/log-out.svg" class="me-2" alt="img">
-                                    <form action="{{ route('logout') }}" method="POST">
-                                        @csrf
-                                        <button style="width: 100%"
-                                            type="submit">Salir</button>
-                                    </form>
-                                </a>
+                            <a class="dropdown-item logout pb-0"><img src="/assets/img/icons/log-out.svg" class="me-2"
+                                    alt="img">
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button style="width: 100%" type="submit">Salir</button>
+                                </form>
+                            </a>
                         </div>
                     </div>
                 </li>
@@ -125,12 +125,13 @@
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
                         <li class="active">
-                            <a href="{{ route('dashboard') }}"><img src="/assets/img/icons/dashboard.svg" alt="img"><span>
+                            <a href="{{ route('dashboard') }}"><img src="/assets/img/icons/dashboard.svg"
+                                    alt="img"><span>
                                     Inicio</span> </a>
                         </li>
                         <li class="submenu">
                             <a href="javascript:vVioid(0);"><img src="/assets/img/icons/users1.svg"
-                                    alt="img"><span> Empleados</span> <span class="menu-arrow"></span></a>
+                                    alt="img"><span> Trabajadores</span> <span class="menu-arrow"></span></a>
                             <ul>
                                 <li><a href="{{ route('empleado.index') }}">Choferes</a></li>
                                 <li><a href="#">Reporte</a></li>
@@ -143,7 +144,7 @@
                             <ul>
                                 <li><a href="{{ route('flete.index') }}">Fletes</a></li>
                                 <li><a href="{{ route('viatico.index') }}">Viaticos</a></li>
-                                <li><a href="{{route('detalleFV.index')}}">Detalles</a></li>
+                                <li><a href="{{ route('detalleFV.index') }}">Gastos/Ingresos</a></li>
                                 <li><a href="importpurchase.html">Reportes</a></li>
                             </ul>
                         </li><!--
