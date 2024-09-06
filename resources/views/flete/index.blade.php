@@ -22,6 +22,14 @@
                 </form>
             </div>
         </nav>
+        
+         <!-- Mensaje de confirmación -->
+         @if (session('datos'))
+         <div id="successMessage" class="alert alert-success mt-3">
+             {{ session('datos') }}
+         </div>
+        @endif   
+
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive" id="fleteTable">
@@ -80,6 +88,18 @@
         </div>
     </div>
 
+     <!-- Ocultar el mensaje -->
+     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const successMessage = document.getElementById('successMessage');
+            if (successMessage) {
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 4000); // Ocultar después de 4 segundo
+            }
+        });
+    </script>
+    
     <!-- Modal Guardar -->
     <div class="modal fade" id="nuevoFleteModal" tabindex="-1" aria-labelledby="nuevoFleteModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
