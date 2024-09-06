@@ -81,6 +81,17 @@
                 </form>
             </div>
         </nav>
+
+
+         <!-- Mensaje de confirmación -->
+         @if (session('datos'))
+         <div id="successMessage" class="alert alert-success mt-3">
+             {{ session('datos') }}
+         </div>
+        @endif
+
+
+
         <div class="row">
             <div class="col-12">
                 <label>Gastos</label>
@@ -107,7 +118,7 @@
                                         </tr>
                                     @else
                                         @php
-                                            $contadorg = 1;
+                                            $contadorg =($detalleGastos->currentPage() - 1) * $detalleGastos->perPage() + 1;
                                         @endphp
                                         @foreach ($detalleGastos as $itemGasto)
                                             <tr>
@@ -119,7 +130,7 @@
                                                 <td>{{ $itemGasto->descripcion }}</td>
                                                 <td>{{ $itemGasto->importe }}</td>
                                                 <td>
-                                                    <a class="me-3" href="#">
+                                                    <a class="me-3"  href="{{route('detalleFV.edit',  $itemGasto->iddetallefv)}}">
                                                         <img src="/assets/img/icons/edit.svg" alt="img">
                                                     </a>
                                                     <a class="me-3 delete" data-id="{{ $itemGasto->iddetallefv }}"
@@ -167,7 +178,7 @@
                                         </tr>
                                     @else
                                         @php
-                                            $contadori = 1;
+                                        $contadori =($detalleIngresos->currentPage() - 1) * $detalleIngresos->perPage() + 1;
                                         @endphp
                                         @foreach ($detalleIngresos as $itemIngreso)
                                             <tr>
@@ -196,28 +207,42 @@
                                     @endif
                                 </tbody>
                             </table>
-                     <!-- Paginación de Ingresos -->
-                    {{ $detalleIngresos->appends(request()->except('ingresos_page'))->links() }}
-                    <br>
+                            <!-- Paginación de Ingresos -->
+                            {{ $detalleIngresos->appends(request()->except('ingresos_page'))->links() }}
+                            <br>
                         </div>
                     </div>
                 </div>
 
             </div>
         </div>
-        @if($fechaInicio!=null && $idflete!=null  && $fechaFin!=null){
-        <div class="row">
-            <div class="col-12" style="display: flex; justify-content: center; align-items: center;">
-                <span style="margin-right: 10px; font-weight: bold;">
-                    {{ ($totalGasto > $totalIngreso) ? 'Rendición en contra' : 'Rendición a favor' }}
-                </span>
-                <button style="background-color: {{ ($totalGasto > $totalIngreso) ? 'red' : 'blue' }}; color: white; border: none; padding: 10px 20px; font-weight: bold;">
-                    {{ $totalIngreso - $totalGasto }}
-                </button>
+        @if ($fechaInicio != null && $idflete != null && $fechaFin != null)
+            {
+            <div class="row">
+                <div class="col-12" style="display: flex; justify-content: center; align-items: center;">
+                    <span style="margin-right: 10px; font-weight: bold;">
+                        {{ $totalGasto > $totalIngreso ? 'Rendición en contra' : 'Rendición a favor' }}
+                    </span>
+                    <button
+                        style="background-color: {{ $totalGasto > $totalIngreso ? 'red' : 'blue' }}; color: white; border: none; padding: 10px 20px; font-weight: bold;">
+                        {{ $totalIngreso - $totalGasto }}
+                    </button>
+                </div>
             </div>
-        </div>
-    }@endif
+            }
+        @endif
     </div>
+    <!-- Ocultar el mensaje -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const successMessage = document.getElementById('successMessage');
+            if (successMessage) {
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 3800); // Ocultar después de 4 segundo
+            }
+        });
+    </script>
 
     <div class="modal fade" id="nuevoDetalleModal" tabindex="-1" aria-labelledby="nuevoDetalleModalLabel"
         aria-hidden="true">
@@ -277,7 +302,8 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="importe" class="form-label">Importe</label>
-                                <input type="number" class="form-control" id="importe" name="importe" step="0.01" required>
+                                <input type="number" class="form-control" id="importe" name="importe" step="0.01"
+                                    required>
                             </div>
                             <div class="col-md-6">
                                 <label for="descripcion" class="form-label">Descripción</label>
@@ -286,9 +312,9 @@
                         </div>
 
                         <!-- Botones -->
-                        <div class="d-flex justify-content-between">
-                            <button type="submit" class="btn btn-primary" id="guardarDetalleBtn">Guardar</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <div class="d-flex justify-content-center mt-4">
+                            <button type="submit" class="btn btn-primary me-3" id="guardarDetalleBtn">Guardar</button>
+                            <button type="button" class="btn btn-secondary ms-3" data-bs-dismiss="modal">Cancelar</button>
                         </div>
                     </form>
                 </div>

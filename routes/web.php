@@ -23,7 +23,7 @@ Route::resource('viatico', ViaticoController::class);
 
 //Detalles
 Route::resource('detalleFV', DetalleFVControlle::class);
-
+Route::get('cancelardetalle', function(){return redirect()->route('detalleFV.index')->with('datos','¡ Acción Cancelada... !');})->name('cancelardetalle');
 
 
 Route::middleware('auth')->group(function () {

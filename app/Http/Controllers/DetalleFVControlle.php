@@ -105,23 +105,25 @@ class DetalleFVControlle extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->validate([
-            'idempleado' => 'required',
-            'idflete' => 'required',
-            'idviatico' => 'required',
             'fecha' => 'required',
             'descripcion' => 'required|max:200',
-            'importe' => 'required|numeric',
+            'importe' => 'required',
         ], [
-            'idempleado.required' => 'Seleccione el empleado',
-            'idflete.required' => 'Seleccione el flete',
-            'idviatico.required' => 'Seleccione el viático',
             'fecha.required' => 'Ingrese la fecha',
             'descripcion.required' => 'Ingrese la descripción',
             'descripcion.max' => 'Máximo 200 caracteres',
             'importe.required' => 'Ingrese el importe',
         ]);
-        $detalle = new DetalleFV();
-        return redirect()->route('detalleFV.index')->with('datos', 'Su nuevo registro ha sido guardado!');
+        $detalle = DetalleFV::findOrFail($id);
+        $detalle->idempleado = $request->idempleado;
+        $detalle->idflete = $request->idflete;
+        $detalle->idviatico = $request->idviatico;
+        $detalle->fecha = $request->fecha;
+        $detalle->importe = $request->importe;
+        $detalle->tipoIG = $request->tipoIG;
+        $detalle->descripcion = $request->descripcion;
+        $detalle->save();
+        return redirect()->route('detalleFV.index')->with('datos','¡ Registro Actualizado !');
     }
 
     public function destroy($id)
@@ -130,5 +132,13 @@ class DetalleFVControlle extends Controller
         $detalle->estado = '0';
         $detalle->save();
         return redirect()->route('detalleFV.index')->with('datos', '¡Su registro ha sido eliminado!');
+    }
+    public function edit($id)
+    {
+        $empleados = Empleado::all();
+        $fletes = Flete::all();
+        $viaticos = Viatico::all();
+        $detalle = DetalleFV::findOrFail($id);
+        return view('detalleFV.edit', compact('detalle', 'empleados', 'fletes', 'viaticos'));
     }
 }
