@@ -139,7 +139,7 @@
                                     alt="img"><span> Colaboradores</span> <span class="menu-arrow"></span></a>
                             <ul>
                                 <li><a href="{{ route('empleado.index') }}">Colaborador</a></li>
-                                <li><a href="#">Reporte</a></li>
+                              <!--  <li><a href="#">Reporte</a></li>-->
 
                             </ul>
                         </li>

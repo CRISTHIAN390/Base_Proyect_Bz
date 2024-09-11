@@ -21,7 +21,7 @@ Route::get('cancelar', function(){return redirect()->route('empleado.index')->wi
 Route::resource('flete', FleteController::class);
 //Viatico
 Route::resource('viatico', ViaticoController::class);
-//Viatico
+//reporte
 Route::resource('reporte', ReporteController::class);
 
 //Detalles
