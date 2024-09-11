@@ -84,4 +84,10 @@ class ReporteController extends Controller
 
         return view('Reporte.index', compact('importexfiltrado','detallegeneral', 'fechaInicio', 'tipoIG', 'fechaFin', 'idflete', 'idviatico', 'fletes', 'viaticos', 'empleados', 'totalGasto', 'totalIngreso', 'ordenarPorFecha'));
     }
+    public function exportarExcel(){
+        
+
+
+    }
+
 }

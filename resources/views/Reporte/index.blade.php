@@ -7,6 +7,10 @@
             <div class="page-title">
                 <h4>Reportes</h4>
             </div>
+
+            <div class="d-flex align-items-center">
+                <a href="{{ route('reporte.index') }}"><span class="badges bg-lightgreen">Generar Excel</span></a>
+            </div>
         </div>
         <script>
             $(document).ready(function() {
@@ -30,19 +34,21 @@
                 /* Asegura que el label ocupe toda la línea */
             }
         </style>
-        <nav class="navbar navbar-light">
 
+        <nav class="navbar navbar-light">
             <div class="d-flex flex-column align-items-start">
                 <form class="form" method="GET" id="search-form">
                     <!-- Primera fila: Colaboradores -->
-                    <div class="form-group mb-3">
-                        <label for="idempleado">Colaboradores:</label>
-                        <select class='form-control' name="idempleado" id="idempleado">
-                            <option value="" selected disabled>Seleccionar un colaborador</option>
-                            @foreach ($empleados as $itempleado)
-                                <option value="{{ $itempleado->idempleado }}">{{ $itempleado->nombres }}</option>
-                            @endforeach
-                        </select>
+                    <div class="row col-12 align-items-center">
+                        <div class="col-lg-12 mb-2 ">
+                            <label for="idempleado">Colaboradores:</label>
+                            <select class='form-control' name="idempleado" id="idempleado">
+                                <option value="" selected disabled>Seleccionar un colaborador</option>
+                                @foreach ($empleados as $itempleado)
+                                    <option value="{{ $itempleado->idempleado }}">{{ $itempleado->nombres }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
 
                     <!-- Segunda fila: Fletes, Viáticos y Fechas -->
@@ -87,7 +93,7 @@
                     <div class="col-lg-3 mb-2">
                         <label for="tipoIG">Gasto/Ingreso:</label>
                         <select class='form-control' name="tipoIG" id="tipoIG">
-                            <option value="" selected disabled>.::Flujo::.</option>
+                            <option value="" selected disabled>.:Flujo:.</option>
                             <option value="1">Gasto</option>
                             <option value="2">Ingreso</option>
                         </select>
@@ -125,7 +131,7 @@
                                         <th scope="col">Trabajador</th>
                                         <th scope="col">Fecha</th>
                                         <th scope="col">Descripcion</th>
-                                        <th scope="col">Importe</th>
+                                        <th scope="col">Importe(S/.)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
