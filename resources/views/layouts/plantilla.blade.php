@@ -131,16 +131,16 @@
                         </li>
                         <li class="submenu">
                             <a href="javascript:vVioid(0);"><img src="/assets/img/icons/users1.svg"
-                                    alt="img"><span> Trabajadores</span> <span class="menu-arrow"></span></a>
+                                    alt="img"><span> Colaboradores</span> <span class="menu-arrow"></span></a>
                             <ul>
-                                <li><a href="{{ route('empleado.index') }}">Choferes</a></li>
+                                <li><a href="{{ route('empleado.index') }}">Colaborador</a></li>
                                 <li><a href="#">Reporte</a></li>
 
                             </ul>
                         </li>
                         <li class="submenu">
                             <a href="javascript:void(0);"><img src="/assets/img/icons/purchase1.svg"
-                                    alt="img"><span>Gastos</span> <span class="menu-arrow"></span></a>
+                                    alt="img"><span>Gestión de Costos</span> <span class="menu-arrow"></span></a>
                             <ul>
                                 <li><a href="{{ route('flete.index') }}">Fletes</a></li>
                                 <li><a href="{{ route('viatico.index') }}">Viaticos</a></li>
