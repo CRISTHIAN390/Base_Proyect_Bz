@@ -6,6 +6,7 @@ use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\FleteController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ViaticoController;
+use App\Http\Controllers\ReporteController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/',[HomeController::class,'IndexLogin']);
@@ -20,6 +21,8 @@ Route::get('cancelar', function(){return redirect()->route('empleado.index')->wi
 Route::resource('flete', FleteController::class);
 //Viatico
 Route::resource('viatico', ViaticoController::class);
+//Viatico
+Route::resource('reporte', ReporteController::class);
 
 //Detalles
 Route::resource('detalleFV', DetalleFVControlle::class);

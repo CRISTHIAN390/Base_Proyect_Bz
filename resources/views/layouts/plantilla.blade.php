@@ -23,6 +23,11 @@
     <link rel="stylesheet" href="/assets/plugins/fontawesome/css/all.min.css">
 
     <link rel="stylesheet" href="/assets/css/style.css">
+    <!--Para el selec-->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
 </head>
 
 <body>
@@ -145,7 +150,7 @@
                                 <li><a href="{{ route('flete.index') }}">Fletes</a></li>
                                 <li><a href="{{ route('viatico.index') }}">Viaticos</a></li>
                                 <li><a href="{{ route('detalleFV.index') }}">Gastos/Ingresos</a></li>
-                                <li><a href="importpurchase.html">Reportes</a></li>
+                                <li><a href="{{ route('reporte.index') }}">Reportes</a></li>
                             </ul>
                         </li><!--
                          <li class="submenu">
@@ -185,20 +190,15 @@
     </div>
 
     <script src="/assets/js/jquery-3.6.0.min.js"></script>
-
     <script src="/assets/js/feather.min.js"></script>
-
     <script src="/assets/js/jquery.slimscroll.min.js"></script>
-
     <script src="/assets/js/jquery.dataTables.min.js"></script>
     <script src="/assets/js/dataTables.bootstrap4.min.js"></script>
-
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
-
     <script src="/assets/plugins/apexchart/apexcharts.min.js"></script>
     <script src="/assets/plugins/apexchart/chart-data.js"></script>
-
     <script src="/assets/js/script.js"></script>
+
 </body>
 
 </html>
