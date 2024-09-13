@@ -32,10 +32,12 @@ class DetalleFVControlle extends Controller
         if ($fechaInicio && $fechaFin) {
             $query->whereBetween('fecha', [$fechaInicio, $fechaFin]);
         }
+
         // Filtrar por empleado si se proporciona
         if ($idempleado) {
             $query->where('idempleado', $idempleado);
         }
+
         // Filtrar por Flete si se proporciona
         if ($idflete) {
             $query->where('idflete', $idflete);
@@ -45,6 +47,7 @@ class DetalleFVControlle extends Controller
         if ($idviatico) {
             $query->where('idviatico', $idviatico);
         }
+
         // consulta para el gasto total
         $totalGasto = (clone $query)
         ->where('tipoIG', '=', 1)
