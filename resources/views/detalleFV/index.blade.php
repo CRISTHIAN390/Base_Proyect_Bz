@@ -16,44 +16,51 @@
                 </button>
             </div>
         </div>
+        <script>
+            $(document).ready(function() {
+                $('#idflete').select2({
+                    allowClear: true,
+                    width: '100%' // Ajusta el ancho según tu diseño
+                });
+                $('#idviatico').select2({
+                    allowClear: true,
+                    width: '100%' // Ajusta el ancho según tu diseño
+                });
+                $('#idempleado').select2({
+                    allowClear: true,
+                    width: '100%' // Ajusta el ancho según tu diseño
+                });
+            });
+        </script>
         <nav class="navbar navbar-light float-right">
             <div class="d-flex flex-column align-items-start">
                 <form class="form" method="GET" id="search-form">
 
                     <div class="form-group mb-3">
-                        <label for="idempleado">Trabajador:</label>
-                        <select class="form-select" name="idempleado" id="idempleado">
-                            <option selected disabled>Seleccione trabajador</option>
+                        <label for="idempleado">Colaboradores:</label>
+                        <select   class='form-control' name="idempleado" id="idempleado">
+                            <option value="" selected disabled>Seleccionar un colaborador</option>
                             @foreach ($empleados as $itempleado)
-                                <option value="{{ $itempleado->idempleado }}"
-                                    {{ request('idempleado') == $itempleado->idempleado ? 'selected' : '' }}>
-                                    {{ $itempleado->nombres }}
-                                </option>
+                                <option value="{{ $itempleado->idempleado }}">{{ $itempleado->nombres }}</option>
                             @endforeach
                         </select>
                     </div>
-
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="idflete">Flete:</label>
-                            <select class="form-select" name="idflete" id="idflete">
-                                <option selected disabled>Seleccione un flete</option>
+                            <label for="idflete">Fletes:</label>
+                            <select class='form-control' name="idflete" id="idflete">
+                                <option value="" selected disabled>Seleccionar flete</option>
                                 @foreach ($fletes as $itemflete)
-                                    <option value="{{ $itemflete->idflete }}"
-                                        {{ request('idflete') == $itemflete->idflete ? 'selected' : '' }}>
-                                        FLETE-{{ $itemflete->nombre_flete }}
-                                    </option>
+                                    <option value="{{ $itemflete->idflete }}">{{ $itemflete->nombre_flete }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label for="idviatico">Viático:</label>
-                            <select class="form-select" name="idviatico" id="idviatico">
-                                <option selected disabled>Seleccione un viático</option>
+                            <label for="idviatico">Viáticos:</label>
+                            <select  class='form-control' name="idviatico" id="idviatico">
+                                <option value="" selected disabled>Seleccionar viatico</option>
                                 @foreach ($viaticos as $itemviatico)
-                                    <option value="{{ $itemviatico->idviatico }}"
-                                        {{ request('idviatico') == $itemviatico->idviatico ? 'selected' : '' }}>
-                                        VIATICO-{{ $itemviatico->nombre_viatico }}
+                                    <option value="{{ $itemviatico->idviatico }}">{{ $itemviatico->nombre_viatico }}
                                     </option>
                                 @endforeach
                             </select>
@@ -83,18 +90,18 @@
         </nav>
 
 
-         <!-- Mensaje de confirmación -->
-         @if (session('datos'))
-         <div id="successMessage" class="alert alert-success mt-3">
-             {{ session('datos') }}
-         </div>
+        <!-- Mensaje de confirmación -->
+        @if (session('datos'))
+            <div id="successMessage" class="alert alert-success mt-3">
+                {{ session('datos') }}
+            </div>
         @endif
 
 
 
         <div class="row">
             <div class="col-12">
-                <label>Gastos</label>
+                <label class="subtitulo">Gastos</label>
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive" id="empleadoTable">
@@ -118,7 +125,8 @@
                                         </tr>
                                     @else
                                         @php
-                                            $contadorg =($detalleGastos->currentPage() - 1) * $detalleGastos->perPage() + 1;
+                                            $contadorg =
+                                                ($detalleGastos->currentPage() - 1) * $detalleGastos->perPage() + 1;
                                         @endphp
                                         @foreach ($detalleGastos as $itemGasto)
                                             <tr>
@@ -130,7 +138,8 @@
                                                 <td>{{ $itemGasto->descripcion }}</td>
                                                 <td>{{ $itemGasto->importe }}</td>
                                                 <td>
-                                                    <a class="me-3"  href="{{route('detalleFV.edit',  $itemGasto->iddetallefv)}}">
+                                                    <a class="me-3"
+                                                        href="{{ route('detalleFV.edit', $itemGasto->iddetallefv) }}">
                                                         <img src="/assets/img/icons/edit.svg" alt="img">
                                                     </a>
                                                     <a class="me-3 delete" data-id="{{ $itemGasto->iddetallefv }}"
@@ -157,7 +166,21 @@
                         </div>
                     </div>
                 </div>
-                <label>Ingresos</label>
+                <style type="text/css">
+                    .subtitulo {
+                        font-size: 1rem;
+                        /* Tamaño de fuente */
+                        font-weight: bold;
+                        /* Negrita */
+                        color: #000000;
+                        /* Color del texto */
+                        margin-bottom: 1rem;
+                        /* Espacio debajo del subtítulo */
+                        display: block;
+                        /* Asegura que el label ocupe toda la línea */
+                    }
+                </style>
+                <label class="subtitulo">Ingresos</label>
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive" id="empleadoTable">
@@ -178,7 +201,8 @@
                                         </tr>
                                     @else
                                         @php
-                                        $contadori =($detalleIngresos->currentPage() - 1) * $detalleIngresos->perPage() + 1;
+                                            $contadori =
+                                                ($detalleIngresos->currentPage() - 1) * $detalleIngresos->perPage() + 1;
                                         @endphp
                                         @foreach ($detalleIngresos as $itemIngreso)
                                             <tr>
@@ -187,9 +211,11 @@
                                                 <td>{{ $itemIngreso->descripcion }}</td>
                                                 <td>{{ $itemIngreso->importe }}</td>
                                                 <td>
-                                                    <a class="me-3" href="#">
+                                                    <a class="me-3"
+                                                        href="{{ route('detalleFV.edit', $itemIngreso->iddetallefv) }}">
                                                         <img src="/assets/img/icons/edit.svg" alt="img">
                                                     </a>
+
                                                     <a class="me-3 delete" data-id="{{ $itemIngreso->iddetallefv }}"
                                                         data-importe="{{ $itemIngreso->importe }}"
                                                         data-descripcion="{{ $itemIngreso->descripcion }}"
@@ -234,7 +260,7 @@
     </div>
     <!-- Ocultar el mensaje -->
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const successMessage = document.getElementById('successMessage');
             if (successMessage) {
                 setTimeout(() => {
@@ -243,7 +269,6 @@
             }
         });
     </script>
-
     <div class="modal fade" id="nuevoDetalleModal" tabindex="-1" aria-labelledby="nuevoDetalleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -314,7 +339,8 @@
                         <!-- Botones -->
                         <div class="d-flex justify-content-center mt-4">
                             <button type="submit" class="btn btn-primary me-3" id="guardarDetalleBtn">Guardar</button>
-                            <button type="button" class="btn btn-secondary ms-3" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-secondary ms-3"
+                                data-bs-dismiss="modal">Cancelar</button>
                         </div>
                     </form>
                 </div>

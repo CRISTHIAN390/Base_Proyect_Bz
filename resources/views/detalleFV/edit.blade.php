@@ -6,6 +6,22 @@
             <div class="card-header">
                 <h4>Editar Detalle</h4>
             </div>
+            <script>
+                $(document).ready(function() {
+                    $('#idflete').select2({
+                        allowClear: true,
+                        width: '100%' // Ajusta el ancho según tu diseño
+                    });
+                    $('#idviatico').select2({
+                        allowClear: true,
+                        width: '100%' // Ajusta el ancho según tu diseño
+                    });
+                    $('#idempleado').select2({
+                        allowClear: true,
+                        width: '100%' // Ajusta el ancho según tu diseño
+                    });
+                });
+            </script>
             <div class="card-body">
                 <form method="POST" action="{{ route('detalleFV.update', $detalle->iddetallefv) }}">
                     @method('PUT')
@@ -13,23 +29,22 @@
 
                     <!-- Trabajador -->
                     <div class="mb-3">
-                        <label for="idempleado" class="form-label">Trabajador</label>
-                        <select class="form-select" id="idempleado" name="idempleado" required>
-                            <option value="">Seleccione un Trabajador</option>
-                            @foreach ($empleados as $empleado)
-                                <option value="{{ $empleado->idempleado }}"
-                                    {{ $empleado->idempleado == $detalle->idempleado ? 'selected' : '' }}>
-                                    {{ $empleado->nombres }}
+                        <label for="idempleado" class="form-label">Colaboradores:</label>
+                        <select  class='form-control' id="idempleado" name="idempleado" required>
+                            <option value="" selected disabled>Seleccionar un colaborador</option>
+                            @foreach ($empleados as $itempleado)
+                                <option value="{{ $itempleado->idempleado }}"
+                                    {{ $itempleado->idempleado == $detalle->idempleado ? 'selected' : '' }}>
+                                    {{ $itempleado->nombres }}
                                 </option>
                             @endforeach
                         </select>
                     </div>
-
                     <!-- Flete -->
                     <div class="mb-3">
-                        <label for="idflete" class="form-label">Flete</label>
-                        <select class="form-select" id="idflete" name="idflete" required>
-                            <option value="">Seleccione un Flete</option>
+                        <label for="idflete" class="form-label">Flete:</label>
+                        <select class='form-control' id="idflete" name="idflete" required>
+                            <option value="" selected disabled>Seleccionar un Flete</option>
                             @foreach ($fletes as $flete)
                                 <option value="{{ $flete->idflete }}"
                                     {{ $flete->idflete == $detalle->idflete ? 'selected' : '' }}>
@@ -38,12 +53,11 @@
                             @endforeach
                         </select>
                     </div>
-
                     <!-- Viático -->
                     <div class="mb-3">
-                        <label for="idviatico" class="form-label">Viático</label>
-                        <select class="form-select" id="idviatico" name="idviatico" required>
-                            <option value="">Seleccione un Viático</option>
+                        <label for="idviatico" class="form-label">Viático:</label>
+                        <select class='form-control' id="idviatico" name="idviatico" required>
+                            <option value="" selected disabled>Seleccionar un Viático</option>
                             @foreach ($viaticos as $viatico)
                                 <option value="{{ $viatico->idviatico }}"
                                     {{ $viatico->idviatico == $detalle->idviatico ? 'selected' : '' }}>
@@ -52,7 +66,6 @@
                             @endforeach
                         </select>
                     </div>
-
                     <!-- Fecha y Tipo (G/I) -->
                     <div class="row mb-3">
                         <div class="col-md-6">
@@ -72,9 +85,9 @@
                     <!-- Importe y Descripción -->
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="importe" class="form-label">Importe</label>
+                            <label for="importe" class="form-label">Importe (S/.)</label>
                             <input type="number" class="form-control" id="importe" name="importe"
-                                value="{{ $detalle->importe }}" step="0.01" required>
+                                value="{{ $detalle->importe }}" step="0.01" required> 
                         </div>
                         <div class="col-md-6">
                             <label for="descripcion" class="form-label">Descripción</label>

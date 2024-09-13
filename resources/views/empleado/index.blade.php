@@ -6,7 +6,7 @@
     <div class="container">
         <div class="page-header d-flex justify-content-between align-items-center">
             <div class="page-title">
-                <h4>Lista de Trabajadores</h4>
+                <h4>Lista de Colaboradores</h4>
             </div>
             <div class="d-flex align-items-center">
                 <a href="{{ route('empleado.create') }}" class="btn btn-added">

@@ -22,7 +22,7 @@
                 </form>
             </div>
         </nav>
-        
+
          <!-- Mensaje de confirmación -->
          @if (session('datos'))
          <div id="successMessage" class="alert alert-success mt-3">
