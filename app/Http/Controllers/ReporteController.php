@@ -8,8 +8,9 @@ use App\Models\Flete;
 use App\Models\Empleado;
 use App\Models\Viatico;
 use Illuminate\Http\Request;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
+
 
 class ReporteController extends Controller
 {
@@ -140,5 +141,53 @@ class ReporteController extends Controller
 
         return Excel::download(new DetalleFVExpor($query->get(), $IngresoTotalFiltrado, $GastoTotalFiltrado, $MontoRestante), 'reportes.xlsx');
     }
-    public function exportarPdf() {}
+    public function exportarPdf(Request $request)
+    {
+        $fechaInicio = $request->get('fechaInicio');
+        $fechaFin = $request->get('fechaFin');
+        $idempleado = $request->get('idempleado');
+        $idflete = $request->get('idflete');
+        $idviatico = $request->get('idviatico');
+        $tipoIG = $request->get('tipoIG');
+        $ordenarPorFecha = $request->get('ordenarPorFecha');
+    
+        $query = DetalleFV::query();
+    
+        if ($fechaInicio && $fechaFin) {
+            $query->whereBetween('fecha', [$fechaInicio, $fechaFin]);
+        }
+    
+        if ($tipoIG) {
+            $query->where('tipoIG', $tipoIG);
+        }
+    
+        if ($idempleado) {
+            $query->where('idempleado', $idempleado);
+        }
+    
+        if ($idflete) {
+            $query->where('idflete', $idflete);
+        }
+    
+        if ($idviatico) {
+            $query->where('idviatico', $idviatico);
+        }
+    
+        if ($ordenarPorFecha) {
+            $query->orderBy('fecha', 'asc');
+        }
+    
+        // Datos totales y filtrados
+        $GastoTotalFiltrado = (clone $query)->where('tipoIG', 1)->where('estado', 1)->sum('importe');
+        $IngresoTotalFiltrado = (clone $query)->where('tipoIG', 2)->where('estado', 1)->sum('importe');
+        $MontoRestante = $IngresoTotalFiltrado - $GastoTotalFiltrado;
+    
+        $detallegeneral = $query->where('estado', 1)->get();
+    
+        // Generar la vista para el PDF
+        $pdf = Pdf::loadView('Reporte.estructurapdf', compact('detallegeneral', 'GastoTotalFiltrado', 'IngresoTotalFiltrado', 'MontoRestante', 'fechaInicio', 'fechaFin', 'idempleado', 'idflete', 'idviatico', 'tipoIG'));
+    
+        // Descargar el PDF
+        return $pdf->download('reporte.pdf');
+    }
 }

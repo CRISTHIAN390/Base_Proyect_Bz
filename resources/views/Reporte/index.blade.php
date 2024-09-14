@@ -12,7 +12,7 @@
                 <a href="{{ route('expoexcel', request()->all()) }}">
                     <span class="badges bg-lightgreen">Descargar Excel</span>
                 </a>
-                <a href="{{ route('expopdf') }}" class="ms-3">
+                <a href="{{ route('expopdf', request()->all()) }}" class="ms-3">
                     <span class="badges bg-lightred">Descargar PDF</span>
                 </a>
             </div>
