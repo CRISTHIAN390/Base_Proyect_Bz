@@ -123,9 +123,9 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
-    /*
+        /*
      * Package Service Providers Excel
-
+     */
 
     'providers' => [
 
@@ -133,5 +133,5 @@ return [
     ],
     'aliases' => [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-    ],   */
+],
 ];
