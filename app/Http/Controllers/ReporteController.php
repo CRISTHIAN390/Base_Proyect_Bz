@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Exports\DetalleFVExpor;
 use App\Models\DetalleFV;
 use App\Models\Flete;
@@ -122,17 +123,22 @@ class ReporteController extends Controller
         if ($ordenarPorFecha) {
             $query->orderBy('fecha', 'asc');
         }
-        // Consulta para el importe total por filtrado
-        $importexfiltrado = (clone $query)
+
+        // Consulta para el gasto total filtrado
+        $GastoTotalFiltrado = (clone $query)
+            ->where('tipoIG', '=', 1)
             ->where('estado', '=', 1)
             ->sum('importe');
-    
-        return Excel::download(new DetalleFVExpor($query->get(),$importexfiltrado), 'reportes.xlsx');
 
+        // Consulta para el ingreso total filtrado
+        $IngresoTotalFiltrado = (clone $query)
+            ->where('tipoIG', '=', 2)
+            ->where('estado', '=', 1)
+            ->sum('importe');
 
+        $MontoRestante = $IngresoTotalFiltrado - $GastoTotalFiltrado;
+
+        return Excel::download(new DetalleFVExpor($query->get(), $IngresoTotalFiltrado, $GastoTotalFiltrado, $MontoRestante), 'reportes.xlsx');
     }
-    public function exportarPdf(){
-
-
-    }
+    public function exportarPdf() {}
 }
