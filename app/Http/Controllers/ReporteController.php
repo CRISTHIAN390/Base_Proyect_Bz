@@ -125,4 +125,8 @@ class ReporteController extends Controller
 
         return Excel::download(new DetallesFVExport($query->get()), 'reportes.xlsx');
     }
+    public function exportarPdf(){
+
+
+    }
 }
