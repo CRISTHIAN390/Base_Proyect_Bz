@@ -242,20 +242,20 @@
 
             </div>
         </div>
-        @if ($fechaInicio != null && $idflete != null && $fechaFin != null)
-            {
+        @if ($fechaInicio != null  && $fechaFin != null)
+        
             <div class="row">
                 <div class="col-12" style="display: flex; justify-content: center; align-items: center;">
                     <span style="margin-right: 10px; font-weight: bold;">
                         {{ $totalGasto > $totalIngreso ? 'Rendición en contra' : 'Rendición a favor' }}
                     </span>
                     <button
-                        style="background-color: {{ $totalGasto > $totalIngreso ? 'red' : 'blue' }}; color: white; border: none; padding: 10px 20px; font-weight: bold;">
+                        style="background-color: {{ $totalGasto > $totalIngreso ? '#F44E4E' : '#03E33E' }}; color: black; border: none; padding: 10px 20px; font-weight: bold;">
                         {{ $totalIngreso - $totalGasto }}
                     </button>
                 </div>
             </div>
-            }
+            
         @endif
     </div>
     <!-- Ocultar el mensaje -->
