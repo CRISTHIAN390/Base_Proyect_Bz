@@ -122,8 +122,14 @@ class ReporteController extends Controller
         if ($ordenarPorFecha) {
             $query->orderBy('fecha', 'asc');
         }
+        // Consulta para el importe total por filtrado
+        $importexfiltrado = (clone $query)
+            ->where('estado', '=', 1)
+            ->sum('importe');
+    
+        return Excel::download(new DetalleFVExpor($query->get(),$importexfiltrado), 'reportes.xlsx');
 
-        return Excel::download(new DetalleFVExpor($query->get()), 'reportes.xlsx');
+
     }
     public function exportarPdf(){
 
