@@ -8,9 +8,7 @@ use App\Models\DetalleFV;
 use App\Models\Empleado;
 use App\Models\Flete;
 use App\Models\Viatico;
-
-
-class DetallesFVExport implements FromCollection, WithHeadings
+class DetalleFVExpor implements FromCollection,WithHeadings
 {
     protected $data;
 

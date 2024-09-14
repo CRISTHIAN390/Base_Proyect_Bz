@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Exports\DetalleFVExpor;
 use App\Models\DetalleFV;
 use App\Models\Flete;
 use App\Models\Empleado;
 use App\Models\Viatico;
 use Illuminate\Http\Request;
-use App\Exports\DetallesFVExport;
+
 use Maatwebsite\Excel\Facades\Excel;
 
 class ReporteController extends Controller
@@ -123,7 +123,7 @@ class ReporteController extends Controller
             $query->orderBy('fecha', 'asc');
         }
 
-        return Excel::download(new DetallesFVExport($query->get()), 'reportes.xlsx');
+        return Excel::download(new DetalleFVExpor($query->get()), 'reportes.xlsx');
     }
     public function exportarPdf(){
 
