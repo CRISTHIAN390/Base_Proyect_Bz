@@ -7,6 +7,7 @@ use App\Http\Controllers\FleteController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ViaticoController;
 use App\Http\Controllers\ReporteController;
+use App\Http\Controllers\TestChatModuleController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/',[HomeController::class,'IndexLogin']);
@@ -28,6 +29,16 @@ Route::get('/reporte/exportarpdf', [ReporteController::class, 'exportarPdf'])->n
 //Detalles
 Route::resource('detalleFV', DetalleFVControlle::class);
 Route::get('cancelardetalle', function(){return redirect()->route('detalleFV.index')->with('datos','¡ Acción Cancelada... !');})->name('cancelardetalle');
+
+
+
+
+Route::get('/Consultabot' , [TestChatModuleController::class , 'Consultabot'])->name('Consultabot');
+Route::post('/chat-fetch' , [TestChatModuleController::class , 'chat'])->name('chat');
+
+
+
+
 
 
 Route::middleware('auth')->group(function () {
