@@ -22,8 +22,8 @@ Route::resource('flete', FleteController::class);
 //Viatico
 Route::resource('viatico', ViaticoController::class);
 //reporte
-Route::resource('reporte', ReporteController::class);
-
+Route::resource('reporte', ReporteController::class)->except(['show']);
+Route::get('/reporte/exportarexcel', [ReporteController::class, 'exportarExcel'])->name('expoexcel');
 //Detalles
 Route::resource('detalleFV', DetalleFVControlle::class);
 Route::get('cancelardetalle', function(){return redirect()->route('detalleFV.index')->with('datos','¡ Acción Cancelada... !');})->name('cancelardetalle');

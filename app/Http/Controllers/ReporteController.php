@@ -7,6 +7,8 @@ use App\Models\Flete;
 use App\Models\Empleado;
 use App\Models\Viatico;
 use Illuminate\Http\Request;
+use App\Exports\DetallesFVExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReporteController extends Controller
 {
@@ -82,12 +84,45 @@ class ReporteController extends Controller
             ->where('estado', '=', 1)
             ->paginate(self::PAGINATION, ['*'], 'general_page');
 
-        return view('Reporte.index', compact('importexfiltrado','detallegeneral', 'fechaInicio', 'tipoIG', 'fechaFin', 'idflete', 'idviatico', 'fletes', 'viaticos', 'empleados', 'totalGasto', 'totalIngreso', 'ordenarPorFecha'));
-    }
-    public function exportarExcel(){
-        
-
-
+        return view('Reporte.index', compact('importexfiltrado', 'detallegeneral', 'fechaInicio', 'tipoIG', 'fechaFin', 'idflete', 'idviatico', 'fletes', 'viaticos', 'empleados', 'totalGasto', 'totalIngreso', 'ordenarPorFecha'));
     }
 
+    public function exportarExcel(Request $request)
+    {
+        $fechaInicio = $request->get('fechaInicio');
+        $fechaFin = $request->get('fechaFin');
+        $idempleado = $request->get('idempleado');
+        $idflete = $request->get('idflete');
+        $idviatico = $request->get('idviatico');
+        $tipoIG = $request->get('tipoIG');
+        $ordenarPorFecha = $request->get('ordenarPorFecha');
+
+        $query = DetalleFV::query();
+
+        if ($fechaInicio && $fechaFin) {
+            $query->whereBetween('fecha', [$fechaInicio, $fechaFin]);
+        }
+
+        if ($tipoIG) {
+            $query->where('tipoIG', $tipoIG);
+        }
+
+        if ($idempleado) {
+            $query->where('idempleado', $idempleado);
+        }
+
+        if ($idflete) {
+            $query->where('idflete', $idflete);
+        }
+
+        if ($idviatico) {
+            $query->where('idviatico', $idviatico);
+        }
+
+        if ($ordenarPorFecha) {
+            $query->orderBy('fecha', 'asc');
+        }
+
+        return Excel::download(new DetallesFVExport($query->get()), 'reportes.xlsx');
+    }
 }

@@ -9,8 +9,11 @@
             </div>
 
             <div class="d-flex align-items-center">
-                <a href="{{ route('reporte.index') }}"><span class="badges bg-lightgreen">Generar Excel</span></a>
+                <a href="{{ route('expoexcel', request()->all()) }}">
+                    <span class="badges bg-lightgreen">Descargar Excel</span>
+                </a>
             </div>
+
         </div>
         <script>
             $(document).ready(function() {
