@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buddhi Babu</title>
+    <title>Asistente Virtual</title>
 
     <!-- Estilos del chat -->
     <link rel="stylesheet" href="/assets/css/styleschat.css">
@@ -36,17 +36,16 @@
     <div class="user-input-container">
         <div class="user-input-content">
             <div class="user-input-textarea">
-                <textarea id="chat-input" placeholder="Enter your prompt here" required></textarea>
+                <textarea id="chat-input" placeholder="Enter para enviar tu mensaje" required></textarea>
                 <span id="send-btn" class="material-symbols-rounded">send</span>
             </div>
             <div class="typing-controls">
                 <span id="theme-btn" class="material-symbols-rounded">light_mode</span>
                 <span id="delete-btn" class="material-symbols-rounded">delete</span>
+                <span id="logout-btn" class="material-symbols-rounded">logout</span>
             </div>
         </div>
     </div>
-
-
     <script>
         $(document).ready(function() {
             const PromptInput = $("#chat-input");
@@ -54,9 +53,10 @@
             const ChatContainer = $(".chat-container");
             const ThemeBtn = $("#theme-btn");
             const DeleteBtn = $("#delete-btn");
+            const LagoutBtn = $("#logout-btn");
 
             let UserPrompt = null;
-
+            //diferenciar stilos mmsj entrada y saliente
             const CreateElement = (html, ClassName) => {
                 const ChatDiv = $("<div></div>").addClass("chat " + ClassName).html(html);
                 return ChatDiv;
@@ -74,8 +74,8 @@
                 } else {
                     ChatContainer.html(`
                             <div class="Default-Text">
-                                <h1>Buddhi Babu</h1>
-                                <p>Future of AI !</p>
+                                <h1>Tefi AI</h1>
+                                <p>Consulta tus dudas ☺ !</p>
                             </div>
                         `);
                 }
@@ -142,7 +142,8 @@
                 if (!UserPrompt) return;
                 const html = `<div class="chat-content-box">
                                         <div class="chat-details">
-                                            <img src="https://charmouthtennisclub.org/wp-content/uploads/2021/01/placeholder-400x400.jpg" alt="user-image">
+                                       
+                                            <img src="/assets/img/profiles/avator1.jpg" alt="user-image">
                                             <p></p>
                                         </div>
                                     </div>`;
@@ -154,6 +155,7 @@
                 setTimeout(TypyingAnimation, 500);
             };
 
+            //botones chat
             ThemeBtn.on("click", () => {
                 $("body").toggleClass("light-mode");
                 localStorage.setItem("Theme-Switcher", ThemeBtn.text());
@@ -161,14 +163,24 @@
             });
 
             DeleteBtn.on("click", () => {
-                if (confirm("Are you sure you want to delete all chats?")) {
+                if (confirm("Estás seguro de que quieres eliminar todos los chats?")) {
                     localStorage.removeItem("All-Chats");
                 }
                 DataFromLocalStorage();
             });
+            
+            LagoutBtn.on("click", () => {
+                if (confirm("Regresar al panel?")) {
+                    localStorage.removeItem("All-Chats");
+                    //volver a la vista dasboard
+                    window.location.href = "/dashboard";
+                }
+                DataFromLocalStorage();
+            });
 
+            //Eventos en teclas y text
             let InitialHeight = PromptInput.prop("scrollHeight");
-
+    
             PromptInput.on("input", () => {
                 PromptInput.height(InitialHeight).height(PromptInput.prop("scrollHeight"));
             });
@@ -179,7 +191,6 @@
                     OutgoinChat();
                 }
             });
-
             SendBtn.on("click", OutgoinChat);
         });
     </script>

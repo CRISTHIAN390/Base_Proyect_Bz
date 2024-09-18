@@ -13,7 +13,6 @@
                 <button type="button" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#nuevoViaticoModal">
                     <img src="/assets/img/icons/plus.svg" alt="img" class="me-2">Nuevo
                 </button>
-                    <a href="{{ route('Consultabot') }}" class="btn btn-secondary">chat</a>
             </div>
         </div>
 
