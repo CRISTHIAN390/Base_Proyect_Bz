@@ -168,7 +168,7 @@
                 }
                 DataFromLocalStorage();
             });
-            
+
             LagoutBtn.on("click", () => {
                 if (confirm("Regresar al panel?")) {
                     localStorage.removeItem("All-Chats");
@@ -180,7 +180,7 @@
 
             //Eventos en teclas y text
             let InitialHeight = PromptInput.prop("scrollHeight");
-    
+
             PromptInput.on("input", () => {
                 PromptInput.height(InitialHeight).height(PromptInput.prop("scrollHeight"));
             });

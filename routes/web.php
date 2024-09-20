@@ -11,7 +11,8 @@ use App\Http\Controllers\TestChatModuleController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/',[HomeController::class,'IndexLogin']);
-Route::get('/dashboard', function () {return view('indexx');})->middleware(['auth', 'verified'])->name('dashboard');
+//Route::get('/dashboard', function () {return view('indexx');})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [HomeController::class, 'Dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
 
 //Implementacion de rutas
