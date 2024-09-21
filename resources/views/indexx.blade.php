@@ -65,7 +65,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Gastos en fletes por mes</div>
+                        <div class="card-title">Gastos</div>
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-end align-items-center">
@@ -78,21 +78,30 @@
                             </select>
                         </div>
                         <figure class="highcharts-figure">
-                            <div id="contenedorgrafico">
-                            </div>
+                            <div id="contenedorgrafico"></div>
                         </figure>
                     </div>
                 </div>
             </div>
+        
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Viáticos</div>
+                        <div class="card-title">Ingresos</div>
                     </div>
                     <div class="card-body">
-                        <div>
-                            <canvas id="chartBarViaticos" class="h-300"></canvas>
+                        <div class="d-flex justify-content-end align-items-center">
+                            <select id="yearSelector2" name="year" class="form-control form-control-lg" 
+                                    style="width: auto; min-width: 150px;">
+                                <option selected disabled>Selecciona un año</option>
+                                @foreach ($listadeAnios as $anio2)
+                                    <option value="{{ $anio2->year }}">{{ $anio2->year }}</option>
+                                @endforeach
+                            </select>
                         </div>
+                        <figure class="highcharts-figure">
+                            <div id="contenedorgrafico2"></div>
+                        </figure>
                     </div>
                 </div>
             </div>
@@ -100,6 +109,7 @@
 
         <script>
             var gastosXmes = @json($gastosXmes);
+            var ingresosXmes = @json($ingresosXmes);
         </script>
 
 

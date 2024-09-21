@@ -32,6 +32,7 @@ Route::resource('detalleFV', DetalleFVControlle::class);
 Route::get('cancelardetalle', function(){return redirect()->route('detalleFV.index')->with('datos','¡ Acción Cancelada... !');})->name('cancelardetalle');
 //->middleware(['auth', 'verified'])->name('gastos.anio');
 Route::get('/get-gastos', [HomeController::class, 'getGastosPorAnio']);
+Route::get('/get-ingresos', [HomeController::class, 'getIngresosPorAnio']);
 
 
 Route::get('/Consultabot' , [TestChatModuleController::class , 'Consultabot'])->name('Consultabot');

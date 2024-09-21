@@ -69,4 +69,17 @@ class HomeController extends Controller
     
         return response()->json($gastosXmes);
     }
+
+    public function getIngresosPorAnio(Request $request)
+    {
+        $anio = $request->input('year');
+        
+        if (!$anio) {
+            return response()->json(['error' => 'Año no válido'], 400);
+        }
+    
+        $ingresosXmes = $this->calcularGastosIngresosPorMes(2, $anio);
+    
+        return response()->json($ingresosXmes);
+    }
 }
