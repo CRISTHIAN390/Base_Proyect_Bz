@@ -89,15 +89,12 @@
             </div>
         </nav>
 
-
         <!-- Mensaje de confirmación -->
         @if (session('datos'))
             <div id="successMessage" class="alert alert-success mt-3">
                 {{ session('datos') }}
             </div>
         @endif
-
-
 
         <div class="row">
             <div class="col-12">
@@ -125,8 +122,7 @@
                                         </tr>
                                     @else
                                         @php
-                                            $contadorg =
-                                                ($detalleGastos->currentPage() - 1) * $detalleGastos->perPage() + 1;
+                                            $contadorg =($detalleGastos->currentPage() - 1) * $detalleGastos->perPage() + 1;
                                         @endphp
                                         @foreach ($detalleGastos as $itemGasto)
                                             <tr>

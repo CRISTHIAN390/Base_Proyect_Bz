@@ -96,7 +96,7 @@
                             <a class="dropdown-item" href="#"> <i class="me-2" data-feather="user"></i>
                                 My Profile</a>
 
-                            <a class="dropdown-item" href="generalsettings.html"><i class="me-2"
+                            <a class="dropdown-item" href="#"><i class="me-2"
                                     data-feather="settings"></i>Settings</a>
                             <hr class="m-0">
                             <a class="dropdown-item logout pb-0"><img src="/assets/img/icons/log-out.svg" class="me-2"
@@ -130,53 +130,55 @@
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
                         <li class="active">
-                            <a href="{{ route('dashboard') }}"><img src="/assets/img/icons/dashboard.svg"
-                                    alt="img"><span>
-                                    Inicio</span> </a>
+                            <a href="{{ route('dashboard') }}">
+                                <img src="/assets/img/icons/dashboard.svg" alt="img">
+                                <span>Inicio</span>
+                            </a>
                         </li>
                         <li class="submenu">
                             <a href="javascript:vVioid(0);"><img src="/assets/img/icons/users1.svg"
                                     alt="img"><span> Colaboradores</span> <span class="menu-arrow"></span></a>
-                            <ul>
-                                <li><a href="{{ route('empleado.index') }}">Colaborador</a></li>
-                              <!--  <li><a href="#">Reporte</a></li>-->
 
+                            <ul>
+                                <li><a href="{{ route('empleado.create') }}">Registro</a></li>
+                                <li><a href="{{ route('empleado.index') }}">Lista de Colaboradores</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="javascript:void(0);">
+                                <img src="assets/img/icons/time.svg" alt="img">
+                                <span>Vehiculos</span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <ul>
+                                <li><a href="#">Registro</a></li>
+                                <li><a href="#">Lista de Vehiculos</a></li>
                             </ul>
                         </li>
                         <li class="submenu">
                             <a href="javascript:void(0);"><img src="/assets/img/icons/purchase1.svg"
-                                    alt="img"><span>Gestión de Costos</span> <span class="menu-arrow"></span></a>
+                                    alt="img"><span>Ver Fletes y Viáticos</span> <span
+                                    class="menu-arrow"></span></a>
                             <ul>
-                                <li><a href="{{ route('flete.index') }}">Fletes</a></li>
-                                <li><a href="{{ route('viatico.index') }}">Viaticos</a></li>
-                                <li><a href="{{ route('detalleFV.index') }}">Gastos/Ingresos</a></li>
-                                <li><a href="{{ route('reporte.index') }}">Reportes</a></li>
-                            </ul>
-                        </li><!--
-                         <li class="submenu">
-                            <a href="javascript:void(0);"><img src="assets/img/icons/expense1.svg"
-                                    alt="img"><span> Expense</span> <span class="menu-arrow"></span></a>
-                            <ul>
-                                <li><a href="expenselist.html">Expense List</a></li>
-                                <li><a href="createexpense.html">Add Expense</a></li>
-                                <li><a href="expensecategory.html">Expense Category</a></li>
+
+                                <li><a href="{{ route('flete.index') }}">Lista de Fletes</a></li>
+                                <li><a href="{{ route('viatico.index') }}">Lista de Viaticos</a></li>
                             </ul>
                         </li>
-
-
                         <li class="submenu">
-                            <a href="javascript:void(0);"><img src="assets/img/icons/time.svg" alt="img"><span>
-                                    Report</span> <span class="menu-arrow"></span></a>
+                            <a href="javascript:void(0);"><img src="/assets/img/icons/time.svg"
+                                    alt="img"><span>Flujo Operativo</span> <span class="menu-arrow"></span></a>
                             <ul>
-                                <li><a href="purchaseorderreport.html">Purchase order report</a></li>
-                                <li><a href="inventoryreport.html">Inventory Report</a></li>
-                                <li><a href="salesreport.html">Sales Report</a></li>
-                                <li><a href="invoicereport.html">Invoice Report</a></li>
-                                <li><a href="purchasereport.html">Purchase Report</a></li>
-                                <li><a href="supplierreport.html">Supplier Report</a></li>
-                                <li><a href="customerreport.html">Customer Report</a></li>
+                                <li><a href="{{ route('detalleFV.index') }}">Gastos/Ingresos</a></li>
                             </ul>
-                        </li>-->
+                        </li>
+                        <li class="submenu">
+                            <a href="javascript:void(0);"><img src="/assets/img/icons/expense1.svg"
+                                    alt="img"><span>Reportes</span> <span class="menu-arrow"></span></a>
+                            <ul>
+                                <li><a href="{{ route('reporte.index') }}">Registros Operativos</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>
