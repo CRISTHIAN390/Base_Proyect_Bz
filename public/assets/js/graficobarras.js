@@ -45,6 +45,7 @@ function renderIngresosChart(data) {
     });
 }
 
+
 function renderIGChart(dataG,dataI) {
         Highcharts.chart('container', {
             chart: {
@@ -70,13 +71,19 @@ function renderIGChart(dataG,dataI) {
                     enableMouseTracking: false
                 }
             },
-            series: [{ name: 'Ingresos', data: dataI }, { name: 'Ingresos', data: dataG }]
+            series: [
+                { name: 'Ingresos', data: dataI },
+                 { name: 'Gastos', data: dataG }
+                ]
         });
 }
 
 document.addEventListener('DOMContentLoaded', function() {
     renderGastosChart(gastosXmes); // Renderiza el gráfico de gastos inicialmente
-    renderIngresosChart(ingresosXmes); // Renderiza el gráfico de ingresos inicialmente
+    renderIngresosChart(ingresosXmes); // Renderiza el gráfico de ingresos inicialm
+    renderIGChart(gastosXmes, ingresosXmes); // Renderiza el gráfico vacío inicialmente
+    
+     ente
     renderIGChart(gastosXmes,ingresosXmes)
     document.getElementById('yearSelector').addEventListener('change', function() {
         var selectedYear = this.value;
@@ -103,16 +110,18 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('Error fetching data:', error));
     });
 
+    // Selector para actualizar tanto los gastos como los ingresos
     document.getElementById('yearSelector3').addEventListener('change', function() {
         var selectedYear = this.value;
         fetch(`/get-gasingre?year=${selectedYear}`)
             .then(response => response.json())
             .then(data => {
-                console.log(data); // Verifica la respuesta aquí
-                if (data && data.length) {
-                    renderIGChart(data); // Renderiza el gráfico de ingresos con los nuevos datos
+                if (data && data.gastos && data.ingresos) {
+                    gastosXmes = data.gastos;
+                    ingresosXmes = data.ingresos;
+                    renderIGChart(gastosXmes, ingresosXmes); // Actualiza el gráfico combinado
                 } else {
-                    console.warn('No hay datos para renderizar el gráfico IG');
+                    console.warn('No hay datos para renderizar el gráfico');
                 }
             })
             .catch(error => console.error('Error fetching data:', error));

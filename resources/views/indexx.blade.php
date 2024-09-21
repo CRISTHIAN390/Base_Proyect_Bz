@@ -126,10 +126,6 @@
                             <div id="container"></div>
                         </figure>
                     </div>
-                    <script>
-                        var gastosXmes = @json($gastosXmes);
-                        var ingresosXmes = @json($ingresosXmes);
-                    </script>
                 </div>
             </div>
         </div>

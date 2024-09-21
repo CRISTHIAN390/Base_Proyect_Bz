@@ -93,6 +93,9 @@ class HomeController extends Controller
     
         $ingresosXmes = $this->calcularGastosIngresosPorMes(2, $anio);
         $gastosXmes = $this->calcularGastosIngresosPorMes(1, $anio);
-        return response()->json($ingresosXmes,$gastosXmes);
+        return response()->json([
+            'gastos' => $gastosXmes,
+            'ingresos' => $ingresosXmes
+        ]);
     }
 }
