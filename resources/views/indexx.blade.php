@@ -69,8 +69,8 @@
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-end align-items-center">
-                            <select id="yearSelector" name="year" class="form-control form-control-lg" 
-                                    style="width: auto; min-width: 150px;">
+                            <select id="yearSelector" name="year" class="form-control form-control-lg"
+                                style="width: auto; min-width: 150px;">
                                 <option selected disabled>Selecciona un año</option>
                                 @foreach ($listadeAnios as $anio)
                                     <option value="{{ $anio->year }}">{{ $anio->year }}</option>
@@ -83,7 +83,7 @@
                     </div>
                 </div>
             </div>
-        
+
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
@@ -91,8 +91,8 @@
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-end align-items-center">
-                            <select id="yearSelector2" name="year" class="form-control form-control-lg" 
-                                    style="width: auto; min-width: 150px;">
+                            <select id="yearSelector2" name="year" class="form-control form-control-lg"
+                                style="width: auto; min-width: 150px;">
                                 <option selected disabled>Selecciona un año</option>
                                 @foreach ($listadeAnios as $anio2)
                                     <option value="{{ $anio2->year }}">{{ $anio2->year }}</option>
@@ -106,7 +106,33 @@
                 </div>
             </div>
         </div>
-
+        <div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Comparacion</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-end align-items-center">
+                            <select id="yearSelector3" name="year" class="form-control form-control-lg"
+                                style="width: auto; min-width: 150px;">
+                                <option selected disabled>Selecciona un año</option>
+                                @foreach ($listadeAnios as $anio3)
+                                    <option value="{{ $anio3->year }}">{{ $anio3->year }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <figure class="highcharts-figure">
+                            <div id="container"></div>
+                        </figure>
+                    </div>
+                    <script>
+                        var gastosXmes = @json($gastosXmes);
+                        var ingresosXmes = @json($ingresosXmes);
+                    </script>
+                </div>
+            </div>
+        </div>
         <script>
             var gastosXmes = @json($gastosXmes);
             var ingresosXmes = @json($ingresosXmes);

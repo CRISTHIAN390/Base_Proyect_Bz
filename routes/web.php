@@ -33,14 +33,11 @@ Route::get('cancelardetalle', function(){return redirect()->route('detalleFV.ind
 //->middleware(['auth', 'verified'])->name('gastos.anio');
 Route::get('/get-gastos', [HomeController::class, 'getGastosPorAnio']);
 Route::get('/get-ingresos', [HomeController::class, 'getIngresosPorAnio']);
+Route::get('/get-gasingre', [HomeController::class, 'getIGPorAnio']);
 
 
 Route::get('/Consultabot' , [TestChatModuleController::class , 'Consultabot'])->name('Consultabot');
 Route::post('/chat-fetch' , [TestChatModuleController::class , 'chat'])->name('chat');
-
-
-
-
 
 
 Route::middleware('auth')->group(function () {

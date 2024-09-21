@@ -45,10 +45,39 @@ function renderIngresosChart(data) {
     });
 }
 
+function renderIGChart(dataG,dataI) {
+        Highcharts.chart('container', {
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: ' '
+            },
+            xAxis: {
+                categories: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto',
+                'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+            },
+            yAxis: {
+                title: {
+                    text: 'Montos S/.'
+                }
+            },
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: true
+                    },
+                    enableMouseTracking: false
+                }
+            },
+            series: [{ name: 'Ingresos', data: dataI }, { name: 'Ingresos', data: dataG }]
+        });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     renderGastosChart(gastosXmes); // Renderiza el gráfico de gastos inicialmente
     renderIngresosChart(ingresosXmes); // Renderiza el gráfico de ingresos inicialmente
-
+    renderIGChart(gastosXmes,ingresosXmes)
     document.getElementById('yearSelector').addEventListener('change', function() {
         var selectedYear = this.value;
         fetch(`/get-gastos?year=${selectedYear}`)
@@ -69,6 +98,21 @@ document.addEventListener('DOMContentLoaded', function() {
                     renderIngresosChart(data); // Solo renderiza si hay datos
                 } else {
                     console.warn('No hay datos para renderizar el gráfico de ingresos');
+                }
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    });
+
+    document.getElementById('yearSelector3').addEventListener('change', function() {
+        var selectedYear = this.value;
+        fetch(`/get-gasingre?year=${selectedYear}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data); // Verifica la respuesta aquí
+                if (data && data.length) {
+                    renderIGChart(data); // Renderiza el gráfico de ingresos con los nuevos datos
+                } else {
+                    console.warn('No hay datos para renderizar el gráfico IG');
                 }
             })
             .catch(error => console.error('Error fetching data:', error));
