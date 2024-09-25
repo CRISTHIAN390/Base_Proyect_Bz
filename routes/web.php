@@ -19,6 +19,10 @@ Route::get('/dashboard', [HomeController::class, 'Dashboard'])->middleware(['aut
 //Empleado
 Route::resource('empleado', EmpleadoController::class);
 Route::get('cancelar', function(){return redirect()->route('empleado.index')->with('datos','¡ Acción Cancelada... !');})->name('cancelarempleado');
+
+Route::get('empleado/{id}/confirmar', [EmpleadoController::class, 'confirmar'])->name('confirmar.empleado');
+
+
 //Flete
 Route::resource('flete', FleteController::class);
 //Viatico
@@ -27,6 +31,7 @@ Route::resource('viatico', ViaticoController::class);
 Route::resource('reporte', ReporteController::class)->except(['show']);
 Route::get('/reporte/exportarexcel', [ReporteController::class, 'exportarExcel'])->name('expoexcel');
 Route::get('/reporte/exportarpdf', [ReporteController::class, 'exportarPdf'])->name('expopdf');
+
 //Detalles
 Route::resource('detalleFV', DetalleFVControlle::class);
 Route::get('cancelardetalle', function(){return redirect()->route('detalleFV.index')->with('datos','¡ Acción Cancelada... !');})->name('cancelardetalle');

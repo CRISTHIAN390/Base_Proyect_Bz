@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Empleado;
+
 class EmpleadoController extends Controller
 {
-    const PAGINATION=5; //tengo 20 datos se partira en 4 paginas
+    const PAGINATION = 5; //tengo 20 datos se partira en 4 paginas
 
 
     public function index(Request $request)
@@ -29,6 +30,7 @@ class EmpleadoController extends Controller
             'nombres' => 'required|max:40',
             'celular' => 'required|max:9',
             'dni' => 'required|max:8|unique:empleado',
+
         ], [
             'apellidos.required' => 'Ingrese el apellido',
             'apellidos.max' => 'Máximo 40 caracteres',
@@ -48,5 +50,50 @@ class EmpleadoController extends Controller
         $emplead->estado = '1';
         $emplead->save();
         return redirect()->route('empleado.index')->with('datos', '¡Su nuevo registro ha sido guardado!');
+    }
+
+    public function update(Request $request, $idempleado)
+    {
+        $data = $request->validate([
+            'apellidos' => 'required|max:40',
+            'nombres' => 'required|max:40',
+            'celular' => 'required|max:9',
+            'dni' => 'required|max:8|unique:empleado,dni,' . $idempleado . ',idempleado', // Aquí se corrige la regla
+        ], [
+            'apellidos.required' => 'Ingrese el apellido ',
+            'apellidos.max' => 'Máximo 40 caracteres',
+            'nombres.required' => 'Ingrese el nombre ',
+            'nombres.max' => 'Máximo 40 caracteres',
+            'celular.required' => 'Ingrese el celular ',
+            'celular.max' => 'Máximo 9 caracteres',
+            'dni.required' => 'Ingrese el dni ',
+            'dni.max' => 'Máximo 8 caracteres',
+            'dni.unique' => 'El dni que sea unico',
+        ]);
+
+        $empleado = Empleado::findOrFail($idempleado);
+        $empleado->apellidos = $request->apellidos;
+        $empleado->nombres = $request->nombres;
+        $empleado->celular = $request->celular;
+        $empleado->dni = $request->dni;
+        $empleado->estado = $request->estado;
+        $empleado->save();
+
+        return redirect()->route('empleado.index')->with('datos', '¡Su registro ha sido actualizado!');
+    }
+    public function confirmar($idempleado)
+    {
+        $empleado = Empleado::findOrFail($idempleado);
+        
+        return view('empleado.confirma', compact('empleado'));
+    }
+
+    
+    public function destroy($idempleado)
+    {
+        $empleado = Empleado::findOrFail($idempleado);
+        $empleado->estado = '0';
+        $empleado->save();
+        return redirect()->route('empleado.index')->with('datos', '¡Su registro ha sido eliminado!');
     }
 }
