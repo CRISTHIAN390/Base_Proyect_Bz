@@ -87,10 +87,10 @@
                             <div class="profileset">
                                 <span class="user-img"><img src="/assets/img/profiles/avator1.jpg" alt="">
                                     <span class="status online"></span></span>
-                                <div class="profilesets">
-                                    <h6>{{ Auth::user()->name }}</h6>
-                                    <h5>Admin</h5>
-                                </div>
+                                    <div class="profilesets">
+                                        <h6>{{ optional(Auth::user())->name ?? 'Invitado' }}</h6>
+                                        <h5>{{ optional(Auth::user())->name ? 'Admin' : 'Administrativo' }}</h5>
+                                    </div>
                             </div>
                             <hr class="m-0">
                             <a class="dropdown-item" href="#"> <i class="me-2" data-feather="user"></i>
@@ -146,7 +146,7 @@
                         </li>
                         <li class="submenu">
                             <a href="javascript:void(0);">
-                                <img src="assets/img/icons/time.svg" alt="img">
+                                <img src="/assets/img/icons/time.svg" alt="img">
                                 <span>Vehiculos</span>
                                 <span class="menu-arrow"></span>
                             </a>
