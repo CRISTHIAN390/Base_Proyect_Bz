@@ -9,6 +9,7 @@ class FleteController extends Controller
 {
     const PAGINATION = 5;
 
+
     public function index(Request $request)
     {
         $buscarpor = $request->get('buscarpor');

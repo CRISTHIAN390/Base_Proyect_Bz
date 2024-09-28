@@ -40,5 +40,13 @@ create table DetalleFV(
     FOREIGN KEY (idflete) REFERENCES Flete(idflete),
     FOREIGN KEY (idviatico) REFERENCES Viatico(idviatico)
 );
-
+create table Vehiculo(
+    idvehiculo int AUTO_INCREMENT,
+    placa VARCHAR(50) NOT NULL UNIQUE,
+    marca VARCHAR(50) NOT NULL,
+    descripcion VARCHAR(200) NOT NULL,
+    fecha_registro DATE DEFAULT CURDATE(),
+    estado tinyint,
+    PRIMARY KEY (idvehiculo)
+);
 

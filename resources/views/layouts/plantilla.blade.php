@@ -152,7 +152,7 @@
                             </a>
                             <ul>
                                 <li><a href="#">Registro</a></li>
-                                <li><a href="#">Lista de Vehiculos</a></li>
+                                <li><a href="{{ route('vehiculo.index') }}">Lista de Vehiculos</a></li>
                             </ul>
                         </li>
                         <li class="submenu">
@@ -169,7 +169,8 @@
                             <a href="javascript:void(0);"><img src="/assets/img/icons/time.svg"
                                     alt="img"><span>Flujo Operativo</span> <span class="menu-arrow"></span></a>
                             <ul>
-                                <li><a href="{{ route('detalleFV.index') }}">Gastos/Ingresos</a></li>
+                                <li><a href="{{ route('detalleFV.index') }}">Gastos/Pagos</a></li>
+                                <li><a href="#">Detalle Vehicular</a></li>
                             </ul>
                         </li>
                         <li class="submenu">

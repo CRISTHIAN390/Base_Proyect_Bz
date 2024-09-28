@@ -8,7 +8,7 @@
                 <div class="dash-count">
                     <div class="dash-counts">
                         <h4>{{ $totalIngreso }}</h4>
-                        <h5>Ingresos</h5>
+                        <h5>Pagos</h5>
                     </div>
                     <div class="dash-imgs">
                         <i data-feather="dollar-sign"></i>
@@ -65,7 +65,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Gastos</div>
+                        <div class="card-title">Gastos en Viaticos</div>
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-end align-items-center">
@@ -87,7 +87,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Ingresos</div>
+                        <div class="card-title">Pagos</div>
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-end align-items-center">

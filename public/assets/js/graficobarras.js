@@ -26,7 +26,7 @@ function renderGastosChart(data) {
 function renderIngresosChart(data) {
     Highcharts.chart('contenedorgrafico2', {
         chart: { type: 'column' },
-        title: { text: 'Ingresos por Mes', align: 'left' },
+        title: { text: 'Pagos por Mes', align: 'left' },
         xAxis: {
             categories: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto',
                          'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
@@ -41,7 +41,7 @@ function renderIngresosChart(data) {
         plotOptions: {
             column: { pointPadding: 0.2, borderWidth: 0 }
         },
-        series: [{ name: 'Ingresos', data: data }]
+        series: [{ name: 'Pagos', data: data }]
     });
 }
 
@@ -72,7 +72,7 @@ function renderIGChart(dataG,dataI) {
                 }
             },
             series: [
-                { name: 'Ingresos', data: dataI },
+                { name: 'Pagos', data: dataI },
                  { name: 'Gastos', data: dataG }
                 ]
         });
