@@ -4,101 +4,135 @@
 @section('contenido')
 
     <div class="container">
-        <div class="page-header d-flex justify-content-between align-items-center">
+        <div class="page-header d-flex justify-content-between align-items-center mb-4">
             <div class="page-title">
-                <h4>Lista de Detalles de fletes</h4>
+                <h4 class="text-primary fw-bold">Lista de Detalles de Fletes</h4>
             </div>
 
             <div class="d-flex align-items-center">
-                <!-- Botón para abrir el modal -->
-                <button type="button" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#nuevoDetalleModal">
-                    <img src="/assets/img/icons/plus.svg" alt="img" class="me-2">Nuevo
+                <button type="button" class="btn btn-primary shadow" data-bs-toggle="modal" data-bs-target="#nuevoDetalleModal">
+                    <img src="/assets/img/icons/plus.svg" alt="Nuevo" class="me-2">Nuevo
                 </button>
             </div>
         </div>
-        <script>
-            $(document).ready(function() {
-                $('#idflete').select2({
-                    allowClear: true,
-                    width: '100%' // Ajusta el ancho según tu diseño
-                });
-                $('#idviatico').select2({
-                    allowClear: true,
-                    width: '100%' // Ajusta el ancho según tu diseño
-                });
-                $('#idempleado').select2({
-                    allowClear: true,
-                    width: '100%' // Ajusta el ancho según tu diseño
-                });
-            });
-        </script>
-        <nav class="navbar navbar-light float-right">
-            <div class="d-flex flex-column align-items-start">
-                <form class="form" method="GET" id="search-form">
 
-                    <div class="form-group mb-3">
-                        <label for="idempleado">Colaboradores:</label>
-                        <select   class='form-control' name="idempleado" id="idempleado">
-                            <option value="" selected disabled>Seleccionar un colaborador</option>
-                            @foreach ($empleados as $itempleado)
-                                <option value="{{ $itempleado->idempleado }}">{{ $itempleado->nombres }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+        <nav class="navbar navbar-light bg-light p-3 rounded shadow-sm">
+            <div class="container-fluid">
+                <form class="form" method="GET" id="search-form">
                     <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label for="idflete">Fletes:</label>
-                            <select class='form-control' name="idflete" id="idflete">
+                        <!-- Primera fila: Colaboradores -->
+                        <div class="col-md-6 mb-3">
+                            <label for="idempleado" class="form-label">Colaboradores:</label>
+                            <select class="form-select" name="idempleado" id="idempleado">
+                                <option value="" selected disabled>Seleccionar un colaborador</option>
+                                @foreach ($empleados as $itempleado)
+                                    <option value="{{ $itempleado->idempleado }}">{{ $itempleado->nombres }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- Segunda fila: Fletes y Viáticos -->
+                        <div class="col-md-6 mb-3">
+                            <label for="idflete" class="form-label">Fletes:</label>
+                            <select class="form-select" name="idflete" id="idflete">
                                 <option value="" selected disabled>Seleccionar flete</option>
                                 @foreach ($fletes as $itemflete)
                                     <option value="{{ $itemflete->idflete }}">{{ $itemflete->nombre_flete }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-6">
-                            <label for="idviatico">Viáticos:</label>
-                            <select  class='form-control' name="idviatico" id="idviatico">
-                                <option value="" selected disabled>Seleccionar viatico</option>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6 mb-3">
+                            <label for="idviatico" class="form-label">Viáticos:</label>
+                            <select class="form-select" name="idviatico" id="idviatico">
+                                <option value="" selected disabled>Seleccionar viático</option>
                                 @foreach ($viaticos as $itemviatico)
-                                    <option value="{{ $itemviatico->idviatico }}">{{ $itemviatico->nombre_viatico }}
-                                    </option>
+                                    <option value="{{ $itemviatico->idviatico }}">{{ $itemviatico->nombre_viatico }}</option>
                                 @endforeach
                             </select>
                         </div>
-                    </div>
-                    <!-- Tercera fila: Fechas -->
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label for="fechaInicio">Fecha inicio:</label>
+
+                        <!-- Tercera fila: Fechas -->
+                        <div class="col-md-6 mb-3">
+                            <label for="fechaInicio" class="form-label">Fecha inicio:</label>
                             <input id="fechaInicio" name="fechaInicio" class="form-control" type="date"
-                                placeholder="Fecha inicio" value="{{ request('fechaInicio') }}">
+                                value="{{ request('fechaInicio') }}">
                         </div>
-                        <div class="col-md-6">
-                            <label for="fechaFin">Fecha fin:</label>
+                        <div class="col-md-6 mb-3">
+                            <label for="fechaFin" class="form-label">Fecha fin:</label>
                             <input id="fechaFin" name="fechaFin" class="form-control" type="date"
-                                placeholder="Fecha fin" value="{{ request('fechaFin') }}">
+                                value="{{ request('fechaFin') }}">
                         </div>
                     </div>
 
-                    <!-- Cuarta fila: Botones Filtrar y Limpiar -->
-                    <div class="form-group d-flex">
-                        <button type="submit" class="btn btn-primary me-2">Filtrar</button>
+                    <!-- Cuarta fila: Ordenar y Gasto/Ingreso -->
+                    <div class="row mb-3">
+                        <div class="col-md-6 d-flex align-items-center">
+                            <input type="checkbox" class="form-check-input me-2" id="ordenarPorFecha" name="ordenarPorFecha"
+                                value="1" {{ request('ordenarPorFecha') ? 'checked' : '' }}>
+                            <label class="form-check-label" for="ordenarPorFecha">Ordenar por fecha</label>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="tipoIG" class="form-label">Gasto/Ingreso:</label>
+                            <select class="form-select" name="tipoIG" id="tipoIG">
+                                <option value="" selected disabled>.:Flujo:.</option>
+                                <option value="1">Gasto</option>
+                                <option value="2">Ingreso</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Quinta fila: Botones -->
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-primary">Filtrar</button>
                         <a href="{{ route('detalleFV.index') }}" class="btn btn-secondary">Limpiar</a>
                     </div>
                 </form>
             </div>
         </nav>
-
+        <br>
+        <script>
+            $(document).ready(function() {
+                $('#idflete, #idviatico, #idempleado').select2({
+                    allowClear: true,
+                    width: '100%'
+                });
+            });
+        </script>
         <!-- Mensaje de confirmación -->
         @if (session('datos'))
             <div id="successMessage" class="alert alert-success mt-3">
                 {{ session('datos') }}
             </div>
         @endif
-
+        <style type="text/css">
+            .subtitulo {
+                font-size: 1rem;
+                /* Tamaño de fuente */
+                font-weight: bold;
+                /* Negrita */
+                color: #000000;
+                /* Color del texto */
+                margin-bottom: 1rem;
+                /* Espacio debajo del subtítulo */
+                display: block;
+                /* Asegura que el label ocupe toda la línea */
+            }
+        </style>
         <div class="row">
             <div class="col-12">
-                <label class="subtitulo">Gastos</label>
+
+                <label class="subtitulo">
+                    @if ($tipoIG == '1')
+                        Gastos
+                    @elseif($tipoIG == '2')
+                        Ingreso
+                    @else
+                        Gastos/Ingreso
+                    @endif
+                </label>
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive" id="empleadoTable">
@@ -108,7 +142,7 @@
                                         <th scope="col">N°</th>
                                         <th scope="col">Flete</th>
                                         <th scope="col">Viatico</th>
-                                        <th scope="col">Trabajador</th>
+                                        <th scope="col">Conductor</th>
                                         <th scope="col">Fecha</th>
                                         <th scope="col">Descripcion</th>
                                         <th scope="col">Importe</th>
@@ -116,143 +150,85 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (count($detalleGastos) <= 0)
+                                    @if ($detallegeneral->isEmpty())
                                         <tr>
                                             <td colspan="8"><i>:: NO HAY REGISTROS ::</i></td>
                                         </tr>
                                     @else
-                                        @php
-                                            $contadorg =($detalleGastos->currentPage() - 1) * $detalleGastos->perPage() + 1;
-                                        @endphp
-                                        @foreach ($detalleGastos as $itemGasto)
+                                        @php $contadorg = ($detallegeneral->currentPage() - 1) * $detallegeneral->perPage() + 1; @endphp
+                                        @foreach ($detallegeneral as $itemgeneral)
                                             <tr>
                                                 <td>{{ $contadorg++ }}</td>
-                                                <td>{{ $itemGasto->Flete->nombre_flete }}</td>
-                                                <td>{{ $itemGasto->Viatico->nombre_viatico }}</td>
-                                                <td>{{ $itemGasto->Empleado->nombres }}</td>
-                                                <td>{{ $itemGasto->fecha }}</td>
-                                                <td>{{ $itemGasto->descripcion }}</td>
-                                                <td>{{ $itemGasto->importe }}</td>
+                                                <td>{{ $itemgeneral->Flete->nombre_flete }}</td>
+                                                <td>{{ $itemgeneral->Viatico->nombre_viatico }}</td>
+                                                <td>{{ $itemgeneral->Empleado->nombres }}</td>
+                                                <td>{{ $itemgeneral->fecha }}</td>
+                                                <td>{{ $itemgeneral->descripcion }}</td>
+                                                <td>{{ $itemgeneral->importe }}</td>
                                                 <td>
                                                     <a class="me-3"
-                                                        href="{{ route('detalleFV.edit', $itemGasto->iddetallefv) }}">
+                                                        href="{{ route('detalleFV.edit', $itemgeneral->iddetallefv) }}">
                                                         <img src="/assets/img/icons/edit.svg" alt="img">
                                                     </a>
-                                                    <a class="me-3 delete" data-id="{{ $itemGasto->iddetallefv }}"
-                                                        data-importe="{{ $itemGasto->importe }}"
-                                                        data-descripcion="{{ $itemGasto->descripcion }}"
-                                                        data-tipoIG="{{ $itemGasto->tipoIG }}"
-                                                        data-fecha="{{ $itemGasto->fecha }}" data-bs-toggle="modal"
+                                                    <a class="me-3 delete" data-id="{{ $itemgeneral->iddetallefv }}"
+                                                        data-importe="{{ $itemgeneral->importe }}"
+                                                        data-descripcion="{{ $itemgeneral->descripcion }}"
+                                                        data-tipoIG="{{ $itemgeneral->tipoIG }}"
+                                                        data-fecha="{{ $itemgeneral->fecha }}" data-bs-toggle="modal"
                                                         data-bs-target="#eliminarDetalleModal">
                                                         <img src="/assets/img/icons/delete.svg" alt="img">
                                                     </a>
                                                 </td>
                                             </tr>
                                         @endforeach
-                                        <tr>
-                                            <td colspan="8"> Gasto total: {{ $totalGasto }}</td>
-                                        </tr>
-                                    @endif
-                                </tbody>
 
-                            </table>
-                            <!-- Paginación de Gastos -->
-                            {{ $detalleGastos->appends(request()->except('gastos_page'))->links() }}
-                            <br>
-                        </div>
-                    </div>
-                </div>
-                <style type="text/css">
-                    .subtitulo {
-                        font-size: 1rem;
-                        /* Tamaño de fuente */
-                        font-weight: bold;
-                        /* Negrita */
-                        color: #000000;
-                        /* Color del texto */
-                        margin-bottom: 1rem;
-                        /* Espacio debajo del subtítulo */
-                        display: block;
-                        /* Asegura que el label ocupe toda la línea */
-                    }
-                </style>
-                <label class="subtitulo">Ingresos</label>
-                <div class="card">
-                    <div class="card-body">
-                        <div class="table-responsive" id="empleadoTable">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">N°</th>
-                                        <th scope="col">Fecha</th>
-                                        <th scope="col">Descripcion</th>
-                                        <th scope="col">Importe</th>
-                                        <th scope="col">Opciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if (count($detalleIngresos) <= 0)
-                                        <tr>
-                                            <td colspan="5"><i>:: NO HAY REGISTROS ::</i></td>
-                                        </tr>
-                                    @else
-                                        @php
-                                            $contadori =
-                                                ($detalleIngresos->currentPage() - 1) * $detalleIngresos->perPage() + 1;
-                                        @endphp
-                                        @foreach ($detalleIngresos as $itemIngreso)
-                                            <tr>
-                                                <td>{{ $contadori++ }}</td>
-                                                <td>{{ $itemIngreso->fecha }}</td>
-                                                <td>{{ $itemIngreso->descripcion }}</td>
-                                                <td>{{ $itemIngreso->importe }}</td>
+                                        <!-- Mostrar filas basadas en el valor de $tipoIG -->
+                                        @if (empty($tipoIG))
+                                            <tr style="background-color: #d2d2d2">
+                                                <td colspan="2" class="text-right"><strong>Ingreso Total:</strong></td>
+                                                <td>{{ $totalIngreso }}</td>
+                                            </tr>
+                                            <tr style="background-color: #d2d2d2">
+                                                <td colspan="2" class="text-right"><strong>Gasto Total:</strong></td>
+                                                <td>{{ $totalGasto }}</td>
+                                            </tr>
+                                            @php
+                                                $diferencia = $totalIngreso - $totalGasto;
+                                                $colorClase = $diferencia < 0 ? 'text-danger' : 'text-primary';
+                                            @endphp
+                                            <tr style="background-color: #d2d2d2">
+                                                <td colspan="2" class="text-right"><strong>Diferencia:</strong></td>
+                                                <td class="{{ $colorClase }}">{{ $diferencia }}</td>
+                                            </tr>
+                                        @else
+                                            <tr style="background-color: #d2d2d2">
+                                                <td colspan="2" class="text-right"><strong>
+                                                        @if ($tipoIG == '1')
+                                                            Gasto Total:
+                                                        @elseif($tipoIG == '2')
+                                                            Ingreso Total:
+                                                        @endif
+                                                    </strong></td>
                                                 <td>
-                                                    <a class="me-3"
-                                                        href="{{ route('detalleFV.edit', $itemIngreso->iddetallefv) }}">
-                                                        <img src="/assets/img/icons/edit.svg" alt="img">
-                                                    </a>
-
-                                                    <a class="me-3 delete" data-id="{{ $itemIngreso->iddetallefv }}"
-                                                        data-importe="{{ $itemIngreso->importe }}"
-                                                        data-descripcion="{{ $itemIngreso->descripcion }}"
-                                                        data-tipoIG="{{ $itemIngreso->tipoIG }}"
-                                                        data-fecha="{{ $itemIngreso->fecha }}" data-bs-toggle="modal"
-                                                        data-bs-target="#eliminarDetalleModal">
-                                                        <img src="/assets/img/icons/delete.svg" alt="img">
-                                                    </a>
+                                                    @if ($tipoIG == '1')
+                                                        {{ $totalGasto }}
+                                                    @elseif($tipoIG == '2')
+                                                        {{ $totalIngreso }}
+                                                    @endif
                                                 </td>
                                             </tr>
-                                        @endforeach
-                                        <tr>
-                                            <td colspan="5"> Ingreso total: {{ $totalIngreso }}</td>
-                                        </tr>
+                                        @endif
                                     @endif
                                 </tbody>
+
                             </table>
-                            <!-- Paginación de Ingresos -->
-                            {{ $detalleIngresos->appends(request()->except('ingresos_page'))->links() }}
+                            {{ $detallegeneral->appends(request()->except('general_page'))->links() }}
                             <br>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
-        @if ($fechaInicio != null  && $fechaFin != null)
-        
-            <div class="row">
-                <div class="col-12" style="display: flex; justify-content: center; align-items: center;">
-                    <span style="margin-right: 10px; font-weight: bold;">
-                        {{ $totalGasto > $totalIngreso ? 'Rendición en contra' : 'Rendición a favor' }}
-                    </span>
-                    <button
-                        style="background-color: {{ $totalGasto > $totalIngreso ? '#F44E4E' : '#03E33E' }}; color: black; border: none; padding: 10px 20px; font-weight: bold;">
-                        {{ $totalIngreso - $totalGasto }}
-                    </button>
-                </div>
-            </div>
-            
-        @endif
     </div>
     <!-- Ocultar el mensaje -->
     <script>
@@ -277,9 +253,9 @@
                     <form id="nuevoDetalleForm" method="POST" action="{{ route('detalleFV.store') }}">
                         @csrf
                         <div class="mb-3">
-                            <label for="idempleado" class="form-label">Trabajador</label>
+                            <label for="idempleado" class="form-label">Conductor</label>
                             <select class="form-select" id="idempleado" name="idempleado" required>
-                                <option value="">Seleccione un Trabajador</option>
+                                <option value="">Seleccione un Conductor</option>
                                 @foreach ($empleados as $empleado)
                                     <option value="{{ $empleado->idempleado }}">{{ $empleado->nombres }}</option>
                                 @endforeach

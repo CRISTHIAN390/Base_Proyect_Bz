@@ -1,6 +1,6 @@
-drop database if exists bdFletes;
-create database bdFletes;
-use bdFletes;
+drop database if exists bdFletess;
+create database bdFletess;
+use bdFletess;
 
 create table Empleado(
     idempleado int AUTO_INCREMENT,

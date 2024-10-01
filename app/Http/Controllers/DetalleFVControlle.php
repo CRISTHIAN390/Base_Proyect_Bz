@@ -25,9 +25,14 @@ class DetalleFVControlle extends Controller
         $idflete = $request->get('idflete');
         $idviatico = $request->get('idviatico');
 
+        $ordenarPorFecha = $request->get('ordenarPorFecha'); // Nuevo checkbox
+        $tipoIG = $request->get('tipoIG');
         // Inicializar consulta base
         $query = DetalleFV::query();
 
+        if ($tipoIG) {
+            $query->where('tipoIG', $tipoIG);
+        }
         // Filtrar por rango de fechas si se proporcionan
         if ($fechaInicio && $fechaFin) {
             $query->whereBetween('fecha', [$fechaInicio, $fechaFin]);
@@ -47,7 +52,10 @@ class DetalleFVControlle extends Controller
         if ($idviatico) {
             $query->where('idviatico', $idviatico);
         }
-
+        // Ordenar por fecha si el checkbox está marcado
+        if ($ordenarPorFecha) {
+            $query->orderBy('fecha', 'asc');
+        }
         // consulta para el gasto total
         $totalGasto = (clone $query)
         ->where('tipoIG', '=', 1)
@@ -70,7 +78,16 @@ class DetalleFVControlle extends Controller
             ->where('tipoIG', '=', 2)->where('estado', '=', 1)
             ->paginate(self::PAGINATION, ['*'], 'ingresos_page');
 
-        return view('detalleFV.index', compact('detalleGastos', 'detalleIngresos', 'fechaInicio', 'fechaFin', 'idflete', 'idviatico', 'fletes', 'viaticos', 'empleados','totalGasto', 'totalIngreso'));
+        $importexfiltrado = (clone $query)
+            ->where('estado', '=', 1)
+            ->sum('importe');
+
+        // Obtener detalles generales con paginación
+        $detallegeneral = (clone $query)
+            ->where('estado', '=', 1)
+            ->paginate(self::PAGINATION, ['*'], 'general_page');
+
+        return view('detalleFV.index', compact('ordenarPorFecha','importexfiltrado','detallegeneral','detalleGastos', 'detalleIngresos', 'fechaInicio', 'fechaFin', 'idflete', 'idviatico', 'fletes', 'viaticos', 'empleados','totalGasto', 'totalIngreso','tipoIG', 'ordenarPorFecha'));
     }
 
     public function store(Request $request)

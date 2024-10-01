@@ -2,6 +2,7 @@
 @section('titulo', 'dasss')
 
 @section('contenido')
+
     <div class="content">
         <div class="row">
             <div class="col-lg-3 col-sm-6 col-12 d-flex">
@@ -129,11 +130,12 @@
                 </div>
             </div>
         </div>
+
         <script>
             var gastosXmes = @json($gastosXmes);
             var ingresosXmes = @json($ingresosXmes);
         </script>
+    </div>
 
 
-
-    @endsection
+@endsection

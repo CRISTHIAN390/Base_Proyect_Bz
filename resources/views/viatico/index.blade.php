@@ -29,7 +29,7 @@
                  <div id="successMessage" class="alert alert-success mt-3">
                      {{ session('datos') }}
                  </div>
-                @endif   
+                @endif
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive" id="viaticoTable">
@@ -39,7 +39,7 @@
                             <tr>
                                 <th scope="col">N°</th>
                                 <th scope="col">Nombre</th>
-                                <th scope="col">Detalle</th>
+                                <th scope="col">Descripcion</th>
                                 <th scope="col">Estado</th>
                                 <th scope="col">Opciones</th>
                             </tr>
@@ -116,7 +116,7 @@
                             <input type="text" class="form-control" id="nombre_viatico" name="nombre_viatico" required>
                         </div>
                         <div class="mb-3">
-                            <label for="descripcion" class="form-label">Detalle</label>
+                            <label for="descripcion" class="form-label">Descripcion</label>
                             <textarea class="form-control" id="descripcion" name="descripcion" required></textarea>
                         </div>
                         <div class="d-flex justify-content-between">
@@ -151,7 +151,7 @@
                                 required>
                         </div>
                         <div class="mb-3">
-                            <label for="editarDescripcion" class="form-label">Detalle</label>
+                            <label for="editarDescripcion" class="form-label">Descripcion</label>
                             <textarea class="form-control" id="editarDescripcion" name="descripcion" required></textarea>
                         </div>
                         <div class="mb-3">
