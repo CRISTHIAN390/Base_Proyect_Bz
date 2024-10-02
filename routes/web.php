@@ -59,6 +59,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile/delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/profile/lista', [ProfileController::class, 'listauser'])->name('listauser');
+    Route::put('/usuarios/rolstate', [ProfileController::class, 'updateUserRole'])->name('editRolState');
+
 });
 
 require __DIR__.'/auth.php';

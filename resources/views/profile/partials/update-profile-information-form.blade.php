@@ -16,6 +16,7 @@
                 required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
+        
         <!-- Campo de rol -->
         <div class="mb-4">
             <x-input-label for="rol" :value="__('Rol:')" />
@@ -47,7 +48,6 @@
                 </div>
             @endif
         </div>
-
         <!-- Botón de guardar y mensaje de éxito -->
         <div class="flex items-center gap-4 mt-6">
             <button class="bg-green-600 hover:bg-green-0 text-black font-semibold py-2 px-4 rounded-md">
