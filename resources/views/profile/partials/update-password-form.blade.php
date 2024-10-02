@@ -1,12 +1,5 @@
 <section class="max-w-md mx-auto p-6 bg-white rounded-md shadow-md">
-    <header class="mb-4">
-        <h2 class="text-xl font-bold text-gray-900">
-            {{ __('Actualizar Clave') }}
-        </h2>
-        <p class="text-sm text-gray-600">
-            {{ __('Datos:') }}
-        </p>
-    </header>
+ 
 
     <form method="post" action="{{ route('password.update') }}" class="space-y-6">
         @csrf

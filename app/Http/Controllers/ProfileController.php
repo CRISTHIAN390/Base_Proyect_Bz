@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Rol;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
-
+use App\Models\User;
 class ProfileController extends Controller
 {
     /**
@@ -56,5 +57,13 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+    
+    const PAGINATION = 5;
+    public function listauser(Request $request){
+        $roles=Rol::all();
+        $buscarpor = $request->get('buscarpor');
+        $usuarios=User::where('name', 'like', '%' . $buscarpor . '%')->paginate(self::PAGINATION);
+        return view('auth.index', compact('usuarios', 'buscarpor','roles'));
     }
 }

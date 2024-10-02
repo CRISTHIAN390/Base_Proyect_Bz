@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -11,12 +12,22 @@ return new class extends Migration
      */
     public function up(): void
     {
+        //tabla Rol
+        Schema::create('rol', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->integer('state');
+        });
+        //usuario 
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->unsignedBigInteger('idrol');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->boolean('state');
+            $table->foreign('idrol')->references('id')->on('rol')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });
@@ -35,6 +46,22 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
+
+        // Insertar roles en la tabla rol
+        DB::table('rol')->insert([
+            ['name' => 'admin', 'state' => 1],
+            ['name' => 'invitado', 'state' => 1],
+            ['name' => 'contador', 'state' => 1],
+        ]);
+
+        // Insertar un usuario en la tabla users con idrol = 1
+        DB::table('users')->insert([
+            'name' => 'Admin',
+            'idrol' => 1, // Asignar rol "admin"
+            'email' => 'xcrissx12345@gmail.com',
+            'password' => bcrypt('12345678'), // Asegúrate de usar una contraseña encriptada
+            'state' => 1, // Activo por defecto
+        ]);
     }
 
     /**

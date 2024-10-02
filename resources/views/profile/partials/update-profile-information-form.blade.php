@@ -1,13 +1,4 @@
 <section>
-    <header class="mb-4">
-        <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Información del Usuario') }}
-        </h2>
-        <p class="mt-1 text-sm text-gray-600">
-            {{ __('Revisa y cambia la información:') }}
-        </p>
-    </header>
-
     <!-- Formulario para enviar verificación de correo -->
     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
         @csrf
@@ -21,16 +12,22 @@
         <!-- Campo de nombre -->
         <div class="mb-4">
             <x-input-label for="name" :value="__('Nombre:')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
-                :value="old('name', $user->name)" required autofocus autocomplete="name" />
+            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)"
+                required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
-
+        <!-- Campo de rol -->
+        <div class="mb-4">
+            <x-input-label for="rol" :value="__('Rol:')" />
+            <x-text-input id="rol" name="rol" type="text" class="mt-1 block w-full" :value="old('rol', $user->rol->name ?? 'Sin rol')"
+                readonly /> <!-- Campo de solo lectura -->
+            <x-input-error class="mt-2" :messages="$errors->get('rol')" />
+        </div>
         <!-- Campo de correo electrónico -->
         <div class="mb-4">
             <x-input-label for="email" :value="__('Correo:')" />
-            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full"
-                :value="old('email', $user->email)" required autocomplete="username" />
+            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)"
+                required autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !$user->hasVerifiedEmail())

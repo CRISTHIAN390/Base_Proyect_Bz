@@ -87,17 +87,18 @@
                             <div class="profileset">
                                 <span class="user-img"><img src="/assets/img/profiles/avator1.jpg" alt="">
                                     <span class="status online"></span></span>
-                                    <div class="profilesets">
-                                        <h6>{{ optional(Auth::user())->name ?? 'Invitado' }}</h6>
-                                        <h5>{{ optional(Auth::user())->name ? 'Admin' : 'Administrativo' }}</h5>
-                                    </div>
+                                <div class="profilesets">
+                                    <h6>{{ optional(Auth::user())->name ?? 'Invitado' }}</h6>
+                                    <h5>{{ optional(Auth::user()->rol)->name ?? 'Invitado' }}</h5>
+                                </div>
                             </div>
                             <hr class="m-0">
-                            <a class="dropdown-item" href="#"> <i class="me-2" data-feather="user"></i>
+                            <a class="dropdown-item" href="{{ route('profile.edit') }}"> <i class="me-2"
+                                    data-feather="user"></i>
                                 My Profile</a>
 
-                            <a class="dropdown-item" href="#"><i class="me-2"
-                                    data-feather="settings"></i>Settings</a>
+                            <!--    <a class="dropdown-item" href="#"><i class="me-2"
+                                    data-feather="settings"></i>Settings</a> -->
                             <hr class="m-0">
                             <a class="dropdown-item logout pb-0"><img src="/assets/img/icons/log-out.svg" class="me-2"
                                     alt="img">
@@ -117,7 +118,7 @@
                     aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="profile.html">My Profile</a>
-                    <a class="dropdown-item" href="generalsettings.html">Settings</a>
+                    <!-- <a class="dropdown-item" href="generalsettings.html">Settings</a>-->
                     <a class="dropdown-item" href="signin.html">Logout</a>
                 </div>
             </div>
@@ -135,6 +136,21 @@
                                 <span>Inicio</span>
                             </a>
                         </li>
+
+                        @if (Auth::check() && Auth::user()->idrol === 1)
+                            <li class="submenu">
+                                <a href="javascript:void(0);">
+                                    <img src="/assets/img/icons/search.svg " alt="img">
+                                    <span> Usuarios</span>
+                                    <span class="menu-arrow"></span>
+                                </a>
+                                <ul>
+                                    <li><a href="{{ route('listauser') }}">Lista de usuarios</a></li>
+                                </ul>
+                            </li>
+                        @endif
+
+
                         <li class="submenu">
                             <a href="javascript:vVioid(0);"><img src="/assets/img/icons/users1.svg"
                                     alt="img"><span> Colaboradores</span> <span class="menu-arrow"></span></a>
