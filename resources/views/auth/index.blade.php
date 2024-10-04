@@ -46,7 +46,7 @@
                                             @if ($usuario->state == 1)
                                                 <span class="badges bg-lightgreen">Activo</span>
                                             @else
-                                                <span class="badges bg-lightred">Inactivo</span>
+                                                <span class="badges bg-lightred">Bloqueado</span>
                                             @endif
                                         </td>
                                         <td>
@@ -94,7 +94,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="editarUsuarioForm" method="post" action="{{ route('editRolState') }}">
+                <form id="editarUsuarioForm" method="post" action="">
                     @csrf
                     @method('put')
                     
@@ -102,12 +102,12 @@
                     
                     <div class="mb-3">
                         <label for="editarUsuarioName" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="editarUsuarioName" name="name" required>
+                        <input type="text" class="form-control" id="editarUsuarioName" name="name" disabled>
                     </div>
 
                     <div class="mb-3">
                         <label for="editarUsuarioEmail" class="form-label">Correo</label>
-                        <input type="email" class="form-control" id="editarUsuarioEmail" name="email" required>
+                        <input type="email" class="form-control" id="editarUsuarioEmail" name="email" disabled>
                     </div>
 
                     <div class="mb-3">
@@ -123,13 +123,13 @@
                         <label for="editarUsuarioState" class="form-label">Estado</label>
                         <select class="form-select" id="editarUsuarioState" name="state" required>
                             <option value="1">Activo</option>
-                            <option value="0">Inactivo</option>
+                            <option value="0">Bloqueado</option>
                         </select>
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                         <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                     </div>
                 </form>
             </div>
@@ -148,6 +148,10 @@
             const idrol = this.getAttribute('data-idrol');
             const state = this.getAttribute('data-state');
             
+
+            // Asignar el action dinámicamente con el id del usuario
+            document.getElementById('editarUsuarioForm').action = `/usuarios/rolstate/${id}`;
+
             // Llenar el formulario con los datos del usuario
             document.getElementById('editarUsuarioId').value = id;
             document.getElementById('editarUsuarioName').value = name;
