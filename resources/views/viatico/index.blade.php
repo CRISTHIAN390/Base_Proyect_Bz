@@ -154,6 +154,7 @@
                             <label for="editarDescripcion" class="form-label">Descripcion</label>
                             <textarea class="form-control" id="editarDescripcion" name="descripcion" required></textarea>
                         </div>
+                        @if (Auth::check() && Auth::user()->idrol === 1)
                         <div class="mb-3">
                             <label for="editarEstado" class="form-label">Estado</label>
                             <select class="form-select" id="editarEstado" name="estado" required>
@@ -161,6 +162,7 @@
                                 <option value="0">Inactivo</option>
                             </select>
                         </div>
+                        @endif
                         <div class="d-flex justify-content-between">
                             <button type="submit" class="btn btn-primary" id="editarViaticoBtn">Actualizar</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

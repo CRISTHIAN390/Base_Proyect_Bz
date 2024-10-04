@@ -22,9 +22,9 @@
                     <!-- Primera fila: Colaboradores -->
                     <div class="row col-12 align-items-center mb-3">
                         <div class="col-md-12">
-                            <label for="idempleado" class="form-label">Colaboradores:</label>
+                            <label for="idempleado" class="form-label">Transportista:</label>
                             <select class="form-select" name="idempleado" id="idempleado">
-                                <option value="" selected disabled>Seleccionar un colaborador</option>
+                                <option value="" selected disabled>Seleccionar</option>
                                 @foreach ($empleados as $itempleado)
                                     <option value="{{ $itempleado->idempleado }}">{{ $itempleado->nombres }}</option>
                                 @endforeach
@@ -189,10 +189,12 @@
                                     <tr class="table-secondary">
                                         <td colspan="6" class="text-end fw-bold">Ingreso Total:</td>
                                         <td>{{ $totalIngreso }}</td>
+                                        <td></td>
                                     </tr>
                                     <tr class="table-secondary">
                                         <td colspan="6" class="text-end fw-bold">Gasto Total:</td>
                                         <td>{{ $totalGasto }}</td>
+                                        <td></td>
                                     </tr>
                                     @php
                                         $diferencia = $totalIngreso - $totalGasto;
@@ -201,6 +203,7 @@
                                     <tr class="table-secondary">
                                         <td colspan="6" class="text-end fw-bold">Diferencia:</td>
                                         <td class="{{ $colorClase }}">{{ $diferencia }}</td>
+                                        <td></td>
                                     </tr>
                                 @else
                                     <tr class="table-secondary">
@@ -211,6 +214,7 @@
                                                 Ingreso Total:
                                             @endif
                                         </td>
+                                        
                                         <td>
                                             @if ($tipoIG == '1')
                                                 {{ $totalGasto }}

@@ -157,7 +157,7 @@
 
                             <ul>
                                 <li><a href="{{ route('empleado.create') }}">Registro</a></li>
-                                <li><a href="{{ route('empleado.index') }}">Lista de Colaboradores</a></li>
+                                <li><a href="{{ route('empleado.index') }}">Lista de Transportistas</a></li>
                             </ul>
                         </li>
                         <li class="submenu">

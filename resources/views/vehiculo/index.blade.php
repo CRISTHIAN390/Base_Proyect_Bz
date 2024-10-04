@@ -192,6 +192,7 @@
                         </div>
     
                         <!-- Campo de Estado -->
+                        @if (Auth::check() && Auth::user()->idrol === 1)
                         <div class="form-group mb-3">
                             <label for="editarEstado" class="form-label">Estado</label>
                             <select class="form-select" id="editarEstado" name="estado" required>
@@ -199,7 +200,7 @@
                                 <option value="0">Inactivo</option>
                             </select>
                         </div>
-    
+                        @endif
                         <!-- Botones -->
                         <div class="d-flex justify-content-between">
                             <button type="submit" class="btn btn-success" id="editarVehiculoBtn">Actualizar</button>
