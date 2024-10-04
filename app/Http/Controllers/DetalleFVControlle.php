@@ -10,9 +10,59 @@ use Illuminate\Http\Request;
 
 class DetalleFVControlle extends Controller
 {
-    const PAGINATION = 5;
+    const PAGINATION = 10;
+ 
+    public function create(){
+        $fletes = Flete::all();
+        $viaticos = Viatico::all();
+        $empleados = Empleado::all();
+        return view('detalleFV.create', compact('fletes', 'viaticos', 'empleados'));
+    }
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'idempleado' => 'required',
+            'idflete' => 'required',
+            'idviatico' => 'required',
+            'fecha.*' => 'required|date',
+            'importe.*' => 'required|numeric',
+            'descripcion.*' => 'required|max:200',
+            'tipoIG' => 'required',
+        ], [
+            'idempleado.required' => 'Seleccione el empleado',
+            'idflete.required' => 'Seleccione el flete',
+            'idviatico.required' => 'Seleccione el viático',
+            'fecha.required' => 'Ingrese la fecha',
+            'descripcion.required' => 'Ingrese la descripción',
+            'descripcion.max' => 'Máximo 200 caracteres',
+            'importe.required' => 'Ingrese el importe',
+            'tipoIG.required' => 'Seleccione el tipo de gasto/ingreso',
+        ]);
 
-    public function index(Request $request)
+       // Guardar múltiples registros de detalles
+       $descripciones = $request->input('descripcion');
+       $fechas = $request->input('fecha');
+       $importes = $request->input('importe');
+
+       foreach ($descripciones as $index => $descripcion) {
+        $detalle = new DetalleFV();
+        $detalle->idempleado = $request->idempleado;
+        $detalle->idflete = $request->idflete;
+        $detalle->idviatico = $request->idviatico;   
+        $detalle->tipoIG = $request->tipoIG;
+        $detalle->descripcion = $descripcion;
+        $detalle->fecha = $fechas[$index];   
+        $detalle->importe = $importes[$index];
+        $detalle->estado = 1;
+        $detalle->save();
+    }
+    return redirect()->route('detalleFV.index')->with('datos', '¡Se han guardado los registros correctamente!');
+}
+
+
+
+
+   public function index(Request $request)
     {
         $empleados = Empleado::all();
         $fletes = Flete::all();
@@ -90,38 +140,8 @@ class DetalleFVControlle extends Controller
         return view('detalleFV.index', compact('ordenarPorFecha','importexfiltrado','detallegeneral','detalleGastos', 'detalleIngresos', 'fechaInicio', 'fechaFin', 'idflete', 'idviatico', 'fletes', 'viaticos', 'empleados','totalGasto', 'totalIngreso','tipoIG', 'ordenarPorFecha'));
     }
 
-    public function store(Request $request)
-    {
-        $data = $request->validate([
-            'idempleado' => 'required',
-            'idflete' => 'required',
-            'idviatico' => 'required',
-            'fecha' => 'required',
-            'descripcion' => 'required|max:200',
-            'importe' => 'required',
-            'tipoIG' => 'required',
-        ], [
-            'idempleado.required' => 'Seleccione el empleado',
-            'idflete.required' => 'Seleccione el flete',
-            'idviatico.required' => 'Seleccione el viático',
-            'fecha.required' => 'Ingrese la fecha',
-            'descripcion.required' => 'Ingrese la descripción',
-            'descripcion.max' => 'Máximo 200 caracteres',
-            'importe.required' => 'Ingrese el importe',
-            'tipoIG.required' => 'Seleccione el tipo de gasto/ingreso',
-        ]);
-        $detalle = new DetalleFV();
-        $detalle->idempleado = $request->idempleado;
-        $detalle->idflete = $request->idflete;
-        $detalle->idviatico = $request->idviatico;
-        $detalle->fecha = $request->fecha;
-        $detalle->importe = $request->importe;
-        $detalle->tipoIG = $request->tipoIG;
-        $detalle->descripcion = $request->descripcion;
-        $detalle->estado = 1;
-        $detalle->save();
-        return redirect()->route('detalleFV.index')->with('datos', 'Su nuevo registro ha sido guardado!');
-    }
+
+
     public function update(Request $request, $id)
     {
         $data = $request->validate([
@@ -161,4 +181,6 @@ class DetalleFVControlle extends Controller
         $detalle = DetalleFV::findOrFail($id);
         return view('detalleFV.edit', compact('detalle', 'empleados', 'fletes', 'viaticos'));
     }
+
+
 }
