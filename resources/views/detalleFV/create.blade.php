@@ -51,18 +51,18 @@
             </div>
 
             <!-- Tabla de Detalles -->
-            <div class="card">
+            <div class="card shadow-sm" style="border-radius: 15px; background-color: #343a40; color: #f8f9fa;">
                 <div class="card-body">
-                    <h5 class="card-title">Detalle</h5>
+                    <h5 class="card-title text-center" style="color: #f8f9fa;">Lista</h5>
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">N°</th>
-                                    <th scope="col">Descripción</th>
-                                    <th scope="col">Fecha</th>
-                                    <th scope="col">Importe</th>
-                                    <th scope="col">Acción</th>
+                        <table class="table table-striped table-hover table-dark">
+                            <thead >
+                                <tr   >
+                                    <th scope="col" style="background: #f8f9fa">N°</th>
+                                    <th scope="col" style="background: #f8f9fa">Descripción</th>
+                                    <th scope="col" style="background: #f8f9fa">Fecha</th>
+                                    <th scope="col" style="background: #f8f9fa">Importe</th>
+                                    <th scope="col" style="background: #f8f9fa">Acción</th>
                                 </tr>
                             </thead>
                             <tbody id="detalleTableBody">
@@ -70,8 +70,8 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="3" class="text-end"><strong>Total</strong></td>
-                                    <td id="montoTotal">0.00</td>
+                                    <td colspan="3" class="text-end"><strong style="color: #f8f9fa;">Total</strong></td>
+                                    <td id="montoTotal" style="color: #f8f9fa;">0.00</td>
                                     <td></td>
                                 </tr>
                             </tfoot>
@@ -79,24 +79,26 @@
                     </div>
 
                     <!-- Importe, Descripción y Fecha -->
-                    <div class="row mb-3">
+                    <div class="row mb-4">
                         <div class="col-md-4">
-                            <label for="descripcionInput" class="form-label">Descripción</label>
-                            <input type="text" class="form-control" id="descripcionInput">
+                            <label for="descripcionInput" class="form-label" style="color: #c6cfd8;">Descripción</label>
+                            <input type="text" class="form-control" id="descripcionInput" style="border-radius: 10px;">
                         </div>
                         <div class="col-md-4">
-                            <label for="importeInput" class="form-label">Importe</label>
-                            <input type="number" class="form-control" id="importeInput" step="0.01">
+                            <label for="importeInput" class="form-label" style="color: #c6cfd8;">Importe</label>
+                            <input type="number" class="form-control" id="importeInput" step="0.01"
+                                style="border-radius: 10px;">
                         </div>
                         <div class="col-md-4">
-                            <label for="fechaInput" class="form-label">Fecha</label>
-                            <input type="date" class="form-control" id="fechaInput">
+                            <label for="fechaInput" class="form-label" style="color: #c6cfd8;">Fecha</label>
+                            <input type="date" class="form-control" id="fechaInput" style="border-radius: 10px;">
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <div class="col-md-12 d-flex justify-content-center">
-                            <button type="button" class="btn btn-primary" id="addDetalleBtn">Añadir a la lista</button>
+                            <button type="button" class="btn btn-primary" id="addDetalleBtn"
+                                style="border-radius: 10px; padding: 10px 20px;">Añadir</button>
                         </div>
                     </div>
                 </div>

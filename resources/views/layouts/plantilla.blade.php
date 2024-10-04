@@ -185,7 +185,8 @@
                             <a href="javascript:void(0);"><img src="/assets/img/icons/time.svg"
                                     alt="img"><span>Flujo Operativo</span> <span class="menu-arrow"></span></a>
                             <ul>
-                                <li><a href="{{ route('detalleFV.index') }}">Gastos/Pagos</a></li>
+                                <li><a href="{{ route('detalleFV.create') }}">Nuevo Registro </a></li>
+                                <li><a href="{{ route('detalleFV.index') }}">Ver Gastos/Pagos</a></li>
                                 <li><a href="#">Detalle Vehicular</a></li>
                             </ul>
                         </li>
