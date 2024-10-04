@@ -2,10 +2,11 @@
 @section('titulo', 'Crear Detalle')
 
 @section('contenido')
-    <div class="container">
-        <h5 class="mt-4">REGISTRO Gasto/Pago</h5>
+    <div class="container mt-4">
+        <h5 class="text-center mb-4">REGISTRO</h5>
         <form id="nuevoDetalleForm" method="POST" action="{{ route('detalleFV.store') }}">
             @csrf
+
             <!-- Conductor -->
             <div class="mb-3">
                 <label for="idempleado" class="form-label">Conductor</label>
@@ -42,22 +43,22 @@
             <!-- Fecha y Tipo G/I -->
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <label for="tipoIG" class="form-label">Tipo (G/I)</label>
+                    <label for="tipoIG" class="form-label">(Gasto/Pago)</label>
                     <select class="form-select" id="tipoIG" name="tipoIG" required>
+                        <option value="" selected disabled>Seleccione operacion</option>
                         <option value="1">Gasto</option>
-                        <option value="2">Ingreso</option>
+                        <option value="2">Pago</option>
                     </select>
                 </div>
             </div>
-
             <!-- Tabla de Detalles -->
             <div class="card shadow-sm" style="border-radius: 15px; background-color: #343a40; color: #f8f9fa;">
                 <div class="card-body">
                     <h5 class="card-title text-center" style="color: #f8f9fa;">Lista</h5>
                     <div class="table-responsive">
                         <table class="table table-striped table-hover table-dark">
-                            <thead >
-                                <tr   >
+                            <thead>
+                                <tr>
                                     <th scope="col" style="background: #f8f9fa">N°</th>
                                     <th scope="col" style="background: #f8f9fa">Descripción</th>
                                     <th scope="col" style="background: #f8f9fa">Fecha</th>
@@ -81,16 +82,16 @@
                     <!-- Importe, Descripción y Fecha -->
                     <div class="row mb-4">
                         <div class="col-md-4">
-                            <label for="descripcionInput" class="form-label" style="color: #c6cfd8;">Descripción</label>
+                            <label for="descripcionInput" class="form-label" style="color: #adb5bd;">Descripción</label>
                             <input type="text" class="form-control" id="descripcionInput" style="border-radius: 10px;">
                         </div>
                         <div class="col-md-4">
-                            <label for="importeInput" class="form-label" style="color: #c6cfd8;">Importe</label>
+                            <label for="importeInput" class="form-label" style="color: #adb5bd;">Importe</label>
                             <input type="number" class="form-control" id="importeInput" step="0.01"
                                 style="border-radius: 10px;">
                         </div>
                         <div class="col-md-4">
-                            <label for="fechaInput" class="form-label" style="color: #c6cfd8;">Fecha</label>
+                            <label for="fechaInput" class="form-label" style="color: #adb5bd;">Fecha</label>
                             <input type="date" class="form-control" id="fechaInput" style="border-radius: 10px;">
                         </div>
                     </div>
@@ -103,6 +104,7 @@
                     </div>
                 </div>
             </div>
+
 
             <!-- Guardar Registro -->
             <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-4">
