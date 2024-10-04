@@ -59,7 +59,7 @@ return new class extends Migration
             'name' => 'Admin',
             'idrol' => 1, // Asignar rol "admin"
             'email' => 'xcrissx12345@gmail.com',
-            'password' => bcrypt('12345678'), // Asegúrate de usar una contraseña encriptada
+            'password' => bcrypt('GEcristianv'), // Asegúrate de usar una contraseña encriptada
             'state' => 1, // Activo por defecto
         ]);
     }
