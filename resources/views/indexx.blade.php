@@ -52,11 +52,6 @@
             </div>
 
         </div>
-        <div class="row">
-            <div class="col-lg-3 col-sm-6 col-12 d-flex">
-                <a href="{{ route('Consultabot') }}" class="btn btn-secondary">Tefi AI</a>
-            </div>
-        </div><br>
         <script src="/assets/js/graficobarras.js"></script>
         <script src="https://code.highcharts.com/highcharts.js"></script>
         <script src="https://code.highcharts.com/modules/exporting.js"></script>

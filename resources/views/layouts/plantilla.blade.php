@@ -11,7 +11,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Sistema de control de fletes</title>
 
-    <link rel="shortcut icon" type="/image/x-icon" href="assets/img/favicon.jpg">
+    <link rel="shortcut icon" type="/image/x-icon" href="assets/img/avator1.png">
 
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
 
@@ -79,13 +79,13 @@
 
                 <li class="nav-item dropdown has-arrow main-drop">
                     <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
-                        <span class="user-img"><img src="/assets/img/profiles/avator1.jpg" alt="">
+                        <span class="user-img"><img src="/assets/img/profiles/avator1.png" alt="">
                             <span class="status online"></span></span>
                     </a>
                     <div class="dropdown-menu menu-drop-user">
                         <div class="profilename">
                             <div class="profileset">
-                                <span class="user-img"><img src="/assets/img/profiles/avator1.jpg" alt="">
+                                <span class="user-img"><img src="/assets/img/profiles/avator1.png" alt="">
                                     <span class="status online"></span></span>
                                 <div class="profilesets">
                                     <h6>{{ optional(Auth::user())->name ?? 'Invitado' }}</h6>
@@ -206,6 +206,36 @@
             <div class="content">
                 @yield('contenido')
             </div>
+            <style>
+                .chat-float {
+                    position: fixed;
+                    bottom: 20px; /* Ajusta la posición del botón de chat */
+                    right: 20px;
+                    background-color: #a1a1a1; /* Color azul para el chat */
+                    color: white;
+                    border-radius: 50%;
+                    padding: 10px;
+                    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+                    z-index: 1000; /* Asegúrate de que esté por encima de otros elementos */
+                  /* Ajusta el tamaño según lo desees */
+                    transition: background-color 0.3s ease; /* Efecto de transición */
+                }
+            
+                .chat-float:hover {
+                    background-color: #272727; /* Color más oscuro al pasar el mouse */
+                }
+            
+                .chat-float img {
+                    width: 50px; /* Ajusta el tamaño de la imagen si es necesario */
+                    height: 50px; /* Ajusta el tamaño de la imagen si es necesario */
+                }
+            </style>
+            
+            
+            <a href="{{ route('Consultabot') }}" class="chat-float" target="_blank">
+                <img src="/assets/img/icons/bot.png" alt="Chat" />
+            </a>
+ 
         </div>
     </div>
 

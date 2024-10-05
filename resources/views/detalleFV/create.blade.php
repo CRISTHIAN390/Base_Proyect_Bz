@@ -3,52 +3,74 @@
 
 @section('contenido')
     <div class="container mt-4">
-        <h5 class="text-center mb-4">REGISTRO</h5>
         <form id="nuevoDetalleForm" method="POST" action="{{ route('detalleFV.store') }}">
             @csrf
+            <style>
+                .text-center {
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                }
+                .mb-3 {
+                    margin-bottom: 1.5rem;
+                }
+                .mb-4 {
+                    margin-bottom: 2rem;
+                }
+            </style>
+            <div class="card" style=" border-radius: 15px;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);background-color: #f9f9f9;  padding: 20px;">
+ 
+                <div class="card-header text-center" 
+                style="background-color: #4aa0fc; color: #fff; border-radius: 15px 15px 0 0; padding: 20px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+               <h5 class="mb-0" style="font-size: 1.5rem; font-weight: bold; letter-spacing: 1px; text-transform: uppercase;">
+                   Registro de Gastos y Pagos
+               </h5>
+           </div>
 
-            <!-- Conductor -->
-            <div class="mb-3">
-                <label for="idempleado" class="form-label">Conductor</label>
-                <select class="form-select" id="idempleado" name="idempleado" required>
-                    <option value="" selected disabled>Seleccione un Conductor</option>
-                    @foreach ($empleados as $empleado)
-                        <option value="{{ $empleado->idempleado }}">{{ $empleado->nombres }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <!-- Flete -->
-            <div class="mb-3">
-                <label for="idflete" class="form-label">Flete</label>
-                <select class="form-select" id="idflete" name="idflete" required>
-                    <option value="" selected disabled>Seleccione un flete</option>
-                    @foreach ($fletes as $flete)
-                        <option value="{{ $flete->idflete }}">{{ $flete->nombre_flete }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <!-- Viático -->
-            <div class="mb-3">
-                <label for="idviatico" class="form-label">Viático</label>
-                <select class="form-select" id="idviatico" name="idviatico" required>
-                    <option value="" selected disabled>Seleccione un viático</option>
-                    @foreach ($viaticos as $viatico)
-                        <option value="{{ $viatico->idviatico }}">{{ $viatico->nombre_viatico }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <!-- Fecha y Tipo G/I -->
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label for="tipoIG" class="form-label">(Gasto/Pago)</label>
-                    <select class="form-select" id="tipoIG" name="tipoIG" required>
-                        <option value="" selected disabled>Seleccione operacion</option>
-                        <option value="1">Gasto</option>
-                        <option value="2">Pago</option>
-                    </select>
+                <div class="card-body">
+                    <!-- Conductor -->
+ 
+                    <div class="mb-3">
+                        <label for="idempleado" class="form-label" style=" font-weight: bold; color: #333;">Conductor</label>
+                        <select class="form-select" id="idempleado" name="idempleado" style=" border-radius: 8px;border: 1px solid #ccc; transition: border-color 0.3s ease;" required>
+                            <option value="" selected disabled>Seleccione un Conductor</option>
+                            @foreach ($empleados as $empleado)
+                                <option value="{{ $empleado->idempleado }}">{{ $empleado->nombres }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <!-- Flete -->
+                    <div class="mb-3">
+                        <label for="idflete" class="form-label" style=" font-weight: bold; color: #333;">Flete</label>
+                        <select class="form-select" id="idflete" name="idflete" style=" border-radius: 8px;border: 1px solid #ccc; transition: border-color 0.3s ease;" required>
+                            <option value="" selected disabled>Seleccione un Flete</option>
+                            @foreach ($fletes as $flete)
+                                <option value="{{ $flete->idflete }}">{{ $flete->nombre_flete }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+            
+                    <!-- Viático -->
+                    <div class="mb-3">
+                        <label for="idviatico" class="form-label" style=" font-weight: bold; color: #333;">Viático</label>
+                        <select class="form-select" id="idviatico" name="idviatico" style=" border-radius: 8px;border: 1px solid #ccc; transition: border-color 0.3s ease;" required>
+                            <option value="" selected disabled>Seleccione un Viático</option>
+                            @foreach ($viaticos as $viatico)
+                                <option value="{{ $viatico->idviatico }}">{{ $viatico->nombre_viatico }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+            
+                    <!-- Fecha y Tipo G/I -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="tipoIG" class="form-label" style=" font-weight: bold; color: #333;">(Gasto/Pago)</label>
+                            <select class="form-select" id="tipoIG" name="tipoIG" style=" border-radius: 8px;border: 1px solid #ccc; transition: border-color 0.3s ease;" required>
+                                <option value="" selected disabled>Seleccione Operación</option>
+                                <option value="1">Gasto</option>
+                                <option value="2">Pago</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- Tabla de Detalles -->
@@ -130,9 +152,6 @@
                 submitButton.disabled = true;
             }
         }
-
-
-
 
         // Función para añadir detalle a la tabla
         document.getElementById('addDetalleBtn').addEventListener('click', function(event) {

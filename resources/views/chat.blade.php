@@ -40,9 +40,17 @@
                 <span id="send-btn" class="material-symbols-rounded">send</span>
             </div>
             <div class="typing-controls">
-                <span id="theme-btn" class="material-symbols-rounded">light_mode</span>
-                <span id="delete-btn" class="material-symbols-rounded">delete</span>
-                <span id="logout-btn" class="material-symbols-rounded">logout</span>
+                <span id="theme-btn" class="material-symbols-rounded">
+                    light_mode
+                </span>
+                <span id="delete-btn" class="material-symbols-rounded">
+                    <a class="dropdown-item delete pb-0"><img src="/assets/img/icons/delete.svg" class="me-2"
+                            alt="img"></a>
+                </span>
+                <span id="logout-btn" class="material-symbols-rounded">
+                    <a class="dropdown-item logout pb-0"><img src="/assets/img/icons/log-out.svg" class="me-2"
+                            alt="img"></a>
+                </span>
             </div>
         </div>
     </div>
@@ -74,8 +82,8 @@
                 } else {
                     ChatContainer.html(`
                             <div class="Default-Text">
-                                <h1>Tefi AI</h1>
-                                <p>Consulta tus dudas ☺ !</p>
+                                <h1>Emanuel AI Assistant</h1>
+                                <p>Consult your questions!</p>
                             </div>
                         `);
                 }
@@ -122,7 +130,8 @@
             const TypyingAnimation = () => {
                 const html = `<div class="chat-content-box">
                                     <div class="chat-details">
-                                        <img src="https://i.ibb.co/crKsfZc/blue-modern-robotic-logo.png" alt="chatbot-image">
+                                        
+                                        <img src="/assets/img/robotic-logo.png" alt="chatbot-image" style="border-radius: 50%; width: 60px; height: 60px;">
                                         <div class="loading-dots-animation">
                                             <div class="loading-dot" style="--delay:0.2s;" ></div>
                                             <div class="loading-dot" style="--delay:0.3s;" ></div>
@@ -142,8 +151,7 @@
                 if (!UserPrompt) return;
                 const html = `<div class="chat-content-box">
                                         <div class="chat-details">
-                                       
-                                            <img src="/assets/img/profiles/avator1.jpg" alt="user-image">
+                                            <img src="/assets/img/profiles/avator1.png" alt="user-image" style="border-radius: 50%; width: 60px; height: 60px;">
                                             <p></p>
                                         </div>
                                     </div>`;

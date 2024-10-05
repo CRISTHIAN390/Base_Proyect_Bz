@@ -4,25 +4,27 @@
 @section('contenido')
 
     <div class="container">
+ 
         <div class="page-header d-flex justify-content-between align-items-center mb-4">
             <div class="page-title">
-                <h4 class="text-primary fw-bold">Lista de Detalles de los Fletes</h4>
+                <h3 class="  fw-bold">Lista de Operaciones</h3>
             </div>
-
+    
             <div class="d-flex align-items-center">
-                <a type="button" class="btn btn-added"href="{{ route('detalleFV.create') }}">
+                <a class="btn btn-added" href="{{ route('detalleFV.create') }}">
                     <img src="/assets/img/icons/plus.svg" alt="Nuevo" class="me-2">Nuevo
                 </a>
             </div>
+ 
         </div>
-
-        <nav class="navbar navbar-light bg-light p-3 rounded shadow-sm">
+    
+        <nav class="navbar navbar-light bg-light p-4 rounded shadow-sm mb-4">
             <div class="container-fluid">
                 <form class="form" method="GET" id="search-form">
                     <!-- Primera fila: Colaboradores -->
-                    <div class="row col-12 align-items-center mb-3">
+                    <div class="row mb-3">
                         <div class="col-md-12">
-                            <label for="idempleado" class="form-label">Transportista:</label>
+                            <label for="idempleado" class="form-label fw-bold">Transportista:</label>
                             <select class="form-select" name="idempleado" id="idempleado">
                                 <option value="" selected disabled>Seleccionar</option>
                                 @foreach ($empleados as $itempleado)
@@ -31,11 +33,11 @@
                             </select>
                         </div>
                     </div>
-
+    
                     <!-- Segunda fila: Fletes, Viáticos y Fechas -->
-                    <div class="row col-12 align-items-center mb-3">
+                    <div class="row mb-3">
                         <div class="col-lg-3">
-                            <label for="idflete" class="form-label">Fletes:</label>
+                            <label for="idflete" class="form-label fw-bold">Fletes:</label>
                             <select class="form-select" name="idflete" id="idflete">
                                 <option value="" selected disabled>Seleccionar flete</option>
                                 @foreach ($fletes as $itemflete)
@@ -44,30 +46,27 @@
                             </select>
                         </div>
                         <div class="col-lg-3">
-                            <label for="idviatico" class="form-label">Viáticos:</label>
+                            <label for="idviatico" class="form-label fw-bold">Viáticos:</label>
                             <select class="form-select" name="idviatico" id="idviatico">
                                 <option value="" selected disabled>Seleccionar viático</option>
                                 @foreach ($viaticos as $itemviatico)
-                                    <option value="{{ $itemviatico->idviatico }}">{{ $itemviatico->nombre_viatico }}
-                                    </option>
+                                    <option value="{{ $itemviatico->idviatico }}">{{ $itemviatico->nombre_viatico }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col-lg-3">
-                            <label for="fechaInicio" class="form-label">Fecha inicio:</label>
-                            <input id="fechaInicio" name="fechaInicio" class="form-control" type="date"
-                                value="{{ request('fechaInicio') }}">
+                            <label for="fechaInicio" class="form-label fw-bold">Fecha inicio:</label>
+                            <input id="fechaInicio" name="fechaInicio" class="form-control" type="date" value="{{ request('fechaInicio') }}">
                         </div>
                         <div class="col-lg-3">
-                            <label for="fechaFin" class="form-label">Fecha fin:</label>
-                            <input id="fechaFin" name="fechaFin" class="form-control" type="date"
-                                value="{{ request('fechaFin') }}">
+                            <label for="fechaFin" class="form-label fw-bold">Fecha fin:</label>
+                            <input id="fechaFin" name="fechaFin" class="form-control" type="date" value="{{ request('fechaFin') }}">
                         </div>
                     </div>
-
-                    <div class="row align-items-center mb-3">
+    
+                    <div class="row mb-3">
                         <div class="col-lg-3">
-                            <label for="tipoIG" class="form-label">Gasto/Ingreso:</label>
+                            <label for="tipoIG" class="form-label fw-bold">Gasto/Ingreso:</label>
                             <select class="form-select" name="tipoIG" id="tipoIG">
                                 <option value="" selected disabled>.:Flujo:.</option>
                                 <option value="1">Gasto</option>
@@ -75,17 +74,16 @@
                             </select>
                         </div>
                     </div>
-
+    
                     <div class="row mb-3">
                         <div class="col-md-4 d-flex align-items-center">
-                            <input type="checkbox" class="form-check-input me-2" id="ordenarPorFecha" name="ordenarPorFecha"
-                                value="1" {{ request('ordenarPorFecha') ? 'checked' : '' }}>
+                            <input type="checkbox" class="form-check-input me-2" id="ordenarPorFecha" name="ordenarPorFecha" value="1" {{ request('ordenarPorFecha') ? 'checked' : '' }}>
                             <label class="form-check-label" for="ordenarPorFecha">Ordenar por fecha</label>
                         </div>
                     </div>
-
+    
                     <!-- Quinta fila: Botones -->
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between mt-4">
                         <button type="submit" class="btn btn-primary">Filtrar</button>
                         <a href="{{ route('detalleFV.index') }}" class="btn btn-secondary">Limpiar</a>
                     </div>
@@ -142,7 +140,7 @@
                         <div class="table-responsive" id="empleadoTable">
                             <table class="table table-striped table-hover">
                                 <thead>
-                                    <tr>
+                                    <tr style="text-align: center">
                                         <th scope="col">N°</th>
                                         <th scope="col">Flete</th>
                                         <th scope="col">Viático</th>
