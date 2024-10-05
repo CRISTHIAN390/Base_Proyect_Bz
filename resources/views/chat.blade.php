@@ -28,29 +28,32 @@
 
 <body>
     <!-- chat-container for outgoing and outgoing chat-->
-    <div class="chat-container"></div>
+    <div class="row">
+
+        <div class=" col-12 chat-container"></div>
 
 
-    <!-- User Pormpt Input Container Starts Here -->
+        <!-- User Pormpt Input Container Starts Here -->
 
-    <div class="user-input-container">
-        <div class="user-input-content">
-            <div class="user-input-textarea">
-                <textarea id="chat-input" placeholder="Enter para enviar tu mensaje" required></textarea>
-                <span id="send-btn" class="material-symbols-rounded">send</span>
-            </div>
-            <div class="typing-controls">
-                <span id="theme-btn" class="material-symbols-rounded">
-                    light_mode
-                </span>
-                <span id="delete-btn" class="material-symbols-rounded">
-                    <a class="dropdown-item delete pb-0"><img src="/assets/img/icons/delete.svg" class="me-2"
-                            alt="img"></a>
-                </span>
-                <span id="logout-btn" class="material-symbols-rounded">
-                    <a class="dropdown-item logout pb-0"><img src="/assets/img/icons/log-out.svg" class="me-2"
-                            alt="img"></a>
-                </span>
+        <div class=" col-12 user-input-container">
+            <div class="user-input-content">
+                <div class="user-input-textarea">
+                    <textarea id="chat-input" placeholder="Enter para enviar tu mensaje" required></textarea>
+                    <span id="send-btn" class="material-symbols-rounded">send</span>
+                </div>
+                <div class="typing-controls">
+                    <span id="theme-btn" class="material-symbols-rounded">
+                        light_mode
+                    </span>
+                    <span id="delete-btn" class="material-symbols-rounded">
+                        <a class="dropdown-item delete pb-0"><img src="/assets/img/icons/delete.svg" class="me-2"
+                                alt="img"></a>
+                    </span>
+                    <span id="logout-btn" class="material-symbols-rounded">
+                        <a class="dropdown-item logout pb-0"><img src="/assets/img/icons/log-out.svg" class="me-2"
+                                alt="img"></a>
+                    </span>
+                </div>
             </div>
         </div>
     </div>
