@@ -32,7 +32,7 @@ create table DetalleFV(
     idviatico int,
     fecha DATE,
     descripcion varchar(200),
-    tipoIG int,
+    tipoIG int,   --Si es 1 es gasto  si es 2 es pago o ingreso
     importe DECIMAL(10, 2) DEFAULT 0.00,
     estado tinyint,
     PRIMARY KEY (iddetallefv),
