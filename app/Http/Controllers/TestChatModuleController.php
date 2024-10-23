@@ -151,8 +151,8 @@ class TestChatModuleController extends Controller
         private function isFechaQuery($prompt)
         {
             return Str::contains($prompt, [
-                'registros en la fecha', 'operaciones en la fecha', 'movimientos en la fecha',
-                'registros en el mes', 'operaciones en el mes', 'movimientos en el mes',
+               'quiero saber sobre los registros en la fecha', 'registros en la fecha', 'operaciones en la fecha', 'movimientos en la fecha',
+                'quiero saber sobre los registros en el mes','registros en el mes', 'operaciones en el mes', 'movimientos en el mes',"dame las operaciones del mes",
                 'registros en el año', 'operaciones en el año', 'movimientos en el año'
             ]);
         }
@@ -331,7 +331,5 @@ private function handleAnalysisQuery($prompt)
 
     return response()->json(['result' => $output]);
 }
-    
-
 
 }
