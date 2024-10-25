@@ -13,7 +13,7 @@ class ViaticoController extends Controller
     public function index(Request $request)
     {
         $buscarpor = $request->get('buscarpor');
-        $viatico = Viatico::where('nombre_viatico', 'like', '%' . $buscarpor . '%')->paginate($this::PAGINATION);
+        $viatico = Viatico::where('nombre_viatico', 'like', '%' . $buscarpor . '%')->where('estado','=','1')->paginate($this::PAGINATION);
 
         return view('viatico.index', compact('viatico', 'buscarpor'));
     }
@@ -50,7 +50,6 @@ class ViaticoController extends Controller
         $viatico = Viatico::findOrFail($idflete);
         $viatico->nombre_viatico = $request->nombre_viatico;
         $viatico->descripcion = $request->descripcion;
-        $viatico->estado = $request->estado;
         $viatico->save();
 
         return redirect()->route('viatico.index')->with('datos', '¡Su registro ha sido actualizado!');

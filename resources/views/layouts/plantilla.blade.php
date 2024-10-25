@@ -167,7 +167,6 @@
                                 <span class="menu-arrow"></span>
                             </a>
                             <ul>
-                                <li><a href="#">Registro</a></li>
                                 <li><a href="{{ route('vehiculo.index') }}">Lista de Vehiculos</a></li>
                             </ul>
                         </li>

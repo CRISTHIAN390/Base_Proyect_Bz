@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +9,6 @@
     <!-- Estilos del chat -->
     <link rel="stylesheet" href="/assets/css/styleschat.css">
 
-    <!-- FavIcon Added Here -->
 
     <!-- Link For Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

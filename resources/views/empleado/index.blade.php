@@ -45,7 +45,7 @@
                                 <th scope="col">Nombres</th>
                                 <th scope="col">Celular</th>
                                 <th scope="col">Dni</th>
-                                <th scope="col">Estado</th>
+                            
                                 <th scope="col">Opciones</th>
                             </tr>
                         </thead>
@@ -63,19 +63,12 @@
                                         <td>{{ $itemcliente->celular }}</td>
                                         <td>{{ $itemcliente->dni }}</td>
                                         <td>
-                                            @if ($itemcliente->estado == 1)
-                                                <span class="badges bg-lightgreen">Activo</span>
-                                            @else
-                                                <span class="badges bg-lightred">Inactivo</span>
-                                            @endif
-                                        </td>
-                                        <td>
                                             <a class="me-3 edit" data-id="{{ $itemcliente->idempleado }}"
                                                 data-apellidos="{{ $itemcliente->apellidos }}"
                                                 data-nombres="{{ $itemcliente->nombres }}"
                                                 data-celular="{{ $itemcliente->celular }}"
                                                 data-dni="{{ $itemcliente->dni }}"
-                                                data-estado="{{ $itemcliente->estado }}" data-bs-toggle="modal"
+                                                data-bs-toggle="modal"
                                                 data-bs-target="#editarEmpleadoModal">
                                                 <img src="/assets/img/icons/edit.svg" alt="img">
                                             </a>
@@ -131,15 +124,6 @@
                                 required>
                         </div>
 
-                        @if (Auth::check() && Auth::user()->idrol === 1)
-                        <div class="mb-3">
-                            <label for="editarEstado" class="form-label">Estado</label>
-                            <select class="form-select" id="editarEstado" name="estado" required>
-                                <option value="1">Activo</option>
-                                <option value="0">Inactivo</option>
-                            </select>
-                        </div>
-                        @endif
 
                         <div class="d-flex justify-content-between">
                             <button type="submit" class="btn btn-primary" id="editarEmpleadoBtn">Actualizar</button>
@@ -213,7 +197,6 @@
                 let nombres = this.getAttribute('data-nombres');
                 let celular = this.getAttribute('data-celular');
                 let dni = this.getAttribute('data-dni');
-                let estado = this.getAttribute('data-estado');
 
                 // Asignar los valores a los campos del modal de edición
                 document.getElementById('editarEmpleadoId').value = idempleado;
@@ -222,10 +205,6 @@
                 document.getElementById('editarCelular').value = celular;
                 document.getElementById('editarDni').value = dni;
             
-                // Seleccionar la opción correspondiente en el campo de estado
-                const selectEstado = document.getElementById('editarEstado');
-                selectEstado.value = estado === '1' ? '1' : '0';
-
                 // Actualizar la acción del formulario para que apunte a la ruta correcta
                 document.getElementById('editarEmpleadoForm').action = `/empleado/${idempleado}`;
             });

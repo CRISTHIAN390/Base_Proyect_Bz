@@ -13,7 +13,7 @@ class EmpleadoController extends Controller
     public function index(Request $request)
     {
         $buscarpor = $request->get('buscarpor');
-        $empleado = Empleado::where('apellidos', 'like', '%' . $buscarpor . '%')->paginate($this::PAGINATION);
+        $empleado = Empleado::where('apellidos', 'like', '%' . $buscarpor . '%')->where('estado','=','1')->paginate($this::PAGINATION);
 
         return view('empleado.index', compact('empleado', 'buscarpor'));
     }
@@ -76,7 +76,6 @@ class EmpleadoController extends Controller
         $empleado->nombres = $request->nombres;
         $empleado->celular = $request->celular;
         $empleado->dni = $request->dni;
-        $empleado->estado = $request->estado;
         $empleado->save();
 
         return redirect()->route('empleado.index')->with('datos', '¡Su registro ha sido actualizado!');

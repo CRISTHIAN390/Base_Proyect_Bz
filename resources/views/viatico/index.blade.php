@@ -40,7 +40,6 @@
                                 <th scope="col">N°</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Descripcion</th>
-                                <th scope="col">Estado</th>
                                 <th scope="col">Opciones</th>
                             </tr>
                         </thead>
@@ -56,17 +55,10 @@
                                         <td>{{ $itemviatico->nombre_viatico }}</td>
                                         <td>{{ $itemviatico->descripcion }}</td>
                                         <td>
-                                            @if ($itemviatico->estado == 1)
-                                                <span class="badges bg-lightgreen">Activo</span>
-                                            @else
-                                                <span class="badges bg-lightred">Inactivo</span>
-                                            @endif
-                                        </td>
-                                        <td>
                                             <a class="me-3 edit" data-id="{{ $itemviatico->idviatico }}"
                                                 data-nombre="{{ $itemviatico->nombre_viatico }}"
                                                 data-descripcion="{{ $itemviatico->descripcion }}"
-                                                data-estado="{{ $itemviatico->estado }}" data-bs-toggle="modal"
+                                                data-bs-toggle="modal"
                                                 data-bs-target="#editarViaticoModal">
                                                 <img src="/assets/img/icons/edit.svg" alt="img">
                                             </a>
@@ -129,7 +121,6 @@
         </div>
     </div>
 
-
     <!-- Modal Editar -->
     <div class="modal fade" id="editarViaticoModal" tabindex="-1" aria-labelledby="editarViaticoModalLabel"
         aria-hidden="true">
@@ -154,15 +145,6 @@
                             <label for="editarDescripcion" class="form-label">Descripcion</label>
                             <textarea class="form-control" id="editarDescripcion" name="descripcion" required></textarea>
                         </div>
-                        @if (Auth::check() && Auth::user()->idrol === 1)
-                        <div class="mb-3">
-                            <label for="editarEstado" class="form-label">Estado</label>
-                            <select class="form-select" id="editarEstado" name="estado" required>
-                                <option value="1">Activo</option>
-                                <option value="0">Inactivo</option>
-                            </select>
-                        </div>
-                        @endif
                         <div class="d-flex justify-content-between">
                             <button type="submit" class="btn btn-primary" id="editarViaticoBtn">Actualizar</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -228,10 +210,6 @@
                     document.getElementById('editarViaticoId').value = idviatico;
                     document.getElementById('editarNombre_viatico').value = nombre;
                     document.getElementById('editarDescripcion').value = descripcion;
-                    // Seleccionar la opción correspondiente en el campo de estado
-                    const selectEstado = document.getElementById('editarEstado');
-                    selectEstado.value = estado === '1' ? '1' : '0';
-
                     // Actualizar la acción del formulario para que apunte a la ruta correcta
                     document.getElementById('editarViaticoForm').action = `/viatico/${idviatico}`;
                 });

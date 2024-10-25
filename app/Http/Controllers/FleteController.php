@@ -13,7 +13,7 @@ class FleteController extends Controller
     public function index(Request $request)
     {
         $buscarpor = $request->get('buscarpor');
-        $flete = Flete::where('nombre_flete', 'like', '%' . $buscarpor . '%')->paginate(self::PAGINATION);
+        $flete = Flete::where('nombre_flete', 'like', '%' . $buscarpor . '%')->where('estado','=','1')->paginate(self::PAGINATION);
         return view('flete.index', compact('flete', 'buscarpor'));
     }
 
@@ -51,7 +51,6 @@ class FleteController extends Controller
         $flete = Flete::findOrFail($idflete);
         $flete->nombre_flete = $request->nombre_flete;
         $flete->descripcion = $request->descripcion;
-        $flete->estado = $request->estado;
         $flete->save();
 
         return redirect()->route('flete.index')->with('datos', '¡Su registro ha sido actualizado!');
