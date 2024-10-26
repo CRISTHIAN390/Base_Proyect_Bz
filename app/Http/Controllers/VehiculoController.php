@@ -61,7 +61,6 @@ class VehiculoController extends Controller
         $vehiculo->marca = $request->marca;
         $vehiculo->descripcion = $request->descripcion;
         $vehiculo->fecha_registro = $request->fecha_registro;
-        $vehiculo->estado = $request->estado;
         $vehiculo->save();
 
         return redirect()->route('vehiculo.index')->with('datos', '¡El vehículo ha sido actualizado exitosamente!');

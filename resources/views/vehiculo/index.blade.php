@@ -37,7 +37,6 @@
                             <th scope="col">Marca</th>
                             <th scope="col">Descripción</th>
                             <th scope="col">Fecha de Registro</th>
-                            <th scope="col">Estado</th>
                             <th scope="col">Opciones</th>
                         </tr>
                     </thead>
@@ -58,17 +57,10 @@
                                     <td>{{ $itemvehiculo->descripcion }}</td>
                                     <td>{{ $itemvehiculo->fecha_registro }}</td>
                                     <td>
-                                        @if ($itemvehiculo->estado == 1)
-                                            <span class="badge bg-success">Activo</span>
-                                        @else
-                                            <span class="badge bg-danger">Inactivo</span>
-                                        @endif
-                                    </td>
-                                    <td>
                                         <a href="javascript:void(0);" class="text-primary me-2 edit" data-id="{{ $itemvehiculo->idvehiculo }}"
                                            data-placa="{{ $itemvehiculo->placa }}" data-marca="{{ $itemvehiculo->marca }}"
                                            data-descripcion="{{ $itemvehiculo->descripcion }}" data-fecha_registro="{{ $itemvehiculo->fecha_registro }}"
-                                           data-estado="{{ $itemvehiculo->estado }}" data-bs-toggle="modal" data-bs-target="#editarVehiculoModal">
+                                           data-bs-toggle="modal" data-bs-target="#editarVehiculoModal">
                                             <img src="/assets/img/icons/edit.svg" alt="Edit" >
                                         </a>
                                         <a href="{{ route('confirmar.vehiculo', $itemvehiculo->idvehiculo) }}" class="text-danger delete">
@@ -190,17 +182,6 @@
                             <label for="editarFecha_registro" class="form-label">Fecha de Registro</label>
                             <input type="date" class="form-control" id="editarFecha_registro" name="fecha_registro" required>
                         </div>
-    
-                        <!-- Campo de Estado -->
-                        @if (Auth::check() && Auth::user()->idrol === 1)
-                        <div class="form-group mb-3">
-                            <label for="editarEstado" class="form-label">Estado</label>
-                            <select class="form-select" id="editarEstado" name="estado" required>
-                                <option value="1">Activo</option>
-                                <option value="0">Inactivo</option>
-                            </select>
-                        </div>
-                        @endif
                         <!-- Botones -->
                         <div class="d-flex justify-content-between">
                             <button type="submit" class="btn btn-success" id="editarVehiculoBtn">Actualizar</button>
@@ -240,7 +221,7 @@
                 let marca = this.getAttribute('data-marca');
                 let descripcion = this.getAttribute('data-descripcion');
                 let fecha_registro = this.getAttribute('data-fecha_registro');
-                let estado = this.getAttribute('data-estado');
+               
 
                 // Asignar los valores a los campos del modal de edición
                 document.getElementById('editarVehiculoId').value = idvehiculo;
@@ -248,9 +229,6 @@
                 document.getElementById('editarMarca').value = marca;
                 document.getElementById('editarDescripcion').value = descripcion;
                 document.getElementById('editarFecha_registro').value = fecha_registro;
-                // Seleccionar la opción correspondiente en el campo de estado
-                const selectEstado = document.getElementById('editarEstado');
-                selectEstado.value = estado === '1' ? '1' : '0';
                 // Actualizar la acción del formulario para que apunte a la ruta correcta
                 document.getElementById('editarVehiculoForm').action = `/vehiculo/${idvehiculo}`;
             });
