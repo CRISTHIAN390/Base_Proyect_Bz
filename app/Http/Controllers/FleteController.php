@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class FleteController extends Controller
 {
-    const PAGINATION = 5;
+    const PAGINATION = 10;
 
 
     public function index(Request $request)

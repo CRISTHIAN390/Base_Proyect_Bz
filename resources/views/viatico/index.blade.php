@@ -49,9 +49,9 @@
                                     <td colspan="5"><i>:: NO HAY REGISTROS ::</i></td>
                                 </tr>
                             @else
-                                @foreach ($viatico as $itemviatico)
+                                @foreach ($viatico as $index => $itemviatico)
                                     <tr>
-                                        <td>{{ $itemviatico->idviatico }}</td>
+                                        <td>{{ $viatico->firstItem() + $index }}</td>
                                         <td>{{ $itemviatico->nombre_viatico }}</td>
                                         <td>{{ $itemviatico->descripcion }}</td>
                                         <td>

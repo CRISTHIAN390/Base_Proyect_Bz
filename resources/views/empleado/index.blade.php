@@ -55,9 +55,9 @@
                                     <td colspan="7"><i>:: NO HAY REGISTROS ::</i></td>
                                 </tr>
                             @else
-                                @foreach ($empleado as $itemcliente)
+                                @foreach ($empleado as $index => $itemcliente)
                                     <tr>
-                                        <td>{{ $itemcliente->idempleado }}</td>
+                                        <td>{{ $empleado->firstItem() + $index }}</td>
                                         <td>{{ $itemcliente->apellidos }}</td>
                                         <td>{{ $itemcliente->nombres }}</td>
                                         <td>{{ $itemcliente->celular }}</td>

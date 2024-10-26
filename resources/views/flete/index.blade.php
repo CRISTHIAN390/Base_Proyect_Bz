@@ -48,9 +48,9 @@
                                     <td colspan="5"><i>:: NO HAY REGISTROS ::</i></td>
                                 </tr>
                             @else
-                                @foreach ($flete as $itemflete)
+                                @foreach ($flete  as $index => $itemflete)
                                     <tr>
-                                        <td>{{ $itemflete->idflete }}</td>
+                                        <td>{{ $flete->firstItem() + $index }}</td>
                                         <td>{{ $itemflete->nombre_flete }}</td>
                                         <td>{{ $itemflete->descripcion }}</td>
                                         <td>

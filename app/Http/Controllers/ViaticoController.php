@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class ViaticoController extends Controller
 {
-    const PAGINATION=5; //tengo 20 datos se partira en 4 paginas
+    const PAGINATION=10;
 
 
     public function index(Request $request)
