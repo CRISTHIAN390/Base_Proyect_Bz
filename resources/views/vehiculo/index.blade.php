@@ -128,7 +128,7 @@
     
                         <!-- Campo de Fecha de Registro -->
                         <div class="form-group mb-3">
-                            <label for="fecha_registro" class="form-label">Fecha de Registro</label>
+                            <label for="fecha_registro" class="form-label">Fecha</label>
                             <input type="date" class="form-control" id="fecha_registro" name="fecha_registro" required>
                         </div>
     
@@ -192,7 +192,6 @@
             </div>
         </div>
     </div>
-    
     <script>
         document.getElementById('buscarpor').addEventListener('keyup', function() {
             let query = this.value;
