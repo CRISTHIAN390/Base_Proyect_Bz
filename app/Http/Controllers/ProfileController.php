@@ -66,7 +66,7 @@ class ProfileController extends Controller
     const PAGINATION = 5;
     public function listauser(Request $request)
     {
-        $roles = Rol::all()->where('id', '!=', 1);
+        $roles = Rol::all()->where('id', '!=', 1)->where('state', '=', 1);
         $buscarpor = $request->get('buscarpor');
         $usuarios = User::where('name', 'like', '%' . $buscarpor . '%')->where('idrol', '!=', '1')->paginate(self::PAGINATION);
         return view('auth.index', compact('usuarios', 'buscarpor', 'roles'));

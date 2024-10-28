@@ -10,7 +10,7 @@ class Rol extends Model
     use HasFactory, Notifiable;
     protected $table = 'rol';
     public $timestamps=false;
-    protected $primaryKey = 'idrol';
+    protected $primaryKey = 'id';
 
     protected $fillable = ['name', 'state'];
 

@@ -7,8 +7,16 @@
             <div class="page-title">
                 <h4>Lista de Usuarios</h4>
             </div>
-        </div>
 
+            <div class="d-flex align-items-center">
+            
+                <a href="{{ route('rol.index') }}" class="btn text-white" style="background-color: #ffc107;">
+                    <i class="bi bi-person-plus"></i> Ver Roles
+                </a>
+            </div>
+
+        </div>
+    
         <!-- Mensaje de confirmación -->
         @if (session('datos'))
             <div id="successMessage" class="alert alert-success mt-3">
