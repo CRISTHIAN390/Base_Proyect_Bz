@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DetalleFVControlle;
+use App\Http\Controllers\DetallcarController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\FleteController;
@@ -54,6 +55,10 @@ Route::post('/chat-fetch' , [TestChatModuleController::class , 'chat'])->name('c
 Route::resource('vehiculo', VehiculoController::class);
 Route::get('vehiculo/{id}/confirmar', [VehiculoController::class, 'confirmar'])->name('confirmar.vehiculo');
 Route::get('cancelarvehiculo', function(){return redirect()->route('vehiculo.index')->with('datos','¡ Acción Cancelada... !');})->name('cancelarvehiculo');
+
+//Detalles
+Route::resource('detallecar', DetallcarController::class);
+
 
 
 

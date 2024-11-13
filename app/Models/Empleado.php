@@ -18,4 +18,9 @@ class Empleado extends Model
     {
         return $this->hasMany(DetalleFV::class, 'idempleado','idempleado');
     }
+
+    public function detallecar()
+    {
+        return $this->hasMany(Detallcar::class, 'idempleado','idempleado');
+    }
 }

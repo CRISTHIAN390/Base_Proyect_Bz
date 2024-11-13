@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vehiculo extends Model
 {
+    use HasFactory;
     protected $table = 'vehiculo';
     public $timestamps=false;
     protected $primaryKey = 'idvehiculo';
-
     protected $fillable = [
     'placa', 
     'marca', 
@@ -18,9 +18,8 @@ class Vehiculo extends Model
     'fecha_registro',
     'estado'
 ];
-    // Relación con el modelo DetalleFV (un flete tiene muchos detalles)
-/*    public function detalles()
+    public function detallecar()
     {
-        return $this->hasMany(DetalleFV::class, 'idflete', 'idflete');
-    }*/
+        return $this->hasMany(Detallcar::class, 'idvehiculo','idvehiculo');
+    }
 }

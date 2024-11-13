@@ -50,3 +50,18 @@ create table Vehiculo(
     PRIMARY KEY (idvehiculo)
 );
 
+create table DetalleVehiculo(
+    iddetalleveh int AUTO_INCREMENT,
+    idvehiculo int,
+    idempleado int,
+    fecha DATE,
+    observacion varchar(200),
+    monto DECIMAL(10, 2) DEFAULT 0.00,
+    estado tinyint,
+    PRIMARY KEY (iddetalleveh),
+    FOREIGN KEY (idvehiculo) REFERENCES Vehiculo(idvehiculo),
+    FOREIGN KEY (idempleado) REFERENCES Empleado(idempleado)
+);
+
+
+
