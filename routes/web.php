@@ -58,6 +58,7 @@ Route::get('cancelarvehiculo', function(){return redirect()->route('vehiculo.ind
 
 //Detalles
 Route::resource('detallecar', DetallcarController::class);
+Route::get('cancelardetallecar', function(){return redirect()->route('detallecar.index')->with('datos','¡ Acción Cancelada... !');})->name('cancelardetallecar');
 
 
 

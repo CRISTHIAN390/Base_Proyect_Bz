@@ -92,15 +92,24 @@
                                             <td>{{ $itemgeneral->observacion }}</td>
                                             <td>{{ $itemgeneral->monto }}</td>
                                             <td>
-                                                
+                                                <a class="me-3 edit" data-id="{{ $itemgeneral->iddetalleveh }}"
+                                                    data-idvehiculo="{{ $itemgeneral->Vehiculo->idvehiculo }}"
+                                                    data-idempleado="{{ $itemgeneral->Empleado->idempleado }}"
+                                                    data-fecha="{{ $itemgeneral->fecha }}"
+                                                    data-observacion="{{ $itemgeneral->observacion }}"
+                                                    data-monto="{{ $itemgeneral->monto }}"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#editarEmpleadoModal">
+                                                    <img src="/assets/img/icons/edit.svg" alt="img">
+                                                </a>
+                                                <a class="me-3 delete"  href="{{ route('confirmar.empleado',$itemgeneral->Empleado->idempleado) }}">
+                                                    <img src="/assets/img/icons/delete.svg" alt="img">
+                                                </a>
                                             </td>
                                         </tr>
                                         @endforeach
                                     @endif
                                 </tbody>
-
-
-
                             </table><br>
                             <div
                                 style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
@@ -112,10 +121,7 @@
                 </div>
             </div>
         </div>
-
-
-        s
-
+ 
     </div>
     <!-- Ocultar el mensaje -->
     <script>
@@ -136,6 +142,28 @@
             });
         });
     </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
