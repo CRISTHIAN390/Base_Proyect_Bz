@@ -97,12 +97,15 @@
                                                     data-idempleado="{{ $itemgeneral->Empleado->idempleado }}"
                                                     data-fecha="{{ $itemgeneral->fecha }}"
                                                     data-observacion="{{ $itemgeneral->observacion }}"
-                                                    data-monto="{{ $itemgeneral->monto }}"
+                                                    data-monto="{{ $itemgeneral->monto }}" 
                                                     data-bs-toggle="modal"
-                                                    data-bs-target="#editarEmpleadoModal">
+                                                    data-bs-target="#editarDetallecarModal">
                                                     <img src="/assets/img/icons/edit.svg" alt="img">
                                                 </a>
-                                                <a class="me-3 delete"  href="{{ route('confirmar.empleado',$itemgeneral->Empleado->idempleado) }}">
+                                                <a class="me-3 delete" data-id="{{ $itemgeneral->iddetalleveh }}"
+                                                    data-idempleado="{{ $itemgeneral->Empleado->idempleado }}"
+                                                    data-idvehiculo="{{ $itemgeneral->Vehiculo->idvehiculo }}" data-bs-toggle="modal"
+                                                    data-bs-target="#eliminarDetallecarModal">
                                                     <img src="/assets/img/icons/delete.svg" alt="img">
                                                 </a>
                                             </td>
@@ -143,12 +146,124 @@
         });
     </script>
 
+    <!-- Modal Editar -->
+    <div class="modal fade" id="editarDetallecarModal" tabindex="-1" aria-labelledby="editarEmpleadoModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editarEmpleadoModalLabel">Editar Detalle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editarEmpleadoForm" method="POST" action="">
+                        @method('PUT')
+                        @csrf
+                        <input type="hidden" id="editariddetalleveh" name="id">
+
+                        <div class="mb-3">
+                            <label for="editaridvehiculo" class="form-label">Vehiculo</label>
+                            <input type="text" class="form-control" id="editaridvehiculo" name="vehiculo"
+                                placeholder="vehiculo" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editaridempleado" class="form-label">Empleado</label>
+                            <input type="text" class="form-control" id="editaridempleado" name="empleado"
+                                placeholder="empleado" required>
+                        </div>
 
 
+                        <div class="mb-3">
+                            <label for="editarfecha" class="form-label">Fecha</label>
+                            <input type="text" class="form-control" id="editarfecha" name="fecha"
+                                placeholder="fecha" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editarobservacion" class="form-label">Observacion</label>
+                            <input type="text" class="form-control" id="editarobservacion" name="observacion" placeholder="observacion"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editarmonto" class="form-label">Monto</label>
+                            <input type="text" class="form-control" id="editarmonto" name="monto" placeholder="monto"
+                                required>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-primary" id="editarDetallecarBtn">Actualizar</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- Modal Eliminar -->
+    <div class="modal fade" id="eliminarDetallecarModal" tabindex="-1" aria-labelledby="eliminarDetallecarModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eliminarDetallecarModalLabel">Eliminar Flete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Está seguro de que desea eliminar el empleado: <span id="eliminarIdempleado"></span>?</p>
+                    <p>¿Está seguro de que desea eliminar el empleado: <span id="eliminarIdempleado"></span>?</p>
+                    <p>¿Está seguro de que desea eliminar el empleado: <span id="eliminarIdvehiculo"></span>?</p>
+                    <form id="eliminarDetallecarForm" method="POST" action="">
+                        @method('DELETE')
+                        @csrf
+                        <input type="hidden" id="eliminarIddetalleveh" name="id">
 
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-danger" id="eliminarFleteBtn">Eliminar</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
 
+        // Para el modal de edición, establecer el ID antes de abrir el modal
+        document.querySelectorAll('.edit').forEach(button => {
+            button.addEventListener('click', function() {
+                // Obtener los valores del flete almacenados en los atributos data-*
+                let iddetalleveh = this.getAttribute('data-id');
+                let idvehiculo = this.getAttribute('data-idvehiculo');
+                let idempleado = this.getAttribute('data-idempleado');
+                let fecha = this.getAttribute('data-fecha');
+                let observacion = this.getAttribute('data-observacion');
+                let monto = this.getAttribute('data-monto');
 
+                // Asignar los valores a los campos del modal de edición
+                document.getElementById('editariddetalleveh').value = iddetalleveh;
+                document.getElementById('editaridvehiculo').value = idvehiculo;
+                document.getElementById('editaridempleado').value = idempleado;
+                document.getElementById('editarfecha').value = fecha;
+                document.getElementById('editarobservacion').value = observacion;
+                document.getElementById('editarmonto').value = monto;
+
+                // Actualizar la acción del formulario para que apunte a la ruta correcta
+                document.getElementById('editarDetallecarForm').action = `/detallecar/${iddetalleveh}`;
+            });
+        });
+         
+        document.querySelectorAll('.delete').forEach(button => {
+            button.addEventListener('click', function() {
+                // Obtener los valores del flete almacenados en los atributos data-*
+                let iddetalleveh = this.getAttribute('data-id');
+                let idempleado = this.getAttribute('data-idempleado');
+                let idvehiculo = this.getAttribute('data-idvehiculo');
+                document.getElementById('eliminarIddetalleveh').value = iddetalleveh;
+                document.getElementById('eliminarIdempleado').textContent = idempleado;
+                document.getElementById('eliminarIdvehiculo').textContent = idempleado;
+                document.getElementById('eliminarDetallecarForm').action = `/detallecar/${iddetalleveh}`;
+            });
+        }); 
+    </script>
 
 
 
