@@ -131,7 +131,6 @@
 
         </div>
 
-
         <div class="sidebar" id="sidebar">
             <div class="sidebar-inner slimscroll">
                 <div id="sidebar-menu" class="sidebar-menu">
@@ -253,7 +252,9 @@
     <script src="/assets/plugins/apexchart/apexcharts.min.js"></script>
     <script src="/assets/plugins/apexchart/chart-data.js"></script>
     <script src="/assets/js/script.js"></script>
-
 </body>
+
+
+
 
 </html>
