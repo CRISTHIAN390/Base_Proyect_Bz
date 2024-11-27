@@ -91,6 +91,9 @@
                         <div class="col-md-4">
                             <label for="observacionInput" class="form-label" style="color: #adb5bd;">Observacion</label>
                             <input type="text" class="form-control" id="observacionInput" style="border-radius: 10px;">
+                            <label for="checkboxMantenimiento">Mantenimiento</label>
+                            <input type="checkbox" id="checkboxMantenimiento" name="checkboxMantenimiento" onchange="toggleObservacionInput()">
+                        
                         </div>
                         <div class="col-md-4">
                             <label for="montoInput" class="form-label" style="color: #adb5bd;">Monto</label>
@@ -120,6 +123,23 @@
             </div>
         </form>
     </div>
+    <script>
+        // Función que se llama cuando se cambia el estado del checkbox
+        function toggleObservacionInput() {
+            const checkbox = document.getElementById('checkboxMantenimiento');
+            const observacionInput = document.getElementById('observacionInput');
+            
+            if (checkbox.checked) {
+                // Si el checkbox está seleccionado, escribimos "Mantenimiento" y bloqueamos el input
+                observacionInput.value = "Mantenimiento";
+                observacionInput.disabled = true;
+            } else {
+                // Si el checkbox no está seleccionado, limpiamos el valor y desbloqueamos el input
+                observacionInput.value = "";
+                observacionInput.disabled = false;
+            }
+        }
+    </script>
     <script>
         let detalleIndex = 1;
         let totalMonto = 0;

@@ -1,6 +1,5 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Detallecar')
-
 @section('contenido')
     <div class="container">
         <div class="page-header d-flex justify-content-between align-items-center mb-4">
@@ -40,6 +39,18 @@
                                     <option value="{{ $empleado->idempleado }}">{{ $empleado->nombres }}</option>
                                 @endforeach
                             </select>
+                        </div>
+ 
+                        <!-- Selección de Fecha inicio -->
+                        <div class="col-md-6">
+                            <label for="fechainicio" class="form-label fw-bold">Fecha Inicio:</label>
+                            <input type="date" class="form-control" id="fechainicio" name="fechainicio" value="{{ $fechainicio }}">
+                        </div>
+
+                        <!-- Selección de Fecha fin -->
+                        <div class="col-md-6">
+                            <label for="fechafin" class="form-label fw-bold">Fecha Fin:</label>
+                            <input type="date" class="form-control" id="fechafin" name="fechafin" value="{{ $fechafin }}">
                         </div>
                     </div>
 
@@ -84,32 +95,33 @@
                                     @else
                                         @php $contador = ($detalles->currentPage() - 1) * $detalles->perPage() + 1; @endphp
                                         @foreach ($detalles as $itemgeneral)
-                                        <tr>
-                                            <td>{{ $contador++ }}</td>
-                                            <td>{{ $itemgeneral->Empleado->nombres }}</td>
-                                            <td>{{ $itemgeneral->Vehiculo->marca }}</td>
-                                            <td>{{ $itemgeneral->fecha }}</td>
-                                            <td>{{ $itemgeneral->observacion }}</td>
-                                            <td>{{ $itemgeneral->monto }}</td>
-                                            <td>
-                                                <a class="me-3 edit" data-id="{{ $itemgeneral->iddetalleveh }}"
-                                                    data-idvehiculo="{{ $itemgeneral->Vehiculo->idvehiculo }}"
-                                                    data-idempleado="{{ $itemgeneral->Empleado->idempleado }}"
-                                                    data-fecha="{{ $itemgeneral->fecha }}"
-                                                    data-observacion="{{ $itemgeneral->observacion }}"
-                                                    data-monto="{{ $itemgeneral->monto }}" 
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#editarDetallecarModal">
-                                                    <img src="/assets/img/icons/edit.svg" alt="img">
-                                                </a>
-                                                <a class="me-3 delete" data-id="{{ $itemgeneral->iddetalleveh }}"
-                                                    data-idempleado="{{ $itemgeneral->Empleado->idempleado }}"
-                                                    data-idvehiculo="{{ $itemgeneral->Vehiculo->idvehiculo }}" data-bs-toggle="modal"
-                                                    data-bs-target="#eliminarDetallecarModal">
-                                                    <img src="/assets/img/icons/delete.svg" alt="img">
-                                                </a>
-                                            </td>
-                                        </tr>
+                                            <tr>
+                                                <td>{{ $contador++ }}</td>
+                                                <td>{{ $itemgeneral->Empleado->nombres }}</td>
+                                                <td>{{ $itemgeneral->Vehiculo->marca }}</td>
+                                                <td>{{ $itemgeneral->fecha }}</td>
+                                                <td>{{ $itemgeneral->observacion }}</td>
+                                                <td>{{ $itemgeneral->monto }}</td>
+                                                <td>
+                                                    <a class="me-3 edit" data-id="{{ $itemgeneral->iddetalleveh }}"
+                                                        data-idvehiculo="{{ $itemgeneral->Vehiculo->idvehiculo }}"
+                                                        data-idempleado="{{ $itemgeneral->Empleado->idempleado }}"
+                                                        data-fecha="{{ $itemgeneral->fecha }}"
+                                                        data-observacion="{{ $itemgeneral->observacion }}"
+                                                        data-monto="{{ $itemgeneral->monto }}" data-bs-toggle="modal"
+                                                        data-bs-target="#editarDetallecarModal">
+                                                        <img src="/assets/img/icons/edit.svg" alt="img">
+                                                    </a>
+                                                    <a class="me-3 delete" data-id="{{ $itemgeneral->iddetalleveh }}"
+                                                        data-apellidos="{{ $itemgeneral->Empleado->apellidos }}"
+                                                        data-nombres="{{ $itemgeneral->Empleado->nombres }}"
+                                                        data-placa="{{ $itemgeneral->Vehiculo->placa }}"
+                                                        data-marca="{{ $itemgeneral->Vehiculo->marca }}"
+                                                        data-bs-toggle="modal" data-bs-target="#eliminarDetallecarModal">
+                                                        <img src="/assets/img/icons/delete.svg" alt="img">
+                                                    </a>
+                                                </td>
+                                            </tr>
                                         @endforeach
                                     @endif
                                 </tbody>
@@ -124,7 +136,7 @@
                 </div>
             </div>
         </div>
- 
+
     </div>
     <!-- Ocultar el mensaje -->
     <script>
@@ -147,46 +159,61 @@
     </script>
 
     <!-- Modal Editar -->
-    <div class="modal fade" id="editarDetallecarModal" tabindex="-1" aria-labelledby="editarEmpleadoModalLabel"
+    <div class="modal fade" id="editarDetallecarModal" tabindex="-1" aria-labelledby="editarDetallecarModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editarEmpleadoModalLabel">Editar Detalle</h5>
+                    <h5 class="modal-title" id="editarDetallecarModalLabel">Editar Detalle</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="editarEmpleadoForm" method="POST" action="">
+                    <form id="editarDetallecarForm" method="POST" action="">
                         @method('PUT')
                         @csrf
                         <input type="hidden" id="editariddetalleveh" name="id">
 
                         <div class="mb-3">
-                            <label for="editaridvehiculo" class="form-label">Vehiculo</label>
-                            <input type="text" class="form-control" id="editaridvehiculo" name="vehiculo"
-                                placeholder="vehiculo" required>
+                            <label for="editaridvehiculo" class="form-label">Vehículo</label>
+                            <select class="form-control" id="editaridvehiculo" name="idvehiculo" required>
+                                <!-- Opciones generadas dinámicamente desde el backend -->
+                                @foreach ($vehiculos as $vehiculo)
+                                    <option value="{{ $vehiculo->idvehiculo }}"
+                                        {{ $vehiculo->idvehiculo == old('vehiculo') ? 'selected' : '' }}>
+                                        {{ $vehiculo->placa }} - {{ $vehiculo->marca }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
+
                         <div class="mb-3">
                             <label for="editaridempleado" class="form-label">Empleado</label>
-                            <input type="text" class="form-control" id="editaridempleado" name="empleado"
-                                placeholder="empleado" required>
+                            <select class="form-control" id="editaridempleado" name="idempleado" required>
+                                <!-- Opciones generadas dinámicamente desde el backend -->
+                                @foreach ($empleados as $empleado)
+                                    <option value="{{ $empleado->idempleado }}"
+                                        {{ $empleado->idempleado == old('empleado') ? 'selected' : '' }}>
+                                        {{ $empleado->apellidos }} {{ $empleado->nombres }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
 
-
+                        <!--Campos listos -->
                         <div class="mb-3">
                             <label for="editarfecha" class="form-label">Fecha</label>
-                            <input type="text" class="form-control" id="editarfecha" name="fecha"
+                            <input type="date" class="form-control" id="editarfecha" name="fecha"
                                 placeholder="fecha" required>
                         </div>
                         <div class="mb-3">
                             <label for="editarobservacion" class="form-label">Observacion</label>
-                            <input type="text" class="form-control" id="editarobservacion" name="observacion" placeholder="observacion"
-                                required>
+                            <input type="text" class="form-control" id="editarobservacion" name="observacion"
+                                placeholder="observacion" required>
                         </div>
                         <div class="mb-3">
                             <label for="editarmonto" class="form-label">Monto</label>
-                            <input type="text" class="form-control" id="editarmonto" name="monto" placeholder="monto"
-                                required>
+                            <input type="number" class="form-control" id="editarmonto" name="monto"
+                                placeholder="Monto" step="any" required>
                         </div>
                         <div class="d-flex justify-content-between">
                             <button type="submit" class="btn btn-primary" id="editarDetallecarBtn">Actualizar</button>
@@ -208,9 +235,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>¿Está seguro de que desea eliminar el empleado: <span id="eliminarIdempleado"></span>?</p>
-                    <p>¿Está seguro de que desea eliminar el empleado: <span id="eliminarIdempleado"></span>?</p>
-                    <p>¿Está seguro de que desea eliminar el empleado: <span id="eliminarIdvehiculo"></span>?</p>
+                    <p>¿Está seguro de que desea eliminar registro el registro: <span id="eliminarIddetalleveh"></span></p>
+                    <p>El cual es el trabajador: <span id="eliminarApellidos"></span> <span id="eliminarNombres"></span>
+                    </p>
+                    <p>Con vehiculo con placa: <span id="eliminarPlaca"></span>, de la marca <span id="eliminarMarca">?
+                    </p>
                     <form id="eliminarDetallecarForm" method="POST" action="">
                         @method('DELETE')
                         @csrf
@@ -226,7 +255,6 @@
         </div>
     </div>
     <script>
-
         // Para el modal de edición, establecer el ID antes de abrir el modal
         document.querySelectorAll('.edit').forEach(button => {
             button.addEventListener('click', function() {
@@ -246,42 +274,38 @@
                 document.getElementById('editarobservacion').value = observacion;
                 document.getElementById('editarmonto').value = monto;
 
+                // Establecer el valor seleccionado en los select
+                let vehiculoSelect = document.getElementById('editaridvehiculo');
+                vehiculoSelect.value = idvehiculo;
+
+                let empleadoSelect = document.getElementById('editaridempleado');
+                empleadoSelect.value = idempleado;
+
                 // Actualizar la acción del formulario para que apunte a la ruta correcta
-                document.getElementById('editarDetallecarForm').action = `/detallecar/${iddetalleveh}`;
+                document.getElementById('editarDetallecarForm').action = '/detallecar/' + iddetalleveh;
+
+
             });
         });
-         
+
         document.querySelectorAll('.delete').forEach(button => {
             button.addEventListener('click', function() {
                 // Obtener los valores del flete almacenados en los atributos data-*
                 let iddetalleveh = this.getAttribute('data-id');
-                let idempleado = this.getAttribute('data-idempleado');
-                let idvehiculo = this.getAttribute('data-idvehiculo');
-                document.getElementById('eliminarIddetalleveh').value = iddetalleveh;
-                document.getElementById('eliminarIdempleado').textContent = idempleado;
-                document.getElementById('eliminarIdvehiculo').textContent = idempleado;
+                let apellidos = this.getAttribute('data-apellidos');
+                let nombres = this.getAttribute('data-nombres');
+                let placa = this.getAttribute('data-placa');
+                let marca = this.getAttribute('data-marca');
+                document.getElementById('eliminarIddetalleveh').textContent = iddetalleveh;
+                document.getElementById('eliminarApellidos').textContent = apellidos;
+                document.getElementById('eliminarNombres').textContent = nombres;
+                document.getElementById('eliminarPlaca').textContent = placa;
+                document.getElementById('eliminarMarca').textContent = marca;
                 document.getElementById('eliminarDetallecarForm').action = `/detallecar/${iddetalleveh}`;
             });
-        }); 
+
+
+        });
     </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @endsection

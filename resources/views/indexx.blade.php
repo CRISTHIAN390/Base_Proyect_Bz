@@ -12,7 +12,7 @@
                         <h5>Pagos</h5>
                     </div>
                     <div class="dash-imgs">
-                        <i data-feather="dollar-sign"></i>
+                        <span class="text-lg font-semibold text-blue-500" style="font-size: 40px">S/.</span>
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                         <h5>Gastos</h5>
                     </div>
                     <div class="dash-imgs">
-                        <i data-feather="dollar-sign"></i>
+                        <span class="text-lg font-semibold text-blue-500" style="font-size: 40px">S/.</span>
                     </div>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                         <h5>Trabajadores</h5>
                     </div>
                     <div class="dash-imgs">
-                        <i data-feather="shopping-bag"></i>
+                        <i data-feather="users"></i>
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                         <h5>Registros</h5>
                     </div>
                     <div class="dash-imgs">
-                        <i data-feather="file"></i>
+                        <i data-feather="file-text"></i>
                     </div>
                 </div>
             </div>

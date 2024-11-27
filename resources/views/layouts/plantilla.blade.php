@@ -95,31 +95,37 @@
                             <hr class="m-0">
                             <a class="dropdown-item" href="{{ route('profile.edit') }}"> <i class="me-2"
                                     data-feather="user"></i>
-                                My Profile</a>
+                                Mi perfil</a>
 
-                            <!--    <a class="dropdown-item" href="#"><i class="me-2"
-                                    data-feather="settings"></i>Settings</a> -->
+ 
                             <hr class="m-0">
-                            <a class="dropdown-item logout pb-0"><img src="/assets/img/icons/log-out.svg" class="me-2"
-                                    alt="img">
-                                <form action="{{ route('logout') }}" method="POST">
-                                    @csrf
-                                    <button style="width: 100%" type="submit">Salir</button>
-                                </form>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                            <a class="dropdown-item" href="#" 
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <img src="/assets/img/icons/log-out.svg" alt="img"> Salir
                             </a>
                         </div>
                     </div>
                 </li>
             </ul>
 
-
             <div class="dropdown mobile-user-menu">
                 <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
                     aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="profile.html">My Profile</a>
+                    <a class="dropdown-item flex items-center gap-2" href="{{ route('profile.edit') }}">
+                        <img src="/assets/img/icons/users1.svg" alt="img"> Mi perfil
+                    </a>
                     <!-- <a class="dropdown-item" href="generalsettings.html">Settings</a>-->
-                    <a class="dropdown-item" href="signin.html">Logout</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                    <a class="dropdown-item" href="#" 
+                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <img src="/assets/img/icons/log-out.svg" alt="img"> Salir
+                    </a>
                 </div>
             </div>
 

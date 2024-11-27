@@ -19,6 +19,8 @@ class DetallcarController extends Controller
         // Obtener los valores de los filtros
         $idempleado = $request->get('idempleado');
         $idvehiculo = $request->get('idvehiculo');
+        $fechainicio = $request->get('fechainicio');
+        $fechafin = $request->get('fechafin');
         // Inicializar consulta base
         $query = Detallcar::query();
 
@@ -31,12 +33,21 @@ class DetallcarController extends Controller
         if ($idvehiculo) {
             $query->where('idvehiculo', $idvehiculo);
         }
+            // Filtrar por fecha de inicio si se proporciona
+        if ($fechainicio) {
+            $query->where('fecha', '>=', $fechainicio);
+        }
+
+        // Filtrar por fecha de fin si se proporciona
+        if ($fechafin) {
+            $query->where('fecha', '<=', $fechafin);
+        }
         // Obtener detalles generales con paginación
         $detalles = (clone $query)
             ->where('estado', '=', 1)
             ->paginate(self::PAGINATION, ['*'], 'general_page');
 
-        return view('detallecar.index', compact('vehiculos', 'empleados', 'detalles', 'idempleado', 'idvehiculo'));
+        return view('detallecar.index', compact('vehiculos', 'empleados', 'detalles', 'idempleado', 'idvehiculo', 'fechainicio', 'fechafin'));
     }
 
     public function create()
@@ -105,6 +116,7 @@ class DetallcarController extends Controller
         $detalle->save();
         return redirect()->route('detallecar.index')->with('datos', '¡ Registro Actualizado !');
     }
+
 
     public function destroy($id)
     {
