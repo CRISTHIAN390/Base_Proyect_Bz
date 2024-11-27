@@ -91,10 +91,24 @@
                         <div class="col-md-4">
                             <label for="observacionInput" class="form-label" style="color: #adb5bd;">Observacion</label>
                             <input type="text" class="form-control" id="observacionInput" style="border-radius: 10px;">
+                            
+                            <!-- Checkbox para Mantenimiento -->
                             <label for="checkboxMantenimiento">Mantenimiento</label>
-                            <input type="checkbox" id="checkboxMantenimiento" name="checkboxMantenimiento" onchange="toggleObservacionInput()">
-                        
+                            <input type="checkbox" id="checkboxMantenimiento" name="checkboxMantenimiento" onchange="toggleObservacionInput('Mantenimiento', this)">
+                            <br>
+                            
+                            <!-- Checkbox para SOAT -->
+                            <label for="checkboxSOAT">SOAT</label>
+                            <input type="checkbox" id="checkboxSOAT" name="checkboxSOAT" onchange="toggleObservacionInput('SOAT', this)">
+                            <br>
+                            
+                            <!-- Checkbox para Rev. Tecnica -->
+                            <label for="checkboxRevTecnica">Rev. Tecnica</label>
+                            <input type="checkbox" id="checkboxRevTecnica" name="checkboxRevTecnica" onchange="toggleObservacionInput('Rev. Tecnica', this)">
                         </div>
+
+
+
                         <div class="col-md-4">
                             <label for="montoInput" class="form-label" style="color: #adb5bd;">Monto</label>
                             <input type="number" class="form-control" id="montoInput" step="0.01"
@@ -124,20 +138,41 @@
         </form>
     </div>
     <script>
-        // Función que se llama cuando se cambia el estado del checkbox
-        function toggleObservacionInput() {
-            const checkbox = document.getElementById('checkboxMantenimiento');
+        // Función que se llama cuando se cambia el estado de los checkboxes
+        function toggleObservacionInput(text, checkbox) {
             const observacionInput = document.getElementById('observacionInput');
             
+            // Desmarcar todos los checkboxes
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach((box) => {
+                if (box !== checkbox) {
+                    box.checked = false;  // Desmarcar otros checkboxes
+                }
+            });
+
+            // Si el checkbox está marcado, escribe el texto correspondiente y bloquea el input
             if (checkbox.checked) {
-                // Si el checkbox está seleccionado, escribimos "Mantenimiento" y bloqueamos el input
-                observacionInput.value = "Mantenimiento";
+                observacionInput.value = text;
                 observacionInput.disabled = true;
             } else {
-                // Si el checkbox no está seleccionado, limpiamos el valor y desbloqueamos el input
+                // Si el checkbox está desmarcado, limpia el campo y desbloquea el input
                 observacionInput.value = "";
                 observacionInput.disabled = false;
             }
+
+                // Función para limpiar los checkboxes y el input al hacer clic en el botón "Añadir"
+        document.getElementById('addDetalleBtn').addEventListener('click', function() {
+            // Limpiar los checkboxes
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach((checkbox) => {
+                checkbox.checked = false;  // Desmarcar todos los checkboxes
+            });
+
+            // Limpiar el campo de observación y habilitarlo
+            const observacionInput = document.getElementById('observacionInput');
+            observacionInput.value = "";  // Limpiar el valor
+            observacionInput.disabled = false;  // Habilitar el campo
+        });
         }
     </script>
     <script>
