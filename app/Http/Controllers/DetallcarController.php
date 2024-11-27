@@ -150,7 +150,7 @@ class DetallcarController extends Controller
 
     // Si no hay detalles, retornar un mensaje indicativo
     if ($detalles->isEmpty()) {
-        return "No hay eventos proximos";
+        return "NA";
     }
         // Retornar los detalles encontrados
         return $detalles;
