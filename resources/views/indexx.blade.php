@@ -1,5 +1,5 @@
 @extends('layouts.plantilla')
-@section('titulo', 'dasss')
+@section('titulo', 'Dashboard')
 
 @section('contenido')
 
@@ -130,7 +130,24 @@
             var gastosXmes = @json($gastosXmes);
             var ingresosXmes = @json($ingresosXmes);
         </script>
+     <!-- Antes de cerrar el <body>, agregar el script de SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
     </div>
-
-
+    @if (!empty($mensajeNotificaciones))
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                Swal.fire({
+                    title: 'Notificaciones',
+                    text: `{{ $mensajeNotificaciones }}`,
+                    icon: 'info',
+                    confirmButtonText: 'Cerrar',
+                    customClass: {
+                        popup: 'swal-wide'
+                    }
+                });
+            });
+        </script>
+    @endif
 @endsection

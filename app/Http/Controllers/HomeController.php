@@ -43,13 +43,16 @@ class HomeController extends Controller
 
         // Obtener notificaciones
         $notificaciones = $this->revisar();
+        $mensajeNotificaciones = '';
 
-        // Retornar la vista, solo pasando 'notificaciones' si tiene datos
-        if ($notificaciones != 'NA' && $notificaciones !== null) {
-            return view('indexx', compact('listadeAnios', 'totalEmpleados', 'totalGasto', 'totalIngreso', 'totalRegistro', 'gastosXmes', 'ingresosXmes', 'notificaciones'));
-        } else {
-            return view('indexx', compact('listadeAnios', 'totalEmpleados', 'totalGasto', 'totalIngreso', 'totalRegistro', 'gastosXmes', 'ingresosXmes'));
+        // Recorrer las notificaciones y construir el mensaje
+        if (isset($notificaciones) && $notificaciones != 'NA' && $notificaciones->isNotEmpty()) {
+            foreach ($notificaciones as $notificacion) {
+                $mensajeNotificaciones .= "Tiene : " . $notificacion->observacion . "- Fecha: " . $notificacion->fecha . "\n";
+            }
         }
+        // Enviar la vista con o sin el mensaje
+        return view('indexx', compact('listadeAnios', 'totalEmpleados', 'totalGasto', 'totalIngreso', 'totalRegistro', 'gastosXmes', 'ingresosXmes', 'mensajeNotificaciones'));
     }
 
     public function revisar(){
@@ -57,13 +60,14 @@ class HomeController extends Controller
         // Fecha tipo date actual del sistema
         $actual = Carbon::now();
         // Obtener la fecha actual en formato 'Y-m-d' 
-        $fechaActual = $actual->toDateString();  
+        $fechaActual = $actual->subDay()->toDateString();    // ->subDay()   le quita 1 dia
     
         $fechaExtra = $actual->copy()->addDays(5)->toDateString();  
     
-        $detalles = DetalleFV::whereBetween('fecha', [$fechaActual, $fechaExtra])
+        $detalles = Detallcar::whereBetween('fecha', [$fechaActual, $fechaExtra])
         ->whereIn('observacion', ['Mantenimiento', 'SOAT', 'Rev. Tecnica'])->get();
     
+     
         // Si no hay detalles, retornar un mensaje indicativo
         if ($detalles->isEmpty()) {
             return "NA";
