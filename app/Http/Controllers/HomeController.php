@@ -6,6 +6,8 @@ use App\Models\Flete;
 use App\Models\DetalleFV;
 use App\Models\Empleado;
 use App\Models\Viatico;
+use App\Models\Detallcar;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -39,8 +41,39 @@ class HomeController extends Controller
         $gastosXmes = $this->calcularGastosIngresosPorMes(1, $anio);
         $ingresosXmes = $this->calcularGastosIngresosPorMes(2, $anio);
 
-        return view('indexx', compact('listadeAnios', 'totalEmpleados', 'totalGasto', 'totalIngreso', 'totalRegistro', 'gastosXmes', 'ingresosXmes'));
+        // Obtener notificaciones
+        $notificaciones = $this->revisar();
+
+        // Retornar la vista, solo pasando 'notificaciones' si tiene datos
+        if ($notificaciones != 'NA' && $notificaciones !== null) {
+            return view('indexx', compact('listadeAnios', 'totalEmpleados', 'totalGasto', 'totalIngreso', 'totalRegistro', 'gastosXmes', 'ingresosXmes', 'notificaciones'));
+        } else {
+            return view('indexx', compact('listadeAnios', 'totalEmpleados', 'totalGasto', 'totalIngreso', 'totalRegistro', 'gastosXmes', 'ingresosXmes'));
+        }
     }
+
+    public function revisar(){
+
+        // Fecha tipo date actual del sistema
+        $actual = Carbon::now();
+        // Obtener la fecha actual en formato 'Y-m-d' 
+        $fechaActual = $actual->toDateString();  
+    
+        $fechaExtra = $actual->copy()->addDays(5)->toDateString();  
+    
+        $detalles = DetalleFV::whereBetween('fecha', [$fechaActual, $fechaExtra])
+        ->whereIn('observacion', ['Mantenimiento', 'SOAT', 'Rev. Tecnica'])->get();
+    
+        // Si no hay detalles, retornar un mensaje indicativo
+        if ($detalles->isEmpty()) {
+            return "NA";
+        }
+
+        return $detalles;
+    }
+
+
+
 
     private function calcularGastosIngresosPorMes($tipoIG, $anio)
     {
@@ -98,4 +131,5 @@ class HomeController extends Controller
             'ingresos' => $ingresosXmes
         ]);
     }
+
 }

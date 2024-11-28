@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Detallcar;
 use App\Models\Vehiculo;
 use App\Models\Empleado;
-use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
@@ -135,24 +134,4 @@ class DetallcarController extends Controller
         return view('detalleFV.edit', compact('detalle', 'empleados', 'vehiculos'));
     }
 
-    public function revisar(){
-    // Fecha tipo date actual del sistema
-    $actual = Carbon::now();
-
-    // Obtener la fecha actual en formato 'Y-m-d' (cadena tipo DATE)
-    $fechaActual = $actual->toDateString();  // Ejemplo: 2024-11-24
-
-    // Clonar la fecha actual y sumarle 5 días
-    $fechaExtra = $actual->copy()->addDays(5)->toDateString();  // Ejemplo: 2024-11-29
-
-    // Consultar los detalles entre la fecha actual y la fecha extra
-    $detalles = Detallcar::whereBetween('fecha', [$fechaActual, $fechaExtra])->get();
-
-    // Si no hay detalles, retornar un mensaje indicativo
-    if ($detalles->isEmpty()) {
-        return "NA";
-    }
-        // Retornar los detalles encontrados
-        return $detalles;
-    }
 }
