@@ -21,12 +21,6 @@
                         placeholder="Buscar por apellido" value="{{ $buscarpor }}">
                 </form>
             </div>
-            <div class="d-flex align-items-center">
-                <a href="#" class="btn btn-added">
-                    <img src="/assets/img/icons/pdf.svg" alt="Generar PDF" class="me-2">
-                    Generar PDF
-                </a>
-            </div>
         </nav>
         <!-- Mensaje de confirmación -->
         @if (session('datos'))

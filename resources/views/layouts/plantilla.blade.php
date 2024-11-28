@@ -173,6 +173,7 @@
                             </a>
                             <ul>
                                 <li><a href="{{ route('vehiculo.index') }}">Lista de Vehiculos</a></li>
+                                <li><a href="{{ route('detallecar.index') }}">Detalle Vehicular</a></li>
                             </ul>
                         </li>
                         <li class="submenu">
@@ -191,7 +192,7 @@
                             <ul>
                                 <li><a href="{{ route('detalleFV.create') }}">Nuevo Registro </a></li>
                                 <li><a href="{{ route('detalleFV.index') }}">Ver Gastos/Pagos</a></li>
-                                <li><a href="{{ route('detallecar.index') }}">Detalle Vehicular</a></li>
+                              
                             </ul>
                         </li>
                         <li class="submenu">

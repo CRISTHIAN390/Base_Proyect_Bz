@@ -32,7 +32,7 @@ create table DetalleFV(
     idviatico int,
     fecha DATE,
     descripcion varchar(200),
-    tipoIG int,   --Si es 1 es gasto  si es 2 es pago o ingreso
+    tipoIG int,  
     importe DECIMAL(10, 2) DEFAULT 0.00,
     estado tinyint,
     PRIMARY KEY (iddetallefv),
@@ -45,7 +45,7 @@ create table Vehiculo(
     placa VARCHAR(50) NOT NULL UNIQUE,
     marca VARCHAR(50) NOT NULL,
     descripcion VARCHAR(200) NOT NULL,
-    fecha_registro DATE DEFAULT CURDATE(),
+    fecha_registro DATE ,
     estado tinyint,
     PRIMARY KEY (idvehiculo)
 );
