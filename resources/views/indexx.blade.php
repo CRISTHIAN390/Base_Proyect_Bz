@@ -132,17 +132,15 @@
         </script>
      <!-- Antes de cerrar el <body>, agregar el script de SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
     </div>
     @if (!empty($mensajeNotificaciones))
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 Swal.fire({
-                    title: 'Notificaciones',
+                    title: 'Evento Proximo',
                     text: `{{ $mensajeNotificaciones }}`,
                     icon: 'info',
-                    confirmButtonText: 'Cerrar',
+                    confirmButtonText: 'Aceptar',
                     customClass: {
                         popup: 'swal-wide'
                     }

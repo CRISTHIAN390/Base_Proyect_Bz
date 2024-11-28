@@ -48,7 +48,11 @@ class HomeController extends Controller
         // Recorrer las notificaciones y construir el mensaje
         if (isset($notificaciones) && $notificaciones != 'NA' && $notificaciones->isNotEmpty()) {
             foreach ($notificaciones as $notificacion) {
-                $mensajeNotificaciones .= "Tiene : " . $notificacion->observacion . "- Fecha: " . $notificacion->fecha . "\n";
+                 // Formatear la fecha
+                $fechaFormateada = Carbon::parse($notificacion->fecha)->translatedFormat('d \d\e F \d\e Y');
+                
+                // Construir el mensaje
+                $mensajeNotificaciones .= "- {$notificacion->observacion}: {$fechaFormateada}\n";
             }
         }
         // Enviar la vista con o sin el mensaje
