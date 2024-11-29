@@ -2,20 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Flete;
 use App\Models\DetalleFV;
 use App\Models\Empleado;
-use App\Models\Viatico;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Detallcar;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function  IndexLogin()
-    {
-
-        return view('auth.login');
+    public function IndexLogin()
+    { 
+        if (Auth::check()) {
+            return redirect()->route('dashboard');  // Redirige al Dashboard si el usuario ya está autenticado
+        }
+    
+        return view('auth.login');  // Muestra el formulario de login si no está autenticado
     }
 
     public function  Dashboard(Request $request)
